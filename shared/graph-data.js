@@ -33,6 +33,11 @@
         color: relation.color,
         directed: Boolean(relation.directed),
         dashed: Boolean(relation.dashed),
+        /* loop: part of a vicious cycle, drawn thick and animated.
+         * via: a chaining relation; "what this reaches" follows it one hop
+         * further (strategy produces mechanism, mechanism helps symptom). */
+        loop: Boolean(relation.loop),
+        via: Boolean(relation.via),
         label: relationId,
         inverse: relationId,
       };

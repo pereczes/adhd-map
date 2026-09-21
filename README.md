@@ -65,6 +65,22 @@ edges:
 
 An edge only needs an `id` when a language file attaches a note to it.
 
+Two optional flags on a relation change how it is drawn and browsed:
+
+- `loop: true` marks a vicious cycle (the `feeds` relation). Its edges are
+  drawn thick and curved, force-graph animates particles along them
+  permanently, and the panel of any node in the cycle offers "Show the
+  whole loop", which reveals the entire ring at once.
+- `via: true` marks a chaining relation (the `produces` relation from a
+  strategy to a mechanism). Selecting a node highlights its two-hop reach
+  through such edges in a second tone, and the panel offers "Show what this
+  reaches". This is how clicking exercise shows the effect spreading through
+  its mechanisms to symptoms and impacts.
+
+Node kinds are free-form: the current set is hub, cluster, symptom, trigger,
+strategy, treatment, impact, situation (real-life entry points such as
+"Chaotic home") and mechanism ("How it works" nodes).
+
 Language file:
 
 ```yaml

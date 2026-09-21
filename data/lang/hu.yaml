@@ -24,6 +24,9 @@ ui:
   fold_many: "Minden kapcsolat a térképen van. Kattints újra a csomópontra a felfedett {count} csomópont összecsukásához."
   all_shown: Minden kapcsolat a térképen van.
   reveal_chip: Még nincs a térképen. Kattints a felfedéséhez.
+  show_loop: A teljes kör megjelenítése
+  show_reach: "Mutasd, mire hat"
+  strategy_caveat: "A stratégiák egyeseknek segítenek, másoknak nem. Próbáld ki, tartsd meg, ami működik, a többit engedd el."
 
 kinds:
   hub: Áttekintés
@@ -33,6 +36,8 @@ kinds:
   strategy: Megküzdési stratégia
   treatment: Kezelés és támogatás
   impact: Következmény
+  situation: Élethelyzet
+  mechanism: Így hat
 
 relations:
   includes:   { label: ezeket tartalmazza, inverse: ennek része }
@@ -41,6 +46,9 @@ relations:
   helps_with: { label: ezeken segít, inverse: ezek segítenek }
   reduces:    { label: ezeket csökkenti, inverse: ezek csökkentik }
   leads_to:   { label: ehhez vezet, inverse: ebből következik }
+  involves:   { label: ezeket érinti, inverse: ebben jelenik meg }
+  feeds:      { label: ezt táplálja, inverse: ezek táplálják }
+  produces:   { label: ezt váltja ki, inverse: ezek váltják ki }
 
 nodes:
   # ---------------------------------------------------------------- hub
@@ -196,6 +204,33 @@ nodes:
     description: >-
       Nehéz elaludni, eltolódott belső óra, és késő estig fennmaradás, hogy
       visszaszerezd az időt, amit a nap nem adott meg.
+
+  rumination:
+    label: Rágódás
+    description: >-
+      Ugyanaz az aggodalom ismétlődik körbe-körbe: a feladat, az e-mail, amit
+      mondtál. Gondolkodásnak tűnik, de nem születik belőle döntés, és
+      felemészti az energiát.
+  avoidance:
+    label: Elkerülés
+    description: >-
+      Kikerülni a feladatot, az üzenetet vagy az embert, aki a rettegést
+      kiváltja. Megkönnyebbülés most, nagyobb gond később.
+  out-of-sight:
+    label: "Ami nincs szem előtt, nem létezik"
+    description: >-
+      Ami nem látható, az megszűnik létezni: a számla a fiókban, a zöldség a
+      tej mögött, a barát, akinek nem írtál vissza.
+  decision-paralysis:
+    label: Döntésképtelenség
+    description: >-
+      Túl sok lehetőség, mindegyik döntést kíván, így egyik sem születik meg.
+      A kupacok gyakran elhalasztott döntések halmai.
+  anticipatory-anxiety:
+    label: Rettegés a feladat előtt
+    description: >-
+      Szorongás, amely jóval a feladat előtt érkezik, és gyakran többe kerül,
+      mint maga a feladat.
 
   # ---------------------------------------------------------------- trigger
   boring-tasks:
@@ -359,6 +394,204 @@ nodes:
       Kevesebb döntést kelljen hozni: állandó étkezések, kis ruhatár,
       alapértelmezett válaszok.
 
+  movement-breaks:
+    label: Mozgásszünetek
+    description: >-
+      Óránként egy rövid séta, egy lépcsősor vagy nyújtás. A sétálva tartott
+      megbeszélés és az állóasztal is számít.
+  write-it-down-instead:
+    label: "Írd le, ne mondd ki"
+    description: >-
+      Beszélgetés közben jegyezd le a gondolatot papírra, hogy ne tolakodjon
+      kifelé. Szóba hozhatod, amint a másik befejezte.
+  item-trackers:
+    label: Bluetooth nyomkövetők
+    description: >-
+      Kis címkék a kulcson, a pénztárcán és a táskán, és egy telefon, amely
+      megcsörgeti őket. A húszperces keresésből húsz másodperc lesz.
+  duplicate-essentials:
+    label: A fontos dolgokból legyen kettő
+    description: >-
+      Pótkulcs a szomszédnál, töltő minden táskában, olvasószemüveg minden
+      szobában. Egy példány elvesztése többé nem válság.
+  final-review-pass:
+    label: Záró ellenőrzés
+    description: >-
+      Külön, tudatos átnézés, amikor a munka késznek tűnik, lehetőleg szünet
+      után és a saját tipikus hibáid rövid listája alapján.
+  written-instructions:
+    label: Kérj írásos utasítást
+    description: >-
+      Kérd a feladatokat üzenetben vagy e-mailben, vagy írd le, amit
+      hallottál, és küldd vissza megerősítésre.
+  repeat-back:
+    label: Mondd vissza és foglald össze
+    description: >-
+      Mielőtt a beszélgetés véget ér, mondd el, mit értettél meg és mit fogsz
+      tenni. A hiányok akkor derülnek ki, amikor még olcsó javítani őket.
+  hyperfocus-exit:
+    label: Kilépési rituálé a hiperfókuszból
+    description: >-
+      Kezdés előtt beállított kemény leállító ébresztő, víz és étel kéznél, és
+      egy leírt sor arról, hol folytasd legközelebb.
+  name-the-emotion:
+    label: Nevezd meg az érzést
+    description: >-
+      Ha szavakba öntöd az érzést, például „ez frusztráció, nagyjából hetes a
+      tízből”, kis rés nyílik az érzés és a reakció között.
+  cooling-off-rule:
+    label: Lehűlési szabály
+    description: >-
+      Megállapodás magaddal és a hozzád közel állókkal: nincs fontos válasz
+      vagy döntés, amíg magas a hullám. Húsz perc múlva vagy másnap reggel
+      nézd meg újra.
+  ask-instead-of-assume:
+    label: "Kérdezz, ne feltételezz"
+    description: >-
+      Ha egy üzenet elutasításnak hangzik, reagálás előtt ellenőrizd: „Úgy
+      értetted, hogy...?” A vélt sértések többsége eltűnik, amint találkozik a
+      tényekkel.
+  distress-tolerance:
+    label: Feszültségtűrő készségek
+    description: >-
+      A dialektikus viselkedésterápiából származó készségek a test gyors
+      lecsillapítására: hideg víz az arcra, ütemezett légzés, egy rövid,
+      intenzív mozgás.
+  automatic-payments:
+    label: Automatikus fizetések
+    description: >-
+      Csoportos beszedés minden rendszeres számlára, megtakarítás rögtön
+      fizetéskor, egyetlen kártya az összes előfizetéshez. A rendszer
+      emlékszik, hogy neked ne kelljen.
+  subscription-audit:
+    label: Előfizetés-átvizsgálás
+    description: >-
+      Néhány havonta ismétlődő emlékeztető, hogy sorold fel az összes
+      előfizetést, és mondd le, amit már nem használsz.
+  explain-your-adhd:
+    label: "Mondd el, hogyan jelenik meg nálad az ADHD"
+    description: >-
+      Mondd el előre a párodnak, a barátaidnak és a kollégáidnak, mire
+      számíthatnak, például késői válaszokra, közbevágásra vagy elvesztett
+      fonálra, és mi segít.
+  repair-routine:
+    label: Helyreállítási rutin
+    description: >-
+      Megbeszélt mód arra, hogyan ismerd el a botlást, kérj bocsánatot és
+      kezdj újra, hogy az elfelejtett ígéretek egyik oldalon se halmozódjanak
+      nehezteléssé.
+  shared-calendar:
+    label: Közös naptár
+    description: >-
+      Egy naptár, amelyet a párod vagy a háztartás is lát: időpontok, iskolai
+      események, tett ígéretek. Semmi nem él csak egy fejben.
+  buffer-time:
+    label: Időtartalék
+    description: >-
+      Tervezz tizenöt perccel korábbi érkezést és egy nappal a valódi határidő
+      előtti befejezést. A tartalék felfogja az idővakságot.
+  deadline-check-ins:
+    label: Határidő-egyeztetések
+    description: >-
+      Közbenső mérföldkövek azzal megbeszélve, aki a munkára vár. Mindegyik
+      egy kis határidő valódi sürgetéssel.
+  recovery-time:
+    label: Betervezett regenerálódás
+    description: >-
+      Tudatosan üresen hagyott idő a megterhelő napok után, a naptárban úgy
+      védve, mint az alvás. Az egész napos ADHD-kompenzálásnak ára van, amit
+      vissza kell fizetni.
+  reduce-masking:
+    label: Kevesebb maszkolás
+    description: >-
+      Válassz néhány helyet és embert, ahol abbahagyod a neurotipikus szerep
+      játszását: fészkelődj, jegyzetelj, kérj ismétlést, menj el, ha kell.
+  play-to-strengths:
+    label: Építs az erősségeidre
+    description: >-
+      Tereld a munkát az érdeklődés vezérelte, kreatív, válsághelyzetben
+      megoldandó feladatok felé, ahol az ADHD-s agy ragyog, a többit pedig
+      tárgyald le vagy automatizáld.
+  interest-pairing:
+    label: Párosítsd az unalmast valami élvezetessel
+    description: >-
+      A kedvenc podcast csak házimunka közben, a papírmunka csak a jó
+      kávézóban. Az élvezetes fél adja az ingert, ami a feladatból hiányzik.
+
+  behavioural-activation:
+    label: Viselkedésaktiválás
+    description: >-
+      Minden napra egy kis kellemes vagy értelmes tevékenység betervezve, és
+      megcsinálva, akár van kedved, akár nincs. A hangulat inkább követi a
+      cselekvést, mint a cselekvés a hangulatot.
+  morning-daylight:
+    label: Reggeli napfény
+    description: >-
+      Tíz perc szabadtéri fény röviddel ébredés után lehorgonyozza a belső
+      órát és emeli a hangulatot.
+  social-contact:
+    label: Társas kapcsolat
+    description: >-
+      Egy rövid hívás vagy egy séta valakivel, különösen azokon a napokon,
+      amikor a legkevésbé van hozzá kedved. Az elszigetelődés táplálja a
+      lehangoltságot.
+  worry-window:
+    label: Aggódási időablak
+    description: >-
+      Napi tizenöt perc félretéve arra, hogy minden aggodalmat leírj. Az
+      ablakon kívül az aggodalom egy jegyzetet és egy időpontot kap a
+      figyelmed helyett.
+  less-alcohol:
+    label: Kevesebb alkohol
+    description: >-
+      Az alkohol napokra rontja az alvást, az impulzivitást és a hangulatot. A
+      visszafogás az egyik legolcsóbb elérhető javulás.
+  nightly-reset:
+    label: Tízperces esti visszaállítás
+    description: >-
+      Egy időzítő, egy kör a lakásban, minden vissza a helyére. Nem takarítás,
+      csak visszaállítás. Elég kicsi ahhoz, hogy minden este megcsináld.
+  one-surface:
+    label: Egy felület egy körben
+    description: >-
+      Egy pult, egy fiók, egy sarok, aztán állj. Soha nem egész szobás
+      maraton: a maraton sosem kezdődik el.
+  doom-box:
+    label: A „majd később” doboz
+    description: >-
+      Egy doboz a döntésre váró dolgok kupacának. A felület most tiszta, a
+      döntések megvárnak egy nyugodtabb pillanatot.
+  own-less:
+    label: Kevesebb tárgy
+    description: >-
+      Kevesebb tárgy kevesebb megjegyzendő helyet és kevesebb döntést jelent
+      rendrakásonként. Egy be, egy ki.
+  visible-storage:
+    label: Látható tárolás
+    description: >-
+      Nyitott polcok, átlátszó dobozok, akasztók fiókok helyett. Ha a csukott
+      ajtók eltüntetik a dolgokat, hagyd őket nyitva.
+  sort-by-frequency:
+    label: "Gyakoriság szerint rendezz, ne kategória szerint"
+    description: >-
+      A naponta használt dolgok karnyújtásnyira vannak attól, ahol használod
+      őket. Minden más lehet távolabb és kevésbé rendezett.
+  launch-pad:
+    label: Indulóhely az ajtónál
+    description: >-
+      Egy hely a kulcsnak, a táskának, a pénztárcának és mindannak, aminek
+      holnap el kell hagynia a lakást. Az indulás egyetlen mozdulat lesz.
+  define-done:
+    label: "Határozd meg, mi a kész"
+    description: >-
+      Kezdés előtt írj le egy mondatot arról, hogy néz ki a kész. A vég
+      nélküli feladat olyan feladat, amely sosem kezdődik el.
+  five-minute-rule:
+    label: Ötperces szabály
+    description: >-
+      Vállalj csak öt percet a rettegett dologból. Öt perc után abbahagyni
+      szabad. Legtöbbször nem fogod.
+
   # ---------------------------------------------------------------- treatment
   assessment:
     label: Diagnózis és kivizsgálás
@@ -385,6 +618,23 @@ nodes:
     description: >-
       Rugalmas munkaidő, írásos utasítások, csendes munkahely,
       határidő-egyeztetések.
+
+  psychotherapy:
+    label: Pszichoterápia
+    description: >-
+      Beszélgetős terápia képzett terapeutával a szorongásra, a lehangoltságra
+      és az énképre, amelyek gyakran az ADHD köré nőnek.
+  crisis-help:
+    label: "Ha besötétedik: kérj segítséget most"
+    description: >-
+      Ha a gondolatok afelé fordulnak, hogy nem akarsz itt lenni, még ma
+      keress fel egy orvost, hívj egy krízisvonalat vagy a sürgősségi számot.
+      Ez orvosi helyzet, nem jellemhiba.
+  professional-organiser:
+    label: Professzionális rendszervező vagy takarító
+    description: >-
+      Fizetett segítség egy olyan otthon kialakításához, amely önmagát
+      működteti, vagy a fenntartásához. Alkalmazkodás, nem kudarc.
 
   # ---------------------------------------------------------------- impact
   missed-deadlines:
@@ -419,6 +669,55 @@ nodes:
     description: >-
       Gyakran együtt járó állapotok, amelyeket sokszor a térkép többi
       következménye táplál.
+  energy-drain:
+    label: Energiaveszteség
+    description: >-
+      Az aggódással, maszkolással és kompenzálással töltött órák kimerültsége,
+      amiért cserébe nincs semmi felmutatható.
+
+  # ---------------------------------------------------------------- situation
+  chaotic-home:
+    label: Káosz a lakásban
+    description: >-
+      Kupacok minden felületen, egy konyha, amely sosem áll vissza magától, és
+      az érzés, hogy a lakás nyer. Itt több tünet halmozódik egymásra, ezért
+      az akaraterő önmagában nem oldja meg.
+  dreaded-task:
+    label: "Egy feladat, amitől rettegek"
+    description: >-
+      Az e-mail, az űrlap, a telefonhívás. Ott ül, minden nap nagyobb lesz, és
+      elindít egy kört, amely több energiába kerül, mint megcsinálni.
+  money-admin:
+    label: Pénzügyi adminisztráció
+    description: >-
+      Számlák, előfizetések, adók, a fiók, amit hónapok óta nem nyitottál meg.
+      A feledékenység, az elkerülés és az impulzivitás itt találkozik.
+
+  # ---------------------------------------------------------------- mechanism
+  dopamine-boost:
+    label: Dopamin- és noradrenalinszint emelkedik
+    description: >-
+      Az aerob mozgás néhány órára ugyanazokat a hírvivő anyagokat emeli,
+      amelyeket az ADHD-gyógyszerek céloznak.
+  deeper-sleep:
+    label: Mélyebb alvás
+    description: >-
+      A fizikai fáradtság megkönnyíti az elalvást és mélyíti az alvást, ami
+      másnap szinte mindent javít.
+  stress-hormones-drop:
+    label: Csökkennek a stresszhormonok
+    description: >-
+      A mozgás levezeti a stresszreakciót, így a test nem jelez többé veszélyt
+      az elmének.
+  energy-discharged:
+    label: Levezetett nyugtalanság
+    description: >-
+      A belső motor kap egy szelepet, és utána a nyugodt ülés kevesebbe kerül.
+  mood-lift:
+    label: Hangulatjavulás
+    description: >-
+      Megbízható, bár átmeneti hangulatemelkedés, amely összeadódik, ha a
+      legtöbb napon megtörténik.
 
 edges:
   hyperfocus-time-blindness:
@@ -449,3 +748,29 @@ edges:
     note: >-
       Ha vársz, mielőtt egy vélt sértésre válaszolsz, az első
       érzelemhullámnak van ideje elvonulni.
+  write-it-down-instead-interrupting:
+    note: >-
+      A közbevágás kényszere gyakran a gondolat elvesztésétől való félelem. Ha
+      papíron van, várhat.
+  explain-your-adhd-relationship-strain:
+    note: >-
+      A késői válaszokat és az elvesztett fonalat könnyebb megbocsátani, ha
+      előre be voltak jelentve.
+  buffer-time-missed-deadlines:
+    note: >-
+      Kezeld a tartalékot valódi határidőként. Az igazi csak biztonsági háló.
+  reduce-masking-burnout:
+    note: >-
+      A maszkolás több energiába kerül, mint amennyit a körülötted lévők
+      látnak.
+  avoidance-dreaded-task:
+    note: >-
+      Semmi nem készült el, a határidő közelebb van, és a feladat nagyobbnak
+      látszik, mint korábban.
+  five-minute-rule-avoidance:
+    note: >-
+      Öt perc elég kicsi az elkezdéshez, és az elkezdés az egész probléma.
+  exercise-dopamine-boost:
+    note: >-
+      Ezért érződhet egy futás egy unalmas feladat előtt úgy, mint egy adag
+      gyógyszer.

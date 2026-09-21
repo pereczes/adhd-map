@@ -61,6 +61,72 @@
       return { added: [], removed };
     }
 
+    /* Every node connected to this one through loop relations, this one included. */
+    function loopMembers(id) {
+      const members = new Set([id]);
+      const frontier = [id];
+      while (frontier.length > 0) {
+        const current = frontier.pop();
+        graph.edgesOf(current).forEach((edge) => {
+          if (!graph.relationOf(edge).loop) {
+            return;
+          }
+          const otherId = edge.source === current ? edge.target : edge.source;
+          if (!members.has(otherId)) {
+            members.add(otherId);
+            frontier.push(otherId);
+          }
+        });
+      }
+      return Array.from(members);
+    }
+
+    function revealAll(ownerId, ids) {
+      const added = [];
+      ids.forEach((id) => {
+        if (!visible.has(id)) {
+          visible.add(id);
+          added.push(id);
+        }
+      });
+      if (added.length > 0) {
+        revealedBy.set(ownerId, (revealedBy.get(ownerId) || []).concat(added));
+      }
+      return { added, removed: [] };
+    }
+
+    function expandLoop(id) {
+      return revealAll(id, loopMembers(id));
+    }
+
+    /* Two hops downstream: outgoing edges of a chaining relation, then every
+     * outgoing edge of the nodes reached that way. */
+    function reachOf(id) {
+      const via = [];
+      const targets = new Set();
+      const edges = [];
+      graph.edgesOf(id).forEach((edge) => {
+        if (edge.source !== id || !graph.relationOf(edge).via) {
+          return;
+        }
+        via.push(edge.target);
+        edges.push(edge);
+        graph.edgesOf(edge.target).forEach((second) => {
+          if (second.source !== edge.target || graph.relationOf(second).via) {
+            return;
+          }
+          targets.add(second.target);
+          edges.push(second);
+        });
+      });
+      return { via, targets: Array.from(targets), edges };
+    }
+
+    function expandReach(id) {
+      const reach = reachOf(id);
+      return revealAll(id, [id, ...reach.via, ...reach.targets]);
+    }
+
     /* How many nodes a collapse of this node would fold away. */
     function revealedCount(id) {
       return (revealedBy.get(id) || []).filter((childId) => visible.has(childId)).length;
@@ -106,6 +172,10 @@
       hiddenNeighbours,
       hasHiddenNeighbours,
       revealedCount,
+      loopMembers,
+      expandLoop,
+      reachOf,
+      expandReach,
       expand,
       collapse,
       toggle,

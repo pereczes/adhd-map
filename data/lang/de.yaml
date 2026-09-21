@@ -24,6 +24,9 @@ ui:
   fold_many: "Alle Verbindungen sind auf der Karte. Klicke erneut auf den Knoten, um die {count} aufgedeckten Knoten wieder einzuklappen."
   all_shown: Alle Verbindungen sind auf der Karte.
   reveal_chip: Noch nicht auf der Karte. Klicken zum Aufdecken.
+  show_loop: Ganze Schleife zeigen
+  show_reach: "Zeigen, was das erreicht"
+  strategy_caveat: "Strategien helfen manchen Menschen und anderen nicht. Ausprobieren, behalten, was wirkt, den Rest weglassen."
 
 kinds:
   hub: Überblick
@@ -33,6 +36,8 @@ kinds:
   strategy: Bewältigungsstrategie
   treatment: Behandlung & Unterstützung
   impact: Auswirkung
+  situation: Situation
+  mechanism: So wirkt es
 
 relations:
   includes:   { label: umfasst, inverse: gehört zu }
@@ -41,6 +46,9 @@ relations:
   helps_with: { label: hilft bei, inverse: unterstützt durch }
   reduces:    { label: verringert, inverse: verringert durch }
   leads_to:   { label: führt zu, inverse: folgt aus }
+  involves:   { label: betrifft, inverse: zeigt sich in }
+  feeds:      { label: nährt, inverse: genährt von }
+  produces:   { label: bewirkt, inverse: bewirkt durch }
 
 nodes:
   # ---------------------------------------------------------------- hub
@@ -197,6 +205,34 @@ nodes:
     description: >-
       Schwer einschlafen, eine verschobene innere Uhr, und lange aufbleiben,
       um Zeit zurückzuholen, die der Tag nicht geboten hat.
+
+  rumination:
+    label: Grübeln
+    description: >-
+      Dieselbe Sorge läuft in Schleife: die Aufgabe, die E-Mail, das Gesagte.
+      Es fühlt sich an wie Denken, bringt aber keine Entscheidung und
+      verbrennt Energie.
+  avoidance:
+    label: Vermeidung
+    description: >-
+      Um die Aufgabe, die Nachricht oder die Person herumsteuern, die das
+      Grauen auslöst. Erleichterung jetzt, ein größeres Problem später.
+  out-of-sight:
+    label: "Aus den Augen, aus dem Sinn"
+    description: >-
+      Was nicht sichtbar ist, hört auf zu existieren: die Rechnung in der
+      Schublade, das Gemüse hinter der Milch, der Freund, dem du nicht
+      zurückgeschrieben hast.
+  decision-paralysis:
+    label: Entscheidungslähmung
+    description: >-
+      Zu viele Möglichkeiten, jede braucht eine Entscheidung, also fällt
+      keine. Stapel sind oft aufgeschobene Entscheidungen.
+  anticipatory-anxiety:
+    label: Grauen vor der Aufgabe
+    description: >-
+      Angst, die lange vor der Aufgabe kommt und oft mehr kostet als die
+      Aufgabe selbst.
 
   # ---------------------------------------------------------------- trigger
   boring-tasks:
@@ -362,6 +398,212 @@ nodes:
       Weniger Entscheidungen treffen müssen: Standardmahlzeiten, eine kleine
       Garderobe, Standardantworten.
 
+  movement-breaks:
+    label: Bewegungspausen
+    description: >-
+      Jede Stunde ein kurzer Gang, eine Treppe oder Dehnen. Besprechungen im
+      Gehen und ein Stehschreibtisch zählen auch.
+  write-it-down-instead:
+    label: Aufschreiben statt aussprechen
+    description: >-
+      Während eines Gesprächs den Gedanken auf Papier notieren, damit er nicht
+      mehr herausdrängt. Er kann angesprochen werden, sobald das Gegenüber
+      fertig ist.
+  item-trackers:
+    label: Bluetooth-Tracker
+    description: >-
+      Kleine Anhänger an Schlüssel, Geldbeutel und Tasche, und ein Handy, das
+      sie klingeln lassen kann. Macht aus zwanzig Minuten Suchen zwanzig
+      Sekunden.
+  duplicate-essentials:
+    label: Wichtiges doppelt haben
+    description: >-
+      Ersatzschlüssel beim Nachbarn, ein Ladekabel in jeder Tasche, eine
+      Lesebrille in jedem Zimmer. Ein verlorenes Exemplar ist dann keine Krise
+      mehr.
+  final-review-pass:
+    label: Abschließender Kontrollgang
+    description: >-
+      Eine eigene, bewusste Prüfung, wenn die Arbeit fertig wirkt, am besten
+      nach einer Pause und anhand einer kurzen Liste der eigenen typischen
+      Fehler.
+  written-instructions:
+    label: Um schriftliche Anweisungen bitten
+    description: >-
+      Aufgaben per Nachricht oder E-Mail erbitten, oder das Gehörte selbst
+      aufschreiben und zur Bestätigung zurückschicken.
+  repeat-back:
+    label: Wiederholen und zusammenfassen
+    description: >-
+      Bevor ein Gespräch endet, wiedergeben, was man verstanden hat und was
+      man tun wird. Lücken zeigen sich, solange sie noch billig zu schließen
+      sind.
+  hyperfocus-exit:
+    label: Ausstiegsritual aus dem Hyperfokus
+    description: >-
+      Ein harter Stopp-Alarm, gestellt vor dem Anfangen, Wasser und Essen in
+      Reichweite, und eine notierte Zeile, wo es nächstes Mal weitergeht.
+  name-the-emotion:
+    label: Das Gefühl benennen
+    description: >-
+      Das Gefühl in Worte fassen, etwa „das ist Frust, ungefähr sieben von
+      zehn“, öffnet eine kleine Lücke zwischen Gefühl und Reaktion.
+  cooling-off-rule:
+    label: Abkühlregel
+    description: >-
+      Eine Vereinbarung mit sich selbst und den Menschen im Umfeld: keine
+      wichtigen Antworten oder Entscheidungen, solange die Welle hoch ist.
+      Nach zwanzig Minuten oder am nächsten Morgen noch einmal ansehen.
+  ask-instead-of-assume:
+    label: Nachfragen statt annehmen
+    description: >-
+      Wenn eine Nachricht wie Ablehnung klingt, vor der Reaktion nachfragen:
+      „Meintest du ...?“ Die meisten gefühlten Kränkungen lösen sich beim
+      Kontakt mit den Fakten auf.
+  distress-tolerance:
+    label: Fertigkeiten zur Stresstoleranz
+    description: >-
+      Fertigkeiten aus der dialektisch-behavioralen Therapie, um den Körper
+      schnell herunterzufahren: kaltes Wasser ins Gesicht, ruhiges Atmen im
+      Takt, ein kurzer intensiver Bewegungsschub.
+  automatic-payments:
+    label: Automatische Zahlungen
+    description: >-
+      Lastschrift für jede wiederkehrende Rechnung, Sparen direkt am Zahltag,
+      eine Karte für alle Abos. Das System erinnert sich, damit du es nicht
+      musst.
+  subscription-audit:
+    label: Abo-Check
+    description: >-
+      Alle paar Monate eine Erinnerung, jedes Abo aufzulisten und zu kündigen,
+      was nicht mehr genutzt wird.
+  explain-your-adhd:
+    label: "Erklären, wie sich dein ADHS zeigt"
+    description: >-
+      Partnern, Freunden und Kollegen vorab sagen, womit sie rechnen können,
+      etwa späte Antworten, Unterbrechungen oder ein verlorener Faden, und was
+      hilft.
+  repair-routine:
+    label: Reparaturroutine
+    description: >-
+      Eine vereinbarte Art, einen Ausrutscher anzuerkennen, sich zu
+      entschuldigen und neu zu starten, damit sich vergessene Versprechen auf
+      keiner Seite zu Groll aufstauen.
+  shared-calendar:
+    label: Gemeinsamer Kalender
+    description: >-
+      Ein Kalender, den Partner oder Haushalt sehen, für Termine,
+      Schulveranstaltungen und gegebene Versprechen. Nichts lebt nur in einem
+      Kopf.
+  buffer-time:
+    label: Zeitpuffer
+    description: >-
+      Fünfzehn Minuten früher ankommen und einen Tag vor der echten Frist
+      fertig sein wollen. Der Puffer fängt die Zeitblindheit ab.
+  deadline-check-ins:
+    label: Zwischenstände vor der Frist
+    description: >-
+      Zwischenziele, vereinbart mit dem, der auf die Arbeit wartet. Jedes ist
+      eine kleine Frist mit echter Dringlichkeit.
+  recovery-time:
+    label: Eingeplante Erholungszeit
+    description: >-
+      Bewusst unverplante Zeit nach anstrengenden Tagen, im Kalender geschützt
+      wie der Schlaf. Den ganzen Tag ADHS auszugleichen hat einen Preis, der
+      zurückgezahlt werden muss.
+  reduce-masking:
+    label: Weniger maskieren
+    description: >-
+      Ein paar Orte und Menschen wählen, bei denen du aufhörst, neurotypisch
+      zu spielen: zappeln, mitschreiben, um Wiederholung bitten, gehen, wenn
+      du musst.
+  play-to-strengths:
+    label: Auf Stärken setzen
+    description: >-
+      Die Arbeit hin zu den interessengetriebenen, kreativen, krisenfesten
+      Aufgaben lenken, in denen ADHS-Gehirne glänzen, und den Rest
+      wegverhandeln oder automatisieren.
+  interest-pairing:
+    label: Langweiliges mit Angenehmem koppeln
+    description: >-
+      Der Lieblingspodcast nur beim Hausputz, Papierkram nur im guten Café.
+      Die angenehme Hälfte liefert den Reiz, der der Aufgabe fehlt.
+
+  behavioural-activation:
+    label: Verhaltensaktivierung
+    description: >-
+      Jeden Tag eine kleine angenehme oder sinnvolle Aktivität einplanen und
+      tun, egal ob man Lust hat. Die Stimmung folgt dem Handeln mehr als das
+      Handeln der Stimmung.
+  morning-daylight:
+    label: Morgenlicht
+    description: >-
+      Zehn Minuten Tageslicht draußen kurz nach dem Aufwachen verankern die
+      innere Uhr und heben die Stimmung.
+  social-contact:
+    label: Sozialer Kontakt
+    description: >-
+      Ein kurzer Anruf oder ein Spaziergang mit jemandem, besonders an den
+      Tagen, an denen man am wenigsten Lust hat. Isolation nährt die gedrückte
+      Stimmung.
+  worry-window:
+    label: Sorgenfenster
+    description: >-
+      Fünfzehn Minuten am Tag, um jede Sorge aufzuschreiben. Außerhalb des
+      Fensters bekommt die Sorge eine Notiz und einen Termin statt deiner
+      Aufmerksamkeit.
+  less-alcohol:
+    label: Weniger Alkohol
+    description: >-
+      Alkohol verschlechtert Schlaf, Impulsivität und Stimmung für Tage.
+      Weniger zu trinken ist eine der günstigsten Verbesserungen überhaupt.
+  nightly-reset:
+    label: Zehn-Minuten-Reset am Abend
+    description: >-
+      Ein Timer, eine Runde durch die Wohnung, alles zurück an seinen Platz.
+      Kein Putzen, nur Zurücksetzen. Klein genug für jeden Abend.
+  one-surface:
+    label: Eine Fläche pro Runde
+    description: >-
+      Eine Arbeitsplatte, eine Schublade, eine Ecke, dann Schluss. Nie ein
+      Marathon durchs ganze Zimmer: der Marathon fängt nie an.
+  doom-box:
+    label: Die Kiste für später
+    description: >-
+      Eine Kiste für den Stapel Dinge, die eine Entscheidung brauchen. Die
+      Fläche ist jetzt frei, die Entscheidungen warten auf einen ruhigeren
+      Moment.
+  own-less:
+    label: Weniger besitzen
+    description: >-
+      Weniger Dinge heißt weniger Plätze zu merken und weniger Entscheidungen
+      pro Aufräumrunde. Eins rein, eins raus.
+  visible-storage:
+    label: Sichtbar aufbewahren
+    description: >-
+      Offene Regale, durchsichtige Boxen, Haken statt Schubladen. Wenn
+      geschlossene Türen Dinge löschen, dann lass sie offen.
+  sort-by-frequency:
+    label: "Nach Häufigkeit ordnen, nicht nach Kategorie"
+    description: >-
+      Was täglich gebraucht wird, liegt in Reichweite des Ortes, an dem es
+      gebraucht wird. Alles andere darf weiter weg und weniger geordnet sein.
+  launch-pad:
+    label: Startplatz an der Tür
+    description: >-
+      Ein Platz für Schlüssel, Tasche, Geldbeutel und alles, was morgen das
+      Haus verlassen muss. Losgehen wird zu einer einzigen Bewegung.
+  define-done:
+    label: Fertig definieren
+    description: >-
+      Vor dem Anfangen einen Satz schreiben, wie fertig aussieht. Eine Aufgabe
+      ohne Ende ist eine Aufgabe, die nie beginnt.
+  five-minute-rule:
+    label: Fünf-Minuten-Regel
+    description: >-
+      Nur fünf Minuten der gefürchteten Sache tun. Nach fünf Minuten aufhören
+      ist erlaubt. Meistens tut man es nicht.
+
   # ---------------------------------------------------------------- treatment
   assessment:
     label: Diagnose & Abklärung
@@ -388,6 +630,23 @@ nodes:
     description: >-
       Flexible Arbeitszeiten, schriftliche Anweisungen, ein ruhiger
       Arbeitsplatz, Zwischenchecks bei Fristen.
+
+  psychotherapy:
+    label: Psychotherapie
+    description: >-
+      Gesprächstherapie bei einer qualifizierten Fachperson für Angst,
+      gedrückte Stimmung und Selbstbild, die oft rund um ADHS entstehen.
+  crisis-help:
+    label: "Wenn es dunkel wird: jetzt Hilfe holen"
+    description: >-
+      Wenn die Gedanken dahin gehen, nicht mehr da sein zu wollen, heute noch
+      Arztpraxis, Krisentelefon oder Notruf kontaktieren. Das ist eine
+      medizinische Situation, kein Charakterfehler.
+  professional-organiser:
+    label: Professionelle Ordnungshilfe oder Reinigungskraft
+    description: >-
+      Bezahlte Hilfe, um eine Wohnung einzurichten, die sich selbst trägt,
+      oder um sie am Laufen zu halten. Eine Anpassung, kein Versagen.
 
   # ---------------------------------------------------------------- impact
   missed-deadlines:
@@ -422,6 +681,57 @@ nodes:
     description: >-
       Häufig gleichzeitig auftretende Erkrankungen, oft genährt von den
       anderen Auswirkungen auf dieser Karte.
+  energy-drain:
+    label: Energieverlust
+    description: >-
+      Die Erschöpfung nach Stunden voller Sorgen, Maskieren und Ausgleichen,
+      ohne etwas vorweisen zu können.
+
+  # ---------------------------------------------------------------- situation
+  chaotic-home:
+    label: Chaos in der Wohnung
+    description: >-
+      Stapel auf jeder Fläche, eine Küche, die sich nie von selbst
+      zurücksetzt, das Gefühl, dass die Wohnung gewinnt. Hier stapeln sich
+      mehrere Symptome, deshalb reicht Willenskraft allein nicht.
+  dreaded-task:
+    label: "Eine Aufgabe, vor der ich mich fürchte"
+    description: >-
+      Die E-Mail, das Formular, der Anruf. Sie liegt da, wird jeden Tag größer
+      und startet eine Schleife, die mehr Energie kostet, als sie zu
+      erledigen.
+  money-admin:
+    label: Geldkram
+    description: >-
+      Rechnungen, Abos, Steuern, das Konto, das du seit Monaten nicht geöffnet
+      hast. Vergesslichkeit, Vermeidung und Impulsivität treffen sich hier.
+
+  # ---------------------------------------------------------------- mechanism
+  dopamine-boost:
+    label: Dopamin und Noradrenalin steigen
+    description: >-
+      Ausdauerbewegung erhöht für einige Stunden dieselben Botenstoffe, auf
+      die ADHS-Medikamente zielen.
+  deeper-sleep:
+    label: Tieferer Schlaf
+    description: >-
+      Körperliche Müdigkeit erleichtert das Einschlafen und vertieft den
+      Schlaf, was am nächsten Tag fast alles verbessert.
+  stress-hormones-drop:
+    label: Stresshormone sinken
+    description: >-
+      Bewegung baut die Stressreaktion ab, sodass der Körper dem Kopf keine
+      Gefahr mehr meldet.
+  energy-discharged:
+    label: Unruhe abgebaut
+    description: >-
+      Der innere Motor bekommt ein Ventil, und Stillsitzen kostet danach
+      weniger.
+  mood-lift:
+    label: Stimmungshoch
+    description: >-
+      Ein verlässlicher, wenn auch vorübergehender Stimmungsschub, der sich
+      summiert, wenn er an den meisten Tagen passiert.
 
 edges:
   hyperfocus-time-blindness:
@@ -452,3 +762,31 @@ edges:
     note: >-
       Vor der Antwort auf eine gefühlte Kränkung zu warten gibt der ersten
       Gefühlswelle Zeit, vorbeizuziehen.
+  write-it-down-instead-interrupting:
+    note: >-
+      Der Drang zu unterbrechen ist oft die Angst, den Gedanken zu verlieren.
+      Auf Papier kann er warten.
+  explain-your-adhd-relationship-strain:
+    note: >-
+      Späte Antworten und verlorene Fäden sind leichter zu verzeihen, wenn sie
+      vorher angekündigt waren.
+  buffer-time-missed-deadlines:
+    note: >-
+      Den Puffer als die echte Frist behandeln. Die wirkliche ist nur das
+      Sicherheitsnetz.
+  reduce-masking-burnout:
+    note: >-
+      Maskieren kostet mehr Energie, als die Menschen um dich herum sehen
+      können.
+  avoidance-dreaded-task:
+    note: >-
+      Nichts wurde getan, die Frist ist näher, und die Aufgabe sieht größer
+      aus als vorher.
+  five-minute-rule-avoidance:
+    note: >-
+      Fünf Minuten sind klein genug zum Anfangen, und Anfangen ist das ganze
+      Problem.
+  exercise-dopamine-boost:
+    note: >-
+      Deshalb kann sich ein Lauf vor einer langweiligen Aufgabe wie eine Dosis
+      Medikament anfühlen.

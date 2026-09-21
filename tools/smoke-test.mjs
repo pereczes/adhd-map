@@ -88,10 +88,16 @@ async function evaluate(session, expression) {
   return result.result.value;
 }
 
+/* Bring everything into view first, so the target is never off-screen after
+ * an earlier zoom or pan, then click at the node's current screen position. */
 async function clickNode(session, nodeId) {
+  await evaluate(session, 'document.getElementById("fit").click(); true');
+  await sleep(900);
   const position = await evaluate(session, `adhdMapDebug.nodeScreenPosition(${JSON.stringify(nodeId)})`);
   const common = { x: position.x, y: position.y, button: 'left', clickCount: 1 };
   await session.send('Input.dispatchMouseEvent', { type: 'mouseMoved', x: position.x, y: position.y });
+  /* force-graph resolves the hovered node on the next animation frame. */
+  await sleep(150);
   await session.send('Input.dispatchMouseEvent', { type: 'mousePressed', ...common });
   await session.send('Input.dispatchMouseEvent', { type: 'mouseReleased', ...common });
   return position;
@@ -121,8 +127,8 @@ async function runScenario(session, prototype, problems) {
 
   const initial = await visibleCount(session);
   console.log(`${prototype}: initial visible nodes = ${initial}`);
-  if (initial !== 6) {
-    problems.push(`${prototype}: expected 6 initial nodes, got ${initial}`);
+  if (initial !== 9) {
+    problems.push(`${prototype}: expected 9 initial nodes, got ${initial}`);
   }
   await screenshot(session, `smoke-${prototype}-1-initial.png`);
 
@@ -159,6 +165,27 @@ async function runScenario(session, prototype, problems) {
     problems.push(`${prototype}: panel title is "${panelTitle}", expected "Distractibility"`);
   }
 
+  await clickNode(session, 'dreaded-task');
+  await sleep(settleMs);
+  const loopButtonFound = await evaluate(session, `(() => {
+    const button = document.querySelector('#panel button.action-loop');
+    if (!button) return false;
+    button.click();
+    return true;
+  })()`);
+  await sleep(settleMs);
+  const loopVisible = await evaluate(
+    session,
+    `['rumination', 'anticipatory-anxiety', 'avoidance', 'energy-drain', 'burnout'].every((id) => adhdMapDebug.explorer.isVisible(id))`,
+  );
+  console.log(`${prototype}: loop button ${loopButtonFound ? 'found' : 'missing'}, whole loop visible = ${loopVisible}`);
+  if (!loopButtonFound || !loopVisible) {
+    problems.push(`${prototype}: "Show the whole loop" did not reveal the rumination loop`);
+  }
+  await screenshot(session, `smoke-${prototype}-6-loop.png`);
+
+  await clickNode(session, 'distractibility');
+  await sleep(1000);
   await evaluate(
     session,
     `(() => {

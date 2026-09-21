@@ -30,6 +30,8 @@
     const labelCache = new Map();
     let selectedId = null;
     let neighbourIds = new Set();
+    let reachNodeIds = new Set();
+    let reachEdgeIds = new Set();
     let hoveredId = null;
     let fitWhenSettled = false;
     let frameTimer = null;
@@ -40,6 +42,8 @@
       search: document.getElementById('search'),
       datalist: document.getElementById('node-list'),
       onFocus: focusNode,
+      onShowLoop: (id) => openNode(id, explorer.expandLoop(id)),
+      onShowReach: (id) => openNode(id, explorer.expandReach(id)),
     });
 
     const forceGraph = ForceGraph()(container)
@@ -52,12 +56,13 @@
       .nodeCanvasObject(drawNode)
       .nodePointerAreaPaint(paintPointerArea)
       .linkColor(linkColor)
-      .linkWidth((link) => (touchesSelection(link) ? 2 : 1))
+      .linkWidth((link) => (isLoop(link) ? 2.5 : touchesSelection(link) || reachEdgeIds.has(link.id) ? 2 : 1))
       .linkLineDash((link) => (graph.relations[link.relation].dashed ? [3, 3] : null))
-      .linkDirectionalArrowLength((link) => (graph.relations[link.relation].directed ? 5 : 0))
+      .linkCurvature((link) => (isLoop(link) ? 0.3 : 0))
+      .linkDirectionalArrowLength((link) => (graph.relations[link.relation].directed ? (isLoop(link) ? 7 : 5) : 0))
       .linkDirectionalArrowRelPos(1)
-      .linkDirectionalParticles((link) => (touchesSelection(link) ? 2 : 0))
-      .linkDirectionalParticleWidth(2.5)
+      .linkDirectionalParticles((link) => (isLoop(link) ? 3 : touchesSelection(link) || reachEdgeIds.has(link.id) ? 2 : 0))
+      .linkDirectionalParticleWidth((link) => (isLoop(link) ? 3.5 : 2.5))
       .linkDirectionalParticleColor((link) => graph.relations[link.relation].color)
       .onNodeClick((node) => openNode(node.id, explorer.toggle(node.id)))
       .onNodeHover((node) => {
@@ -111,8 +116,12 @@
       return endpointId(link.source) === selectedId || endpointId(link.target) === selectedId;
     }
 
+    function isLoop(link) {
+      return graph.relations[link.relation].loop;
+    }
+
     function isDimmed(id) {
-      return selectedId !== null && id !== selectedId && !neighbourIds.has(id);
+      return selectedId !== null && id !== selectedId && !neighbourIds.has(id) && !reachNodeIds.has(id);
     }
 
     function withAlpha(hexColor, alpha) {
@@ -124,10 +133,13 @@
 
     function linkColor(link) {
       const color = graph.relations[link.relation].color;
-      if (!selectedId) {
-        return withAlpha(color, 0.75);
+      if (!selectedId || isLoop(link)) {
+        return withAlpha(color, isLoop(link) ? 0.95 : 0.75);
       }
-      return touchesSelection(link) ? color : withAlpha(color, 0.12);
+      if (touchesSelection(link)) {
+        return color;
+      }
+      return reachEdgeIds.has(link.id) ? withAlpha(color, 0.8) : withAlpha(color, 0.12);
     }
 
     function wrapLabel(label) {
@@ -169,7 +181,7 @@
       const pixel = 1 / globalScale;
 
       canvasContext.save();
-      canvasContext.globalAlpha = dimmed ? 0.2 : 1;
+      canvasContext.globalAlpha = dimmed ? 0.2 : reachNodeIds.has(node.id) && !neighbourIds.has(node.id) ? 0.8 : 1;
 
       canvasContext.beginPath();
       canvasContext.arc(node.x, node.y, radius, 0, 2 * Math.PI);
@@ -283,6 +295,9 @@
       }
       selectedId = id;
       neighbourIds = new Set(graph.neighboursOf(id));
+      const reach = explorer.reachOf(id);
+      reachNodeIds = new Set([...reach.via, ...reach.targets]);
+      reachEdgeIds = new Set(reach.edges.map((edge) => edge.id));
       const node = nodeObjects.get(id);
       if (node) {
         node.fx = node.x;
@@ -297,6 +312,8 @@
       }
       selectedId = null;
       neighbourIds = new Set();
+      reachNodeIds = new Set();
+      reachEdgeIds = new Set();
       panel.clear();
     }
 
@@ -347,6 +364,8 @@
       linkObjects.clear();
       selectedId = null;
       neighbourIds = new Set();
+      reachNodeIds = new Set();
+      reachEdgeIds = new Set();
       panel.clear();
       fitWhenSettled = true;
       applyChange(explorer.reset(), null);

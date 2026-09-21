@@ -3,6 +3,8 @@
  * createPanel(graph, explorer, {
  *   panel, legend, search, datalist   DOM elements
  *   onFocus(id)                        called when a node is chosen in the panel or search
+ *   onShowLoop(id)                     reveal the whole vicious cycle this node belongs to
+ *   onShowReach(id)                    reveal everything this node reaches through mechanisms
  * })
  *
  * All strings come from graph.ui (the active language file). Call refresh()
@@ -45,6 +47,7 @@
         const line = element('span', 'line');
         line.style.borderTopColor = relation.color;
         line.style.borderTopStyle = relation.dashed ? 'dashed' : 'solid';
+        line.style.borderTopWidth = relation.loop ? '4px' : '2px';
         row.append(line, element('span', null, relation.label || relationId));
         legend.append(row);
       });
@@ -152,6 +155,29 @@
       panelElement.append(badge);
       panelElement.append(element('h2', null, node.label));
       panelElement.append(element('p', 'description', node.description));
+      if (node.kind === 'strategy') {
+        panelElement.append(
+          element('p', 'hint caveat', text('strategy_caveat', 'Strategies help some people and not others. Try it, keep what works, drop the rest.')),
+        );
+      }
+
+      const actions = element('div', 'actions');
+      if (explorer.loopMembers(id).some((memberId) => !explorer.isVisible(memberId))) {
+        const button = element('button', 'action action-loop', text('show_loop', 'Show the whole loop'));
+        button.type = 'button';
+        button.addEventListener('click', () => options.onShowLoop(id));
+        actions.append(button);
+      }
+      const reach = explorer.reachOf(id);
+      if ([...reach.via, ...reach.targets].some((reachId) => !explorer.isVisible(reachId))) {
+        const button = element('button', 'action action-reach', text('show_reach', 'Show what this reaches'));
+        button.type = 'button';
+        button.addEventListener('click', () => options.onShowReach(id));
+        actions.append(button);
+      }
+      if (actions.childElementCount > 0) {
+        panelElement.append(actions);
+      }
 
       groupedEdges(id).forEach((group) => {
         const heading = element('h3', null, group.heading);

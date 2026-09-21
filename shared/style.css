@@ -260,3 +260,31 @@ body {
   font-size: 13px;
   font-family: inherit;
 }
+
+.panel .caveat {
+  border-left: 2px solid var(--panel-border);
+  padding-left: 8px;
+  margin: 8px 0 0;
+}
+
+.panel .actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 12px;
+}
+
+.panel .action {
+  background: transparent;
+  border: 1px solid var(--accent);
+  color: var(--text);
+  border-radius: 6px;
+  padding: 5px 10px;
+  font-size: 13px;
+  font-family: inherit;
+  cursor: pointer;
+}
+
+.panel .action:hover {
+  background: rgba(92, 107, 192, 0.2);
+}

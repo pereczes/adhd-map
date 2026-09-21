@@ -24,6 +24,9 @@ ui:
   fold_many: "All connections are on the map. Click the node again to fold away the {count} nodes it revealed."
   all_shown: All connections are on the map.
   reveal_chip: Not on the map yet. Click to reveal.
+  show_loop: Show the whole loop
+  show_reach: Show what this reaches
+  strategy_caveat: "Strategies help some people and not others. Try it, keep what works, drop the rest."
 
 kinds:
   hub: Overview
@@ -33,6 +36,8 @@ kinds:
   strategy: Coping strategy
   treatment: "Treatment & support"
   impact: Impact
+  situation: Situation
+  mechanism: How it works
 
 relations:
   includes:   { label: includes, inverse: part of }
@@ -41,6 +46,9 @@ relations:
   helps_with: { label: helps with, inverse: helped by }
   reduces:    { label: reduces, inverse: reduced by }
   leads_to:   { label: leads to, inverse: follows from }
+  involves:   { label: involves, inverse: shows up in }
+  feeds:      { label: feeds, inverse: fed by }
+  produces:   { label: produces, inverse: produced by }
 
 nodes:
   # ---------------------------------------------------------------- hub
@@ -190,6 +198,32 @@ nodes:
     description: >-
       Trouble falling asleep, a delayed body clock, and staying up late to
       reclaim time that the day did not provide.
+
+  rumination:
+    label: Rumination
+    description: >-
+      The same worry replaying on a loop: the task, the email, the thing you
+      said. It feels like thinking but produces no decision and burns energy.
+  avoidance:
+    label: Avoidance
+    description: >-
+      Steering around the task, the message or the person that triggers the
+      dread. Relief now, a bigger problem later.
+  out-of-sight:
+    label: "Out of sight, out of mind"
+    description: >-
+      What is not visible stops existing: the bill in the drawer, the
+      vegetables behind the milk, the friend you did not text back.
+  decision-paralysis:
+    label: Decision paralysis
+    description: >-
+      Too many options, each one needing a decision, so none gets made. Piles
+      are often stacks of postponed decisions.
+  anticipatory-anxiety:
+    label: Dread before the task
+    description: >-
+      Anxiety that arrives long before the task and often costs more than the
+      task itself.
 
   # ---------------------------------------------------------------- trigger
   boring-tasks:
@@ -347,6 +381,199 @@ nodes:
       Fewer choices to make: standard meals, a small wardrobe, default
       answers.
 
+  movement-breaks:
+    label: Movement breaks
+    description: >-
+      A short walk, a flight of stairs or a stretch every hour. Walking
+      meetings and a standing desk count too.
+  write-it-down-instead:
+    label: Write it down instead of saying it
+    description: >-
+      During a conversation, jot the thought on paper so it stops pressing to
+      come out. It can be raised once the other person has finished.
+  item-trackers:
+    label: Bluetooth trackers
+    description: >-
+      Small tags on keys, wallet and bag, and a phone that can make them ring.
+      Turns a twenty-minute search into a twenty-second one.
+  duplicate-essentials:
+    label: Duplicate essentials
+    description: >-
+      Spare keys with a neighbour, a charger in every bag, reading glasses in
+      every room. Losing one copy stops being a crisis.
+  final-review-pass:
+    label: Final review pass
+    description: >-
+      A separate, deliberate check after the work feels finished, ideally
+      after a break and against a short list of your typical slips.
+  written-instructions:
+    label: Ask for written instructions
+    description: >-
+      Ask for tasks by message or email, or write up what you heard and send
+      it back for confirmation.
+  repeat-back:
+    label: Repeat back and summarise
+    description: >-
+      Before a conversation ends, say back what you understood and what you
+      will do. Gaps show up while they are still cheap to fix.
+  hyperfocus-exit:
+    label: Hyperfocus exit ritual
+    description: >-
+      A hard-stop alarm set before starting, water and food within reach, and
+      one written line about where to pick up next time.
+  name-the-emotion:
+    label: Name the emotion
+    description: >-
+      Putting words on the feeling, such as “this is frustration, about seven
+      out of ten”, opens a small gap between the feeling and the reaction.
+  cooling-off-rule:
+    label: Cooling-off rule
+    description: >-
+      An agreed rule with yourself and the people close to you: no important
+      replies or decisions while the wave is high. Revisit after twenty
+      minutes or the next morning.
+  ask-instead-of-assume:
+    label: Ask instead of assuming
+    description: >-
+      When a message reads as rejection, check before reacting: “Did you
+      mean...?” Most perceived slights dissolve on contact with the facts.
+  distress-tolerance:
+    label: Distress tolerance skills
+    description: >-
+      Skills from dialectical behaviour therapy for bringing the body down
+      fast: cold water on the face, paced breathing, a burst of intense
+      exercise.
+  automatic-payments:
+    label: Automatic payments
+    description: >-
+      Direct debits for every recurring bill, savings moved on payday, one
+      card for all subscriptions. The system remembers so you do not have to.
+  subscription-audit:
+    label: Subscription audit
+    description: >-
+      A recurring reminder every few months to list every subscription and
+      cancel what is no longer used.
+  explain-your-adhd:
+    label: Explain how your ADHD shows up
+    description: >-
+      Tell partners, friends and colleagues what to expect, such as late
+      replies, interruptions or a lost thread, and what helps, before it
+      happens.
+  repair-routine:
+    label: Repair routine
+    description: >-
+      An agreed way to acknowledge a slip, apologise and reset, so forgotten
+      promises do not pile up into resentment on either side.
+  shared-calendar:
+    label: Shared calendar
+    description: >-
+      One calendar visible to your partner or household for appointments,
+      school events and promises made. Nothing lives only in one head.
+  buffer-time:
+    label: Buffer time
+    description: >-
+      Plan to arrive fifteen minutes early and to finish a day before the real
+      deadline. The buffer absorbs the time blindness.
+  deadline-check-ins:
+    label: Deadline check-ins
+    description: >-
+      Interim milestones agreed with whoever is waiting for the work. Each one
+      is a small deadline with real urgency attached.
+  recovery-time:
+    label: Scheduled recovery time
+    description: >-
+      Deliberate unstructured time after demanding days, protected in the
+      calendar like sleep. Compensating for ADHD all day has a cost that must
+      be repaid.
+  reduce-masking:
+    label: Reduce masking
+    description: >-
+      Choose a few places and people where you stop performing neurotypical:
+      fidget, take notes, ask for repeats, leave when you need to.
+  play-to-strengths:
+    label: Play to strengths
+    description: >-
+      Steer work towards the interest-driven, creative, crisis-mode tasks
+      where ADHD brains shine, and negotiate the rest away or automate it.
+  interest-pairing:
+    label: Pair boring tasks with something enjoyable
+    description: >-
+      A favourite podcast only during chores, admin only in the good café. The
+      enjoyable half supplies the stimulation the task lacks.
+
+  behavioural-activation:
+    label: Behavioural activation
+    description: >-
+      One small pleasant or meaningful activity scheduled every day, done
+      whether or not you feel like it. Mood follows action more than action
+      follows mood.
+  morning-daylight:
+    label: Morning daylight
+    description: >-
+      Ten minutes of outdoor light soon after waking anchors the body clock
+      and lifts mood.
+  social-contact:
+    label: Social contact
+    description: >-
+      A short call or a walk with someone, especially on the days you least
+      want to. Isolation feeds low mood.
+  worry-window:
+    label: Worry window
+    description: >-
+      Fifteen minutes a day set aside to write down every worry. Outside the
+      window, the worry gets a note and an appointment instead of your
+      attention.
+  less-alcohol:
+    label: Less alcohol
+    description: >-
+      Alcohol worsens sleep, impulsivity and mood for days. Cutting down is
+      one of the cheapest improvements available.
+  nightly-reset:
+    label: Ten-minute nightly reset
+    description: >-
+      A timer, one lap of the apartment, things back to their homes. Not
+      cleaning, just resetting. Small enough to do every night.
+  one-surface:
+    label: One surface per round
+    description: >-
+      One counter, one drawer, one corner, then stop. Never a whole-room
+      marathon: the marathon never starts.
+  doom-box:
+    label: Doom box
+    description: >-
+      One box for the pile of things that need a decision. The surface is
+      clear now, the decisions wait for a calmer moment.
+  own-less:
+    label: Own less
+    description: >-
+      Fewer things means fewer homes to remember and fewer decisions per tidy.
+      One in, one out.
+  visible-storage:
+    label: Visible storage
+    description: >-
+      Open shelves, clear boxes, hooks instead of drawers. If closed doors
+      erase things, keep them open.
+  sort-by-frequency:
+    label: "Sort by frequency, not category"
+    description: >-
+      The things used daily live within arm's reach of where they are used.
+      Everything else can be farther away and less organised.
+  launch-pad:
+    label: Launch pad by the door
+    description: >-
+      One spot for keys, bag, wallet and whatever must leave the house
+      tomorrow. Leaving becomes one movement.
+  define-done:
+    label: Define done
+    description: >-
+      Write one sentence describing what finished looks like before starting.
+      A task with no end is a task that never starts.
+  five-minute-rule:
+    label: Five-minute rule
+    description: >-
+      Agree to do only five minutes of the dreaded thing. Stopping after five
+      is allowed. Most of the time you will not.
+
   # ---------------------------------------------------------------- treatment
   assessment:
     label: "Diagnosis & assessment"
@@ -373,6 +600,23 @@ nodes:
     description: >-
       Flexible hours, written instructions, a quiet workspace, deadline check-
       ins.
+
+  psychotherapy:
+    label: Psychotherapy
+    description: >-
+      Talking therapy with a qualified therapist for the anxiety, low mood and
+      self-image that often grow around ADHD.
+  crisis-help:
+    label: "When it gets dark: get help now"
+    description: >-
+      If thoughts turn to not wanting to be here, contact a doctor, a crisis
+      line or emergency services today. This is a medical situation, not a
+      character flaw.
+  professional-organiser:
+    label: Professional organiser or cleaner
+    description: >-
+      Paid help to set up a home that runs itself, or to keep it running. An
+      accommodation, not a failure.
 
   # ---------------------------------------------------------------- impact
   missed-deadlines:
@@ -407,6 +651,55 @@ nodes:
     description: >-
       Frequently co-occurring conditions, often fuelled by the other impacts
       on this map.
+  energy-drain:
+    label: Energy drain
+    description: >-
+      The exhaustion of hours spent worrying, masking and compensating, with
+      nothing to show for it.
+
+  # ---------------------------------------------------------------- situation
+  chaotic-home:
+    label: Chaotic home
+    description: >-
+      Piles on every surface, a kitchen that never resets itself, a sense that
+      the place is winning. Several symptoms stack up here, which is why
+      willpower alone does not fix it.
+  dreaded-task:
+    label: A task I dread
+    description: >-
+      The email, the form, the phone call. It sits there, gets bigger every
+      day, and starts a loop that costs more energy than doing it would.
+  money-admin:
+    label: Money admin
+    description: >-
+      Bills, subscriptions, taxes, the account you have not opened in months.
+      Forgetfulness, avoidance and impulsivity all meet here.
+
+  # ---------------------------------------------------------------- mechanism
+  dopamine-boost:
+    label: Dopamine and noradrenaline rise
+    description: >-
+      Aerobic exercise raises the same messengers that ADHD medication
+      targets, for a few hours afterwards.
+  deeper-sleep:
+    label: Deeper sleep
+    description: >-
+      Physical tiredness makes falling asleep easier and sleep deeper, which
+      improves almost everything the next day.
+  stress-hormones-drop:
+    label: Stress hormones drop
+    description: >-
+      Exercise burns off the stress response, so the body stops signalling
+      danger to the mind.
+  energy-discharged:
+    label: Restless energy discharged
+    description: >-
+      The inner motor gets an outlet, and sitting still afterwards costs less.
+  mood-lift:
+    label: Mood lift
+    description: >-
+      A reliable, if temporary, lift in mood that stacks up when it happens
+      most days.
 
 edges:
   hyperfocus-time-blindness:
@@ -437,3 +730,30 @@ edges:
     note: >-
       Waiting before replying to a perceived slight gives the first wave of
       emotion time to pass.
+  write-it-down-instead-interrupting:
+    note: >-
+      The urge to interrupt is often fear of losing the thought. Once it is on
+      paper, it can wait.
+  explain-your-adhd-relationship-strain:
+    note: >-
+      Late replies and lost threads are easier to forgive when they were
+      announced in advance.
+  buffer-time-missed-deadlines:
+    note: >-
+      Treat the buffer as the real deadline. The true one is only a safety
+      net.
+  reduce-masking-burnout:
+    note: >-
+      Masking costs more energy than the people around you can see.
+  avoidance-dreaded-task:
+    note: >-
+      Nothing was done, the deadline is closer, and the task looks bigger than
+      before.
+  five-minute-rule-avoidance:
+    note: >-
+      Five minutes is small enough to start, and starting is the whole
+      problem.
+  exercise-dopamine-boost:
+    note: >-
+      This is why a run before a boring task can feel like a dose of
+      medication.

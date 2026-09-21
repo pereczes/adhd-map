@@ -41,6 +41,8 @@
       search: document.getElementById('search'),
       datalist: document.getElementById('node-list'),
       onFocus: focusNode,
+      onShowLoop: (id) => openNode(id, explorer.expandLoop(id)),
+      onShowReach: (id) => openNode(id, explorer.expandReach(id)),
     });
 
     function nodeElement(node, position) {
@@ -66,6 +68,9 @@
       }
       if (relation.dashed) {
         classes.push('dashed');
+      }
+      if (relation.loop) {
+        classes.push('loop');
       }
       return {
         group: 'edges',
@@ -167,17 +172,26 @@
     function select(id) {
       selectedId = id;
       const node = cy.getElementById(id);
-      cy.elements().removeClass('dimmed selected highlighted');
+      cy.elements().removeClass('dimmed selected highlighted reach');
       node.addClass('selected');
       const neighbourhood = node.closedNeighborhood();
       neighbourhood.edges().addClass('highlighted');
       cy.elements().difference(neighbourhood).addClass('dimmed');
+
+      /* Ripple: what this node reaches through mechanisms, in a second tone. */
+      const reach = explorer.reachOf(id);
+      [...reach.via, ...reach.targets].forEach((reachId) => {
+        cy.getElementById(reachId).removeClass('dimmed').addClass('reach');
+      });
+      reach.edges.forEach((edge) => {
+        cy.getElementById(edge.id).removeClass('dimmed').addClass('reach');
+      });
       panel.show(id);
     }
 
     function clearSelection() {
       selectedId = null;
-      cy.elements().removeClass('dimmed selected highlighted');
+      cy.elements().removeClass('dimmed selected highlighted reach');
       panel.clear();
     }
 
@@ -361,8 +375,27 @@
         style: { 'line-style': 'dashed' },
       },
       {
+        selector: 'edge.loop',
+        style: {
+          width: 3.5,
+          opacity: 0.95,
+          'curve-style': 'unbundled-bezier',
+          'control-point-distances': [40],
+          'control-point-weights': [0.5],
+          'arrow-scale': 1.1,
+        },
+      },
+      {
         selector: 'edge.highlighted',
         style: { width: 2.5, opacity: 1 },
+      },
+      {
+        selector: 'node.reach',
+        style: { opacity: 0.85 },
+      },
+      {
+        selector: 'edge.reach',
+        style: { width: 2, opacity: 0.85 },
       },
       {
         selector: '.dimmed',

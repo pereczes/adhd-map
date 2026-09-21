@@ -24,6 +24,9 @@ ui:
   fold_many: "Toate legăturile sunt pe hartă. Apasă din nou pe nod pentru a strânge cele {count} noduri dezvăluite."
   all_shown: Toate legăturile sunt pe hartă.
   reveal_chip: Nu este încă pe hartă. Apasă pentru a-l dezvălui.
+  show_loop: Arată tot cercul
+  show_reach: Arată ce influențează
+  strategy_caveat: "Strategiile ajută unele persoane și pe altele nu. Încearcă, păstrează ce funcționează, renunță la rest."
 
 kinds:
   hub: Prezentare generală
@@ -33,6 +36,8 @@ kinds:
   strategy: Strategie de adaptare
   treatment: Tratament și sprijin
   impact: Consecință
+  situation: Situație
+  mechanism: Cum funcționează
 
 relations:
   includes:   { label: include, inverse: parte din }
@@ -41,6 +46,9 @@ relations:
   helps_with: { label: ajută la, inverse: ajutat de }
   reduces:    { label: reduce, inverse: redus de }
   leads_to:   { label: duce la, inverse: rezultă din }
+  involves:   { label: implică, inverse: apare în }
+  feeds:      { label: alimentează, inverse: alimentat de }
+  produces:   { label: produce, inverse: produs de }
 
 nodes:
   # ---------------------------------------------------------------- hub
@@ -197,6 +205,32 @@ nodes:
     description: >-
       Dificultăți de a adormi, un ceas intern decalat și statul târziu pentru
       a recupera timpul pe care ziua nu l-a oferit.
+
+  rumination:
+    label: Ruminație
+    description: >-
+      Aceeași grijă reluată la nesfârșit: sarcina, e-mailul, ce ai spus. Pare
+      gândire, dar nu produce nicio decizie și consumă energie.
+  avoidance:
+    label: Evitare
+    description: >-
+      A ocoli sarcina, mesajul sau persoana care declanșează teama. Ușurare
+      acum, o problemă mai mare mai târziu.
+  out-of-sight:
+    label: Ce nu se vede nu există
+    description: >-
+      Ce nu este vizibil încetează să existe: factura din sertar, legumele din
+      spatele laptelui, prietenul căruia nu i-ai răspuns.
+  decision-paralysis:
+    label: Paralizie decizională
+    description: >-
+      Prea multe opțiuni, fiecare cerând o decizie, așa că niciuna nu se ia.
+      Grămezile sunt adesea teancuri de decizii amânate.
+  anticipatory-anxiety:
+    label: Teama dinaintea sarcinii
+    description: >-
+      Anxietate care sosește cu mult înaintea sarcinii și costă adesea mai
+      mult decât sarcina însăși.
 
   # ---------------------------------------------------------------- trigger
   boring-tasks:
@@ -357,6 +391,210 @@ nodes:
       Mai puține alegeri de făcut: mese standard, o garderobă mică,
       răspunsuri implicite.
 
+  movement-breaks:
+    label: Pauze de mișcare
+    description: >-
+      O plimbare scurtă, un etaj pe scări sau o întindere în fiecare oră.
+      Ședințele în mers și biroul la care stai în picioare contează și ele.
+  write-it-down-instead:
+    label: Scrie în loc să spui
+    description: >-
+      În timpul unei conversații, notează gândul pe hârtie ca să nu mai
+      împingă să iasă. Poate fi adus în discuție după ce celălalt a terminat.
+  item-trackers:
+    label: Localizatoare Bluetooth
+    description: >-
+      Etichete mici pe chei, portofel și geantă, și un telefon care le poate
+      face să sune. Transformă o căutare de douăzeci de minute într-una de
+      douăzeci de secunde.
+  duplicate-essentials:
+    label: Dublează lucrurile esențiale
+    description: >-
+      Chei de rezervă la un vecin, un încărcător în fiecare geantă, ochelari
+      de citit în fiecare cameră. Pierderea unui exemplar nu mai este o criză.
+  final-review-pass:
+    label: Verificare finală
+    description: >-
+      O verificare separată, deliberată, după ce lucrarea pare terminată,
+      ideal după o pauză și pe baza unei liste scurte cu greșelile tale
+      tipice.
+  written-instructions:
+    label: Cere instrucțiuni scrise
+    description: >-
+      Cere sarcinile prin mesaj sau e-mail, sau scrie ce ai auzit și trimite
+      înapoi pentru confirmare.
+  repeat-back:
+    label: Repetă și rezumă
+    description: >-
+      Înainte să se încheie o conversație, spune ce ai înțeles și ce vei face.
+      Lipsurile ies la iveală cât încă sunt ieftin de reparat.
+  hyperfocus-exit:
+    label: Ritual de ieșire din hiperfocalizare
+    description: >-
+      O alarmă de oprire fermă setată înainte de a începe, apă și mâncare la
+      îndemână, și un rând scris despre unde reiei data viitoare.
+  name-the-emotion:
+    label: Numește emoția
+    description: >-
+      Punerea în cuvinte a sentimentului, de exemplu „asta e frustrare, cam
+      șapte din zece”, deschide un mic spațiu între sentiment și reacție.
+  cooling-off-rule:
+    label: Regula de răcire
+    description: >-
+      O regulă convenită cu tine și cu cei apropiați: niciun răspuns sau
+      decizie importantă cât timp valul e sus. Revino după douăzeci de minute
+      sau a doua zi dimineață.
+  ask-instead-of-assume:
+    label: Întreabă în loc să presupui
+    description: >-
+      Când un mesaj pare o respingere, verifică înainte de a reacționa: „Ai
+      vrut să spui că...?” Majoritatea jignirilor percepute se dizolvă la
+      contactul cu faptele.
+  distress-tolerance:
+    label: Abilități de toleranță la stres
+    description: >-
+      Abilități din terapia dialectic-comportamentală pentru a calma corpul
+      rapid: apă rece pe față, respirație ritmată, o repriză scurtă de mișcare
+      intensă.
+  automatic-payments:
+    label: Plăți automate
+    description: >-
+      Debit direct pentru fiecare factură recurentă, economii mutate în ziua
+      salariului, un singur card pentru toate abonamentele. Sistemul ține
+      minte ca să nu trebuiască tu.
+  subscription-audit:
+    label: Inventarul abonamentelor
+    description: >-
+      Un memento recurent, la câteva luni, pentru a lista toate abonamentele
+      și a anula ce nu mai folosești.
+  explain-your-adhd:
+    label: Explică cum se manifestă ADHD-ul tău
+    description: >-
+      Spune-le partenerilor, prietenilor și colegilor la ce să se aștepte,
+      precum răspunsuri târzii, întreruperi sau firul pierdut, și ce ajută,
+      înainte să se întâmple.
+  repair-routine:
+    label: Rutină de reparare
+    description: >-
+      Un mod convenit de a recunoaște un derapaj, de a-ți cere scuze și de a o
+      lua de la capăt, ca promisiunile uitate să nu se adune în resentimente
+      de nicio parte.
+  shared-calendar:
+    label: Calendar comun
+    description: >-
+      Un singur calendar vizibil pentru partener sau familie, cu programări,
+      evenimente de la școală și promisiuni făcute. Nimic nu trăiește doar
+      într-un singur cap.
+  buffer-time:
+    label: Timp tampon
+    description: >-
+      Planifică să ajungi cu cincisprezece minute mai devreme și să termini cu
+      o zi înainte de termenul real. Tamponul absoarbe percepția slabă a
+      timpului.
+  deadline-check-ins:
+    label: Verificări intermediare ale termenelor
+    description: >-
+      Etape intermediare convenite cu cel care așteaptă lucrarea. Fiecare este
+      un termen mic, cu urgență reală.
+  recovery-time:
+    label: Timp de recuperare planificat
+    description: >-
+      Timp nestructurat, deliberat, după zilele solicitante, protejat în
+      calendar ca somnul. Compensarea ADHD-ului toată ziua are un cost care
+      trebuie plătit înapoi.
+  reduce-masking:
+    label: Mai puțină mascare
+    description: >-
+      Alege câteva locuri și câțiva oameni cu care încetezi să joci rolul de
+      neurotipic: foiește-te, ia notițe, cere să se repete, pleacă atunci când
+      ai nevoie.
+  play-to-strengths:
+    label: Mizează pe punctele forte
+    description: >-
+      Îndreaptă munca spre sarcinile creative, conduse de interes sau de
+      criză, în care creierele ADHD strălucesc, și negociază sau automatizează
+      restul.
+  interest-pairing:
+    label: Împerechează plictisitorul cu ceva plăcut
+    description: >-
+      Podcastul preferat doar în timpul treburilor casnice, actele doar în
+      cafeneaua bună. Jumătatea plăcută oferă stimularea care lipsește
+      sarcinii.
+
+  behavioural-activation:
+    label: Activare comportamentală
+    description: >-
+      O activitate mică, plăcută sau cu sens, programată în fiecare zi și
+      făcută indiferent dacă ai chef. Dispoziția urmează acțiunea mai mult
+      decât urmează acțiunea dispoziția.
+  morning-daylight:
+    label: Lumina dimineții
+    description: >-
+      Zece minute de lumină afară, la scurt timp după trezire, ancorează
+      ceasul intern și ridică dispoziția.
+  social-contact:
+    label: Contact social
+    description: >-
+      Un apel scurt sau o plimbare cu cineva, mai ales în zilele în care ai
+      cel mai puțin chef. Izolarea alimentează dispoziția scăzută.
+  worry-window:
+    label: Fereastra grijilor
+    description: >-
+      Cincisprezece minute pe zi rezervate pentru a scrie fiecare grijă. În
+      afara ferestrei, grija primește o notiță și o programare în locul
+      atenției tale.
+  less-alcohol:
+    label: Mai puțin alcool
+    description: >-
+      Alcoolul înrăutățește somnul, impulsivitatea și dispoziția zile întregi.
+      Reducerea lui este una dintre cele mai ieftine îmbunătățiri disponibile.
+  nightly-reset:
+    label: Resetarea de zece minute de seară
+    description: >-
+      Un cronometru, un tur al apartamentului, lucrurile înapoi la locul lor.
+      Nu curățenie, doar resetare. Destul de mic ca să îl faci în fiecare
+      seară.
+  one-surface:
+    label: O suprafață pe rundă
+    description: >-
+      Un blat, un sertar, un colț, apoi stop. Niciodată un maraton pe toată
+      camera: maratonul nu începe niciodată.
+  doom-box:
+    label: Cutia „pentru mai târziu”
+    description: >-
+      O cutie pentru grămada de lucruri care au nevoie de o decizie. Suprafața
+      este liberă acum, deciziile așteaptă un moment mai calm.
+  own-less:
+    label: Deține mai puțin
+    description: >-
+      Mai puține lucruri înseamnă mai puține locuri de ținut minte și mai
+      puține decizii la fiecare ordine. Unul intră, unul iese.
+  visible-storage:
+    label: Depozitare la vedere
+    description: >-
+      Rafturi deschise, cutii transparente, cârlige în loc de sertare. Dacă
+      ușile închise șterg lucrurile, ține-le deschise.
+  sort-by-frequency:
+    label: "Sortează după frecvență, nu după categorie"
+    description: >-
+      Lucrurile folosite zilnic stau la o lungime de braț de locul unde sunt
+      folosite. Restul poate fi mai departe și mai puțin organizat.
+  launch-pad:
+    label: Rampa de lansare de la ușă
+    description: >-
+      Un loc pentru chei, geantă, portofel și tot ce trebuie să iasă din casă
+      mâine. Plecarea devine o singură mișcare.
+  define-done:
+    label: Definește „gata”
+    description: >-
+      Înainte de a începe, scrie o propoziție despre cum arată terminat. O
+      sarcină fără sfârșit este o sarcină care nu începe niciodată.
+  five-minute-rule:
+    label: Regula celor cinci minute
+    description: >-
+      Angajează-te doar la cinci minute din lucrul de care te temi. Oprirea
+      după cinci minute este permisă. De cele mai multe ori nu te vei opri.
+
   # ---------------------------------------------------------------- treatment
   assessment:
     label: Diagnostic și evaluare
@@ -383,6 +621,24 @@ nodes:
     description: >-
       Program flexibil, instrucțiuni scrise, un spațiu de lucru liniștit,
       verificări intermediare ale termenelor.
+
+  psychotherapy:
+    label: Psihoterapie
+    description: >-
+      Terapie prin dialog cu un terapeut calificat pentru anxietatea,
+      dispoziția scăzută și imaginea de sine care cresc adesea în jurul ADHD-
+      ului.
+  crisis-help:
+    label: "Când se întunecă: cere ajutor acum"
+    description: >-
+      Dacă gândurile se îndreaptă spre a nu mai vrea să fii aici, contactează
+      azi un medic, o linie de criză sau serviciile de urgență. Este o
+      situație medicală, nu un defect de caracter.
+  professional-organiser:
+    label: Organizator profesionist sau ajutor la curățenie
+    description: >-
+      Ajutor plătit pentru a amenaja o locuință care se întreține singură sau
+      pentru a o menține așa. O adaptare, nu un eșec.
 
   # ---------------------------------------------------------------- impact
   missed-deadlines:
@@ -417,6 +673,57 @@ nodes:
     description: >-
       Condiții care apar frecvent împreună cu ADHD, adesea alimentate de
       celelalte consecințe de pe această hartă.
+  energy-drain:
+    label: Epuizarea energiei
+    description: >-
+      Oboseala orelor petrecute cu griji, mascare și compensare, fără nimic de
+      arătat în schimb.
+
+  # ---------------------------------------------------------------- situation
+  chaotic-home:
+    label: Haos în apartament
+    description: >-
+      Grămezi pe fiecare suprafață, o bucătărie care nu se resetează niciodată
+      singură, senzația că locuința câștigă. Aici se suprapun mai multe
+      simptome, de aceea voința singură nu rezolvă problema.
+  dreaded-task:
+    label: O sarcină de care mă tem
+    description: >-
+      E-mailul, formularul, apelul telefonic. Stă acolo, crește în fiecare zi
+      și pornește un cerc care costă mai multă energie decât ar costa să o
+      faci.
+  money-admin:
+    label: Administrarea banilor
+    description: >-
+      Facturi, abonamente, taxe, contul pe care nu l-ai deschis de luni de
+      zile. Uitarea, evitarea și impulsivitatea se întâlnesc toate aici.
+
+  # ---------------------------------------------------------------- mechanism
+  dopamine-boost:
+    label: Cresc dopamina și noradrenalina
+    description: >-
+      Exercițiul aerobic ridică, pentru câteva ore, aceiași mesageri pe care
+      îi vizează medicația pentru ADHD.
+  deeper-sleep:
+    label: Somn mai profund
+    description: >-
+      Oboseala fizică face adormirea mai ușoară și somnul mai profund, ceea ce
+      îmbunătățește aproape totul a doua zi.
+  stress-hormones-drop:
+    label: Scad hormonii de stres
+    description: >-
+      Mișcarea consumă răspunsul la stres, astfel încât corpul încetează să
+      semnaleze pericol minții.
+  energy-discharged:
+    label: Energia neliniștită descărcată
+    description: >-
+      Motorul interior primește o supapă, iar statul locului costă apoi mai
+      puțin.
+  mood-lift:
+    label: Ridicarea dispoziției
+    description: >-
+      O ridicare de dispoziție de încredere, chiar dacă temporară, care se
+      adună atunci când se întâmplă în majoritatea zilelor.
 
 edges:
   hyperfocus-time-blindness:
@@ -447,3 +754,30 @@ edges:
     note: >-
       Așteptarea înainte de a răspunde la o jignire percepută dă primului val
       de emoție timp să treacă.
+  write-it-down-instead-interrupting:
+    note: >-
+      Impulsul de a întrerupe este adesea teama de a pierde gândul. Odată pus
+      pe hârtie, poate aștepta.
+  explain-your-adhd-relationship-strain:
+    note: >-
+      Răspunsurile târzii și firul pierdut sunt mai ușor de iertat când au
+      fost anunțate dinainte.
+  buffer-time-missed-deadlines:
+    note: >-
+      Tratează tamponul ca pe termenul real. Cel adevărat este doar plasa de
+      siguranță.
+  reduce-masking-burnout:
+    note: >-
+      Mascarea costă mai multă energie decât pot vedea cei din jurul tău.
+  avoidance-dreaded-task:
+    note: >-
+      Nimic nu s-a făcut, termenul este mai aproape, iar sarcina pare mai mare
+      decât înainte.
+  five-minute-rule-avoidance:
+    note: >-
+      Cinci minute sunt destul de puțin ca să începi, iar începutul este toată
+      problema.
+  exercise-dopamine-boost:
+    note: >-
+      De aceea o alergare înainte de o sarcină plictisitoare poate părea o
+      doză de medicament.
