@@ -1,0 +1,9 @@
+# Available languages. `file` is relative to this directory.
+
+default: en
+
+languages:
+  - { code: en, name: English, file: lang/en.yaml }
+  - { code: de, name: Deutsch, file: lang/de.yaml }
+  - { code: hu, name: Magyar, file: lang/hu.yaml }
+  - { code: ro, name: Română, file: lang/ro.yaml }

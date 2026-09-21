@@ -1,0 +1,454 @@
+# Deutscher Text für data/adhd-map.yaml. Die Schlüssel sind die Ids aus dieser Datei.
+
+language: de
+name: Deutsch
+title: ADHS-Landkarte
+
+ui:
+  title: ADHS-Landkarte
+  language: Sprache
+  find_node: Knoten suchen
+  fit: Einpassen
+  expand_all: Alles aufklappen
+  reset: Zurücksetzen
+  switch_to_cytoscape: Zu Cytoscape.js wechseln
+  switch_to_force_graph: Zu force-graph wechseln
+  prototype_cytoscape: "Prototyp A: Cytoscape.js + fcose"
+  prototype_force_graph: "Prototyp B: force-graph"
+  intro: "Klicke auf einen Knoten, um ihn zu öffnen: Seine Details erscheinen hier, und seine Nachbarn entfalten sich auf der Karte. Ein erneuter Klick auf einen geöffneten Knoten klappt zusammen, was er aufgedeckt hat."
+  intro_hint: Ziehen zum Verschieben, Scrollen zum Zoomen, oder über das Suchfeld direkt zu einem Knoten springen.
+  counts: "{nodes} Knoten, {links} Verbindungen."
+  hidden_one: "1 verbundener Knoten ist noch nicht sichtbar. Klicke erneut auf den Knoten, um ihn aufzudecken."
+  hidden_many: "{count} verbundene Knoten sind noch nicht sichtbar. Klicke erneut auf den Knoten, um sie aufzudecken."
+  fold_one: Alle Verbindungen sind auf der Karte. Klicke erneut auf den Knoten, um den aufgedeckten Knoten wieder einzuklappen.
+  fold_many: "Alle Verbindungen sind auf der Karte. Klicke erneut auf den Knoten, um die {count} aufgedeckten Knoten wieder einzuklappen."
+  all_shown: Alle Verbindungen sind auf der Karte.
+  reveal_chip: Noch nicht auf der Karte. Klicken zum Aufdecken.
+
+kinds:
+  hub: Überblick
+  cluster: Symptomgruppe
+  symptom: Symptom
+  trigger: Auslöser
+  strategy: Bewältigungsstrategie
+  treatment: Behandlung & Unterstützung
+  impact: Auswirkung
+
+relations:
+  includes:   { label: umfasst, inverse: gehört zu }
+  related_to: { label: verwandt mit, inverse: verwandt mit }
+  worsens:    { label: verschlimmert, inverse: verschlimmert durch }
+  helps_with: { label: hilft bei, inverse: unterstützt durch }
+  reduces:    { label: verringert, inverse: verringert durch }
+  leads_to:   { label: führt zu, inverse: folgt aus }
+
+nodes:
+  # ---------------------------------------------------------------- hub
+  adhd:
+    label: ADHS
+    description: >-
+      Die Aufmerksamkeitsdefizit-Hyperaktivitätsstörung ist eine
+      neurologische Entwicklungsbesonderheit, die Aufmerksamkeitssteuerung,
+      Aktivitätsniveau, Impulskontrolle und exekutive Funktionen betrifft.
+      Klicke auf eine Gruppe, um ihre Symptome zu erkunden, und folge dann
+      den Verbindungen zu Auslösern, Strategien und Auswirkungen.
+
+  # ---------------------------------------------------------------- cluster
+  inattention:
+    label: Unaufmerksamkeit
+    description: >-
+      Schwierigkeit, die Aufmerksamkeit dorthin zu lenken und dort zu halten,
+      wo sie gebraucht wird, und manchmal das Gegenteil: nicht mehr loslassen
+      zu können.
+  hyperactivity:
+    label: Hyperaktivität & Impulsivität
+    description: >-
+      Ein innerer Motor, der ständig läuft, und Handlungen, die vor dem
+      Gedanken kommen, der ihnen hätte vorausgehen sollen. Bei Erwachsenen
+      wird Hyperaktivität oft eher gefühlt als gesehen.
+  executive:
+    label: Exekutive Funktionen
+    description: >-
+      Die Steuerungsebene des Gehirns: anfangen, planen, ordnen, Prioritäten
+      setzen, die Zeit im Blick behalten und Dinge im Kopf behalten.
+  emotional:
+    label: Emotionsregulation
+    description: >-
+      Gefühle, die schnell kommen, heftig treffen und länger brauchen, um sich
+      zu legen. Kein Teil der formalen Diagnosekriterien, für viele
+      Erwachsene aber einer der belastendsten Aspekte.
+
+  # ---------------------------------------------------------------- symptom
+  distractibility:
+    label: Ablenkbarkeit
+    description: >-
+      Die Aufmerksamkeit wird von äußeren Reizen oder eigenen Gedanken
+      weggezogen, selbst mitten in Aufgaben, die wichtig sind.
+  sustained-attention:
+    label: Schwierigkeit, die Aufmerksamkeit zu halten
+    description: >-
+      Lange Aufgaben mit wenig Reiz wie Lesen, Formulare oder Besprechungen
+      sind schwer durchzuhalten. Die Aufmerksamkeit fehlt nicht, sie ist nur
+      ungleich verfügbar.
+  hyperfocus:
+    label: Hyperfokus
+    description: >-
+      Intensives, kaum zu unterbrechendes Aufgehen in einer interessanten
+      Tätigkeit, oft auf Kosten von allem anderen, auch Essen, Schlaf und
+      anderen Menschen.
+  forgetfulness:
+    label: Vergesslichkeit
+    description: >-
+      Termine, Versprechen und Routineaufgaben gehen verloren. Meist nicht
+      aus Gleichgültigkeit, sondern weil die Erinnerung nie im richtigen
+      Moment kommt.
+  losing-things:
+    label: Dinge verlieren
+    description: >-
+      Schlüssel, Handy, Geldbeutel, Unterlagen. Dinge, die „nur kurz“
+      abgelegt wurden, verschwinden.
+  careless-mistakes:
+    label: Flüchtigkeitsfehler
+    description: >-
+      Details werden in Arbeit oder Papierkram übersehen, obwohl der Stoff
+      eigentlich gut bekannt ist.
+  restlessness:
+    label: Innere Unruhe
+    description: >-
+      Stillsitzen fühlt sich unangenehm an. Bei Erwachsenen ist das oft eine
+      innere Anspannung statt sichtbarer Bewegung.
+  fidgeting:
+    label: Zappeln
+    description: >-
+      Tippen, Wippen, Zupfen, Herumrutschen. Oft eher eine Strategie zur
+      Selbstregulation als eine Ablenkung.
+  impulsivity:
+    label: Impulsivität
+    description: >-
+      Handeln vor dem Denken: Dinge herausplatzen, Spontankäufe, schnelle
+      Entschlüsse und riskante Entscheidungen.
+  interrupting:
+    label: Unterbrechen & viel reden
+    description: >-
+      Die Sätze anderer beenden, in Gespräche hineinplatzen, Monologe über
+      ein Lieblingsthema halten.
+  impatience:
+    label: Ungeduld
+    description: >-
+      Warten in Schlangen, im Stau oder auf eine langsame Antwort fühlt sich
+      körperlich schwer erträglich an.
+  task-initiation:
+    label: Schwierigkeit, anzufangen
+    description: >-
+      Genau wissen, was zu tun ist, und trotzdem nicht anfangen können.
+      Manchmal als ADHS-Lähmung bezeichnet.
+  procrastination:
+    label: Aufschieben
+    description: >-
+      Aufgaben werden aufgeschoben, bis der Druck einer Frist genug
+      Dringlichkeit liefert, um zu handeln.
+  time-blindness:
+    label: Zeitblindheit
+    description: >-
+      Ein schwaches Gespür dafür, wie viel Zeit vergangen ist und wie lange
+      Dinge dauern. Chronische Verspätung und Überplanung sind die Folge.
+  disorganisation:
+    label: Unordnung
+    description: >-
+      Stapel, überfüllte Räume, chaotische Ablagen, verlorene Unterlagen.
+  working-memory:
+    label: Probleme mit dem Arbeitsgedächtnis
+    description: >-
+      Mehrere Dinge gleichzeitig im Kopf zu behalten ist schwer: mehrstufige
+      Anweisungen, Kopfrechnen, sich erinnern, warum man in einen Raum
+      gegangen ist.
+  prioritising:
+    label: Schwierigkeit, Prioritäten zu setzen
+    description: >-
+      Alles fühlt sich gleich dringend an, oder die unwichtigste Aufgabe wird
+      zuerst erledigt, weil sie die interessanteste ist.
+  task-switching:
+    label: Schwierigkeit beim Aufgabenwechsel
+    description: >-
+      Übergänge kosten viel. Schwer aufzuhören mit dem, was man tut, und
+      schwer, mit dem Nächsten anzufangen.
+  emotional-dysregulation:
+    label: Emotionale Dysregulation
+    description: >-
+      Gefühle kommen schnell und heftig und brauchen länger, um sich zu
+      legen, als die Situation es zu rechtfertigen scheint.
+  rejection-sensitivity:
+    label: Empfindlichkeit gegenüber Ablehnung
+    description: >-
+      Wahrgenommene Kritik oder Ablehnung löst intensiven emotionalen Schmerz
+      aus. Kein formaler Diagnosebegriff, aber sehr häufig berichtet.
+  frustration-tolerance:
+    label: Geringe Frustrationstoleranz
+    description: >-
+      Kleine Hindernisse können unverhältnismäßige Wut auslösen oder den
+      Drang, ganz aufzugeben.
+  boredom-intolerance:
+    label: Unerträgliche Langeweile
+    description: >-
+      Unterforderung fühlt sich unangenehm an. Der Kopf sucht nach Neuem oder
+      Intensivem, wo immer er es findet.
+  sleep-problems:
+    label: Schlafprobleme
+    description: >-
+      Schwer einschlafen, eine verschobene innere Uhr, und lange aufbleiben,
+      um Zeit zurückzuholen, die der Tag nicht geboten hat.
+
+  # ---------------------------------------------------------------- trigger
+  boring-tasks:
+    label: Langweilige oder eintönige Aufgaben
+    description: >-
+      Aufgaben mit wenig Reiz bieten zu wenig Stimulation, um die
+      Aufmerksamkeit zu halten.
+  poor-sleep:
+    label: Schlafmangel
+    description: >-
+      Fast jedes ADHS-Symptom wird nach einer schlechten Nacht schlimmer.
+  noisy-environment:
+    label: Laute Umgebung
+    description: >-
+      Großraumbüros, Cafés, ein Fernseher im Hintergrund.
+  unclear-instructions:
+    label: Unklare Anweisungen
+    description: >-
+      Vage oder nur mündliche Aufgaben bieten nichts, woran man sich
+      festhalten kann.
+  notifications:
+    label: Benachrichtigungen & Handy
+    description: >-
+      Jedes Vibrieren ist eine Einladung, die Aufgabe zu verlassen.
+  stress:
+    label: Stress & Überlastung
+    description: >-
+      Zu viele Anforderungen auf einmal schrumpfen die ohnehin begrenzte
+      exekutive Kapazität.
+  long-meetings:
+    label: Lange Besprechungen
+    description: >-
+      Eine Stunde passives Zuhören ohne Beteiligung.
+  open-ended-tasks:
+    label: Aufgaben ohne klares Ende
+    description: >-
+      Kein klarer Anfang, kein klares Ende, keine Definition von „fertig“.
+  hunger:
+    label: Hunger & ausgelassene Mahlzeiten
+    description: >-
+      Vergessen zu essen, dann der Einbruch.
+
+  # ---------------------------------------------------------------- strategy
+  body-doubling:
+    label: Body Doubling
+    description: >-
+      Neben einer anderen Person arbeiten, im selben Raum oder per Video,
+      deren Anwesenheit das Anfangen und Dranbleiben erleichtert.
+  pomodoro:
+    label: Pomodoro-Timer
+    description: >-
+      In kurzen, getakteten Sprints mit Pausen dazwischen arbeiten. Der Timer
+      gibt Struktur vor und vor allem ein Ende.
+  visual-timers:
+    label: Visuelle Timer
+    description: >-
+      Timer, die die Zeit als schrumpfende Scheibe oder Balken zeigen, machen
+      das Vergehen der Zeit sichtbar.
+  external-reminders:
+    label: Wecker & externe Erinnerungen
+    description: >-
+      Das Gedächtnis aus dem Kopf holen: Handywecker,
+      Kalenderbenachrichtigungen, Haftnotizen genau dort, wo gehandelt werden
+      muss.
+  task-breakdown:
+    label: Aufgaben in winzige Schritte zerlegen
+    description: >-
+      Aus „den Bericht schreiben“ wird „das Dokument öffnen, eine Überschrift
+      schreiben“. Der erste Schritt sollte fast lächerlich klein sein.
+  checklists:
+    label: Schriftliche Checklisten
+    description: >-
+      Den Plan zu Papier bringen, damit das Arbeitsgedächtnis ihn nicht
+      halten muss.
+  home-for-things:
+    label: Ein fester Platz für alles
+    description: >-
+      Feste Plätze für Schlüssel, Geldbeutel und Brille. Eine Schale an der
+      Tür schlägt jede gedankliche Notiz.
+  exercise:
+    label: Regelmäßige Bewegung
+    description: >-
+      Ausdauerbewegung verbessert Aufmerksamkeit und Stimmung für Stunden und
+      hilft beim Schlafen.
+  sleep-routine:
+    label: Feste Schlafroutine
+    description: >-
+      Eine feste Aufstehzeit, ein Abendritual, keine Bildschirme im
+      Schlafzimmer.
+  mindfulness:
+    label: Achtsamkeitsübungen
+    description: >-
+      Kurze, regelmäßige Übung darin, abschweifende Aufmerksamkeit und
+      aufsteigende Gefühle zu bemerken, bevor sie die Kontrolle übernehmen.
+  fidget-tools:
+    label: Fidget-Spielzeug
+    description: >-
+      Dem Körper etwas zu tun geben kann Aufmerksamkeit freisetzen, statt sie
+      zu verbrauchen.
+  noise-control:
+    label: Kopfhörer & weißes Rauschen
+    description: >-
+      Kopfhörer mit Geräuschunterdrückung oder ein gleichmäßiges
+      Hintergrundgeräusch verringern akustische Ablenkung.
+  time-boxing:
+    label: Zeitblöcke im Kalender
+    description: >-
+      Jeder Aufgabe einen Platz im Kalender geben, mit einer realistischen,
+      meist längeren Schätzung.
+  accountability-partner:
+    label: Verbindlichkeitspartner
+    description: >-
+      Jemandem sagen, was man bis wann erledigt, und anschließend Bericht
+      erstatten.
+  routines:
+    label: Routinen & Gewohnheiten koppeln
+    description: >-
+      Neue Gewohnheiten an bestehende Anker koppeln (nach dem Kaffee die
+      Medikamente nehmen), damit weniger Entscheidungen nötig sind.
+  prepare-night-before:
+    label: Am Abend vorher vorbereiten
+    description: >-
+      Kleidung, Tasche, Essen und Schlüssel bereitlegen. Der Morgen läuft
+      dann auf Autopilot.
+  externalise-memory:
+    label: Arbeitsgedächtnis auslagern
+    description: >-
+      Whiteboards, Notiz-Apps, Sprachmemos. Den Gedanken in dem Moment
+      festhalten, in dem er auftaucht.
+  dopamine-menu:
+    label: Dopamin-Menü
+    description: >-
+      Eine vorbereitete Liste gesunder, belohnender Aktivitäten, zu der man
+      greift statt zum endlosen Scrollen.
+  gamification:
+    label: Aufgaben spielerisch gestalten
+    description: >-
+      Punkte, Serien, Wettläufe gegen die Uhr. Neuheit und Wettbewerb
+      schaffen die Dringlichkeit, die langweiligen Aufgaben fehlt.
+  single-tasking:
+    label: Eine Sache auf einmal
+    description: >-
+      Ein Tab, eine Aufgabe, eine Sache auf dem Schreibtisch. Die
+      Angriffsfläche für Ablenkung verkleinern.
+  done-not-perfect:
+    label: Fertig schlägt perfekt
+    description: >-
+      Die Messlatte bewusst senken. Perfektionismus ist ein häufiger Treiber
+      des Aufschiebens.
+  pause-before-acting:
+    label: Innehalten vor dem Handeln
+    description: >-
+      Eine eingebaute Verzögerung: 24 Stunden vor einem Kauf, ein langsamer
+      Atemzug vor einer Antwort.
+  self-compassion:
+    label: Selbstmitgefühl
+    description: >-
+      Ausrutscher als Daten behandeln, nicht als Beweis für Versagen. Scham
+      nährt die Vermeidung.
+  decision-reduction:
+    label: Weniger Entscheidungen
+    description: >-
+      Weniger Entscheidungen treffen müssen: Standardmahlzeiten, eine kleine
+      Garderobe, Standardantworten.
+
+  # ---------------------------------------------------------------- treatment
+  assessment:
+    label: Diagnose & Abklärung
+    description: >-
+      Eine formale Abklärung durch eine qualifizierte Fachperson ist der
+      Zugang zu Behandlung und Anpassungen.
+  medication:
+    label: Medikamente
+    description: >-
+      Stimulanzien und Nicht-Stimulanzien, ärztlich verordnet und begleitet.
+      Für viele Erwachsene eine Behandlung erster Wahl.
+  cbt:
+    label: KVT bei ADHS
+    description: >-
+      Kognitive Verhaltenstherapie, angepasst an ADHS: Fertigkeiten für
+      Planung, Aufschieben und ungünstige Denkmuster.
+  coaching:
+    label: ADHS-Coaching
+    description: >-
+      Praktische, zielorientierte Unterstützung beim Aufbau von Systemen und
+      Routinen, die zur Person passen.
+  workplace-accommodations:
+    label: Anpassungen am Arbeitsplatz
+    description: >-
+      Flexible Arbeitszeiten, schriftliche Anweisungen, ein ruhiger
+      Arbeitsplatz, Zwischenchecks bei Fristen.
+
+  # ---------------------------------------------------------------- impact
+  missed-deadlines:
+    label: Verpasste Fristen
+    description: >-
+      Arbeit wird zu spät oder gar nicht abgeliefert, trotz guter Absichten
+      und echter Anstrengung.
+  relationship-strain:
+    label: Belastete Beziehungen
+    description: >-
+      Vergessene Versprechen, Unterbrechungen und Gefühlsausbrüche zehren an
+      Partnerschaft, Freundschaften und Kollegen.
+  low-self-esteem:
+    label: Geringes Selbstwertgefühl
+    description: >-
+      Jahre von „streng dich einfach mehr an“ hinterlassen das Gefühl, faul
+      oder kaputt zu sein.
+  burnout:
+    label: Burnout
+    description: >-
+      Symptome zu verbergen und ständig auszugleichen ist erschöpfend.
+  financial-trouble:
+    label: Finanzielle Probleme
+    description: >-
+      Mahngebühren, vergessene Abos, Spontankäufe.
+  underachievement:
+    label: Unter den Möglichkeiten bleiben
+    description: >-
+      Leistung unter den eigenen Fähigkeiten in Schule oder Beruf.
+  anxiety-depression:
+    label: Angst & Depression
+    description: >-
+      Häufig gleichzeitig auftretende Erkrankungen, oft genährt von den
+      anderen Auswirkungen auf dieser Karte.
+
+edges:
+  hyperfocus-time-blindness:
+    note: >-
+      Im Hyperfokus verschwinden Stunden.
+  sleep-problems-time-blindness:
+    note: >-
+      Die Schlafenszeit rutscht immer weiter, weil sich der Abend kürzer
+      anfühlt, als er ist.
+  body-doubling-task-initiation:
+    note: >-
+      Die Anwesenheit einer anderen Person liefert das Startsignal, das das
+      Gehirn allein nicht erzeugt.
+  pomodoro-task-initiation:
+    note: >-
+      Sich nur auf 25 Minuten festzulegen senkt die Hürde zum Anfangen.
+  pomodoro-hyperfocus:
+    note: >-
+      Der Pausenalarm ist ein äußerer Unterbrecher für eine Sitzung, die
+      sonst stundenlang liefe.
+  fidget-tools-fidgeting:
+    note: >-
+      Lenkt die Bewegung in Bahnen, statt sie zu unterdrücken.
+  routines-task-switching:
+    note: >-
+      Ein festes Übergangsritual macht den Wechsel vorhersehbar.
+  pause-before-acting-rejection-sensitivity:
+    note: >-
+      Vor der Antwort auf eine gefühlte Kränkung zu warten gibt der ersten
+      Gefühlswelle Zeit, vorbeizuziehen.

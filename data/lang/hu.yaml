@@ -1,0 +1,451 @@
+# Magyar szövegek a data/adhd-map.yaml fájlhoz. A kulcsok az ottani azonosítók.
+
+language: hu
+name: Magyar
+title: ADHD-térkép
+
+ui:
+  title: ADHD-térkép
+  language: Nyelv
+  find_node: Csomópont keresése
+  fit: Igazítás
+  expand_all: Összes kibontása
+  reset: Alaphelyzet
+  switch_to_cytoscape: Váltás Cytoscape.js-re
+  switch_to_force_graph: Váltás force-graph-ra
+  prototype_cytoscape: "A prototípus: Cytoscape.js + fcose"
+  prototype_force_graph: "B prototípus: force-graph"
+  intro: "Kattints egy csomópontra a megnyitásához: itt megjelennek a részletei, a térképen pedig kibomlanak a szomszédai. Egy nyitott csomópontra újra kattintva összecsukódik, amit felfedett."
+  intro_hint: Húzással mozgathatod, görgetéssel nagyíthatod a térképet, a keresővel pedig bármelyik csomópontra ugorhatsz.
+  counts: "{nodes} csomópont, {links} kapcsolat."
+  hidden_one: "1 kapcsolódó csomópont még nem látszik. Kattints újra a csomópontra a felfedéséhez."
+  hidden_many: "{count} kapcsolódó csomópont még nem látszik. Kattints újra a csomópontra a felfedésükhöz."
+  fold_one: Minden kapcsolat a térképen van. Kattints újra a csomópontra a felfedett csomópont összecsukásához.
+  fold_many: "Minden kapcsolat a térképen van. Kattints újra a csomópontra a felfedett {count} csomópont összecsukásához."
+  all_shown: Minden kapcsolat a térképen van.
+  reveal_chip: Még nincs a térképen. Kattints a felfedéséhez.
+
+kinds:
+  hub: Áttekintés
+  cluster: Tünetcsoport
+  symptom: Tünet
+  trigger: Kiváltó tényező
+  strategy: Megküzdési stratégia
+  treatment: Kezelés és támogatás
+  impact: Következmény
+
+relations:
+  includes:   { label: ezeket tartalmazza, inverse: ennek része }
+  related_to: { label: kapcsolódik, inverse: kapcsolódik }
+  worsens:    { label: ezeket rontja, inverse: ezek rontják }
+  helps_with: { label: ezeken segít, inverse: ezek segítenek }
+  reduces:    { label: ezeket csökkenti, inverse: ezek csökkentik }
+  leads_to:   { label: ehhez vezet, inverse: ebből következik }
+
+nodes:
+  # ---------------------------------------------------------------- hub
+  adhd:
+    label: ADHD
+    description: >-
+      A figyelemhiányos hiperaktivitás-zavar olyan idegrendszeri fejlődési
+      állapot, amely a figyelem szabályozását, az aktivitási szintet, az
+      impulzuskontrollt és a végrehajtó funkciókat érinti. Kattints egy
+      csoportra a tünetek felfedezéséhez, majd kövesd a kapcsolatokat a
+      kiváltó tényezőkhöz, stratégiákhoz és következményekhez.
+
+  # ---------------------------------------------------------------- cluster
+  inattention:
+    label: Figyelmetlenség
+    description: >-
+      Nehéz a figyelmet oda irányítani és ott tartani, ahol szükség van rá,
+      és néha az ellenkezője a gond: nem lehet elengedni.
+  hyperactivity:
+    label: Hiperaktivitás és impulzivitás
+    description: >-
+      Egy belső motor, amely folyton jár, és tettek, amelyek megelőzik a
+      gondolatot, amelynek meg kellett volna előznie őket. Felnőtteknél a
+      hiperaktivitást gyakran inkább érzik, mint látják.
+  executive:
+    label: Végrehajtó funkciók
+    description: >-
+      Az agy irányító rétege: elkezdeni, tervezni, sorrendbe rakni,
+      fontossági sorrendet felállítani, követni az időt és észben tartani
+      dolgokat.
+  emotional:
+    label: Érzelemszabályozás
+    description: >-
+      Érzelmek, amelyek gyorsan jönnek, erősen ütnek, és tovább tart, míg
+      lecsillapodnak. Nem része a hivatalos diagnosztikai kritériumoknak, de
+      sok felnőtt számára az egyik legmegterhelőbb terület.
+
+  # ---------------------------------------------------------------- symptom
+  distractibility:
+    label: Elterelhető figyelem
+    description: >-
+      A figyelmet külső ingerek vagy belső gondolatok vonják el, még a fontos
+      feladatok közepén is.
+  sustained-attention:
+    label: Nehéz tartósan figyelni
+    description: >-
+      A hosszú, kevés ingert adó feladatoknál, mint az olvasás, az űrlapok
+      vagy a megbeszélések, nehéz kitartani. A figyelem nem hiányzik, csak
+      egyenetlenül áll rendelkezésre.
+  hyperfocus:
+    label: Hiperfókusz
+    description: >-
+      Intenzív, nehezen megszakítható elmerülés egy érdekes feladatban,
+      gyakran minden más rovására, beleértve az evést, az alvást és a többi
+      embert.
+  forgetfulness:
+    label: Feledékenység
+    description: >-
+      Időpontok, ígéretek és rutinfeladatok kicsúsznak. Általában nem
+      nemtörődömségből, hanem mert az emlékeztető sosem a megfelelő
+      pillanatban érkezik.
+  losing-things:
+    label: Tárgyak elvesztése
+    description: >-
+      Kulcs, telefon, pénztárca, iratok. A „csak egy pillanatra” letett
+      tárgyak eltűnnek.
+  careless-mistakes:
+    label: Figyelmetlenségi hibák
+    description: >-
+      Munkában vagy papírmunkában részletek maradnak ki, pedig az anyag jól
+      ismert.
+  restlessness:
+    label: Nyugtalanság
+    description: >-
+      A nyugodt ülés kellemetlen. Felnőtteknél ez gyakran belső feszültség,
+      nem látható mozgás.
+  fidgeting:
+    label: Fészkelődés
+    description: >-
+      Kopogás, lábrázás, babrálás, fészkelődés. Gyakran inkább önszabályozási
+      stratégia, mint figyelemelterelés.
+  impulsivity:
+    label: Impulzivitás
+    description: >-
+      Cselekvés gondolkodás előtt: kimondott dolgok, impulzusvásárlások,
+      elhamarkodott és kockázatos döntések.
+  interrupting:
+    label: Közbevágás és sok beszéd
+    description: >-
+      Mások mondatainak befejezése, beszélgetésekbe való beugrás, monológok
+      egy kedvenc témáról.
+  impatience:
+    label: Türelmetlenség
+    description: >-
+      A sorban állás, a dugó vagy egy lassú válasz kivárása fizikailag
+      nehezen elviselhető.
+  task-initiation:
+    label: Nehéz elkezdeni a feladatokat
+    description: >-
+      Pontosan tudni, mit kell tenni, és mégsem tudni elkezdeni. Néha
+      ADHD-bénultságnak nevezik.
+  procrastination:
+    label: Halogatás
+    description: >-
+      A feladatok halasztása, amíg a határidő nyomása elég sürgetést nem ad a
+      cselekvéshez.
+  time-blindness:
+    label: Idővakság
+    description: >-
+      Gyenge érzék arra, mennyi idő telt el és mennyi ideig tartanak a
+      dolgok. Krónikus késés és túlvállalás a következménye.
+  disorganisation:
+    label: Szervezetlenség
+    description: >-
+      Kupacok, zsúfolt terek, kaotikus iratok, elveszett papírok.
+  working-memory:
+    label: Munkamemória-problémák
+    description: >-
+      Nehéz több dolgot egyszerre észben tartani: többlépéses utasításokat,
+      fejszámolást, vagy hogy miért is jöttél be a szobába.
+  prioritising:
+    label: Nehéz fontossági sorrendet felállítani
+    description: >-
+      Minden egyformán sürgősnek tűnik, vagy a legkevésbé fontos feladat
+      készül el először, mert az a legérdekesebb.
+  task-switching:
+    label: Nehéz feladatot váltani
+    description: >-
+      Az átállás sokba kerül. Nehéz abbahagyni, amit csinálsz, és nehéz
+      belekezdeni a következőbe.
+  emotional-dysregulation:
+    label: Érzelmi diszreguláció
+    description: >-
+      Az érzelmek gyorsan és erősen érkeznek, és tovább tart, míg
+      lecsillapodnak, mint amit a helyzet indokolna.
+  rejection-sensitivity:
+    label: Elutasításra való érzékenység
+    description: >-
+      A vélt kritika vagy elutasítás intenzív érzelmi fájdalmat vált ki. Nem
+      hivatalos diagnosztikai fogalom, de nagyon sokan számolnak be róla.
+  frustration-tolerance:
+    label: Alacsony frusztrációtűrés
+    description: >-
+      Kis akadályok aránytalan dühöt válthatnak ki, vagy késztetést a teljes
+      feladásra.
+  boredom-intolerance:
+    label: Az unalom elviselhetetlensége
+    description: >-
+      Az ingerszegénység kellemetlen. Az elme újdonságot vagy intenzitást
+      keres, ahol csak talál.
+  sleep-problems:
+    label: Alvásproblémák
+    description: >-
+      Nehéz elaludni, eltolódott belső óra, és késő estig fennmaradás, hogy
+      visszaszerezd az időt, amit a nap nem adott meg.
+
+  # ---------------------------------------------------------------- trigger
+  boring-tasks:
+    label: Unalmas vagy ismétlődő feladatok
+    description: >-
+      A kevéssé érdekes feladatok túl kevés ingert adnak a figyelem
+      fenntartásához.
+  poor-sleep:
+    label: Alváshiány
+    description: >-
+      Szinte minden ADHD-tünet rosszabb egy rossz éjszaka után.
+  noisy-environment:
+    label: Zajos környezet
+    description: >-
+      Nyitott irodák, kávézók, háttérben szóló tévé.
+  unclear-instructions:
+    label: Homályos utasítások
+    description: >-
+      A homályos vagy csak szóban kapott feladatok nem adnak semmit, amibe
+      kapaszkodni lehet.
+  notifications:
+    label: Értesítések és telefon
+    description: >-
+      Minden rezgés meghívás a feladat elhagyására.
+  stress:
+    label: Stressz és túlterheltség
+    description: >-
+      A túl sok egyidejű elvárás tovább szűkíti az amúgy is korlátozott
+      végrehajtó kapacitást.
+  long-meetings:
+    label: Hosszú megbeszélések
+    description: >-
+      Egy óra passzív hallgatás, részvétel nélkül.
+  open-ended-tasks:
+    label: Nyílt végű feladatok
+    description: >-
+      Nincs világos kezdet, nincs világos vég, és nincs meghatározva, mikor
+      kész.
+  hunger:
+    label: Éhség és kihagyott étkezések
+    description: >-
+      Elfelejteni enni, aztán összeomlani.
+
+  # ---------------------------------------------------------------- strategy
+  body-doubling:
+    label: Body doubling (közös munka)
+    description: >-
+      Munka egy másik ember mellett, egy szobában vagy videóhíváson, akinek a
+      jelenléte megkönnyíti az elkezdést és a kitartást.
+  pomodoro:
+    label: Pomodoro-időzítő
+    description: >-
+      Rövid, időzített sprintekben dolgozni, közöttük szünetekkel. Az időzítő
+      szerkezetet ad, és ami fontos, végpontot.
+  visual-timers:
+    label: Vizuális időzítők
+    description: >-
+      Az időt zsugorodó korongként vagy sávként mutató időzítők láthatóvá
+      teszik az idő múlását.
+  external-reminders:
+    label: Ébresztők és külső emlékeztetők
+    description: >-
+      A memóriát kivinni a fejből: telefonos ébresztők, naptárértesítések,
+      cetlik pont ott, ahol cselekedni kell.
+  task-breakdown:
+    label: Feladatok apró lépésekre bontása
+    description: >-
+      A „jelentést írni” helyett „megnyitni a dokumentumot, leírni egy
+      címsort”. Az első lépés legyen szinte nevetségesen kicsi.
+  checklists:
+    label: Írott ellenőrzőlisták
+    description: >-
+      A tervet papírra tenni, hogy a munkamemóriának ne kelljen tartania.
+  home-for-things:
+    label: Mindennek megvan a helye
+    description: >-
+      Rögzített hely a kulcsnak, a pénztárcának, a szemüvegnek. Egy tál az
+      ajtó mellett többet ér bármilyen gondolati jegyzetnél.
+  exercise:
+    label: Rendszeres testmozgás
+    description: >-
+      Az aerob mozgás órákra javítja a figyelmet és a hangulatot, és segíti
+      az alvást.
+  sleep-routine:
+    label: Állandó alvási rutin
+    description: >-
+      Rögzített ébredési idő, esti lecsendesedő rituálé, képernyők nélküli
+      hálószoba.
+  mindfulness:
+    label: Tudatos jelenlét gyakorlása
+    description: >-
+      Rövid, rendszeres gyakorlás abban, hogy észrevedd az elkalandozó
+      figyelmet és a feltörő érzelmeket, mielőtt átveszik az irányítást.
+  fidget-tools:
+    label: Fidget eszközök
+    description: >-
+      Ha a testnek van mit csinálnia, az felszabadíthatja a figyelmet
+      ahelyett, hogy felemésztené.
+  noise-control:
+    label: Fejhallgató és fehér zaj
+    description: >-
+      A zajszűrős fejhallgató vagy az egyenletes háttérzaj csökkenti a hangok
+      okozta figyelemelterelést.
+  time-boxing:
+    label: Időblokkok a naptárban
+    description: >-
+      Minden feladat kapjon helyet a naptárban, reális, általában hosszabb
+      becsléssel.
+  accountability-partner:
+    label: Elszámoltathatósági partner
+    description: >-
+      Elmondani valakinek, mit mikorra csinálsz meg, majd beszámolni róla.
+  routines:
+    label: Rutinok és szokásláncolás
+    description: >-
+      Új szokásokat meglévő horgonyokhoz kötni (kávé után gyógyszer), hogy
+      kevesebb döntés kelljen.
+  prepare-night-before:
+    label: Előkészülés előző este
+    description: >-
+      Ruha, táska, ebéd és kulcs előkészítve. A reggel ezután robotpilótán
+      megy.
+  externalise-memory:
+    label: A munkamemória kihelyezése
+    description: >-
+      Táblák, jegyzetalkalmazások, hangjegyzetek. Rögzítsd a gondolatot abban
+      a pillanatban, amikor felbukkan.
+  dopamine-menu:
+    label: Dopamin-menü
+    description: >-
+      Előre megírt lista egészséges, jutalmazó tevékenységekről, amelyekhez a
+      végtelen görgetés helyett nyúlhatsz.
+  gamification:
+    label: Feladatok játékosítása
+    description: >-
+      Pontok, sorozatok, versenyfutás az idővel. Az újdonság és a verseny
+      megteremti azt a sürgetést, ami az unalmas feladatokból hiányzik.
+  single-tasking:
+    label: Egyszerre egy feladat
+    description: >-
+      Egy fül, egy feladat, egy dolog az asztalon. Csökkentsd a
+      figyelemelterelés támadási felületét.
+  done-not-perfect:
+    label: A kész jobb, mint a tökéletes
+    description: >-
+      Tudatosan alacsonyabbra tenni a lécet. A perfekcionizmus a halogatás
+      gyakori hajtóereje.
+  pause-before-acting:
+    label: Szünet cselekvés előtt
+    description: >-
+      Beépített késleltetés: 24 óra egy vásárlás előtt, egy lassú lélegzet
+      egy válasz előtt.
+  self-compassion:
+    label: Önegyüttérzés
+    description: >-
+      A botlásokat adatként kezelni, nem a kudarc bizonyítékaként. A szégyen
+      táplálja az elkerülést.
+  decision-reduction:
+    label: Kevesebb döntés
+    description: >-
+      Kevesebb döntést kelljen hozni: állandó étkezések, kis ruhatár,
+      alapértelmezett válaszok.
+
+  # ---------------------------------------------------------------- treatment
+  assessment:
+    label: Diagnózis és kivizsgálás
+    description: >-
+      Egy képzett szakember hivatalos kivizsgálása a kapu a kezeléshez és az
+      alkalmazkodásokhoz.
+  medication:
+    label: Gyógyszeres kezelés
+    description: >-
+      Stimuláns és nem stimuláns gyógyszerek, orvos által felírva és követve.
+      Sok felnőtt számára elsőként választandó kezelés.
+  cbt:
+    label: ADHD-specifikus KVT
+    description: >-
+      ADHD-hoz igazított kognitív viselkedésterápia: készségek a tervezéshez,
+      a halogatáshoz és a nem segítő gondolkodási mintákhoz.
+  coaching:
+    label: ADHD-coaching
+    description: >-
+      Gyakorlati, célorientált támogatás olyan rendszerek és rutinok
+      kialakításához, amelyek illenek az emberhez.
+  workplace-accommodations:
+    label: Munkahelyi alkalmazkodások
+    description: >-
+      Rugalmas munkaidő, írásos utasítások, csendes munkahely,
+      határidő-egyeztetések.
+
+  # ---------------------------------------------------------------- impact
+  missed-deadlines:
+    label: Elmulasztott határidők
+    description: >-
+      A munka későn vagy egyáltalán nem készül el, jó szándék és valódi
+      erőfeszítés ellenére.
+  relationship-strain:
+    label: Megterhelt kapcsolatok
+    description: >-
+      Az elfelejtett ígéretek, a közbevágások és az érzelmi kitörések
+      felőrlik a párkapcsolatot, a barátságokat és a munkatársi viszonyokat.
+  low-self-esteem:
+    label: Alacsony önértékelés
+    description: >-
+      Évekig tartó „csak igyekezz jobban” visszajelzés után marad az érzés,
+      hogy lusta vagy elromlott vagy.
+  burnout:
+    label: Kiégés
+    description: >-
+      A tünetek elfedése és folyamatos ellensúlyozása kimerítő.
+  financial-trouble:
+    label: Pénzügyi gondok
+    description: >-
+      Késedelmi díjak, elfelejtett előfizetések, impulzusvásárlások.
+  underachievement:
+    label: Képességek alatti teljesítmény
+    description: >-
+      A képességek alatti teljesítmény az iskolában vagy a munkában.
+  anxiety-depression:
+    label: Szorongás és depresszió
+    description: >-
+      Gyakran együtt járó állapotok, amelyeket sokszor a térkép többi
+      következménye táplál.
+
+edges:
+  hyperfocus-time-blindness:
+    note: >-
+      A hiperfókuszban órák tűnnek el.
+  sleep-problems-time-blindness:
+    note: >-
+      A lefekvés egyre későbbre csúszik, mert az este rövidebbnek tűnik, mint
+      amilyen.
+  body-doubling-task-initiation:
+    note: >-
+      A másik ember jelenléte adja meg az indítójelet, amit az agy magától
+      nem termel meg.
+  pomodoro-task-initiation:
+    note: >-
+      Ha csak 25 percre kötelezed el magad, kisebb az elkezdés ára.
+  pomodoro-hyperfocus:
+    note: >-
+      A szünetjelzés külső megszakítás egy olyan munkamenethez, amely
+      különben órákig tartana.
+  fidget-tools-fidgeting:
+    note: >-
+      Mederbe tereli a mozgást ahelyett, hogy elnyomná.
+  routines-task-switching:
+    note: >-
+      Egy rögzített átállási rituálé kiszámíthatóvá teszi a váltást.
+  pause-before-acting-rejection-sensitivity:
+    note: >-
+      Ha vársz, mielőtt egy vélt sértésre válaszolsz, az első
+      érzelemhullámnak van ideje elvonulni.

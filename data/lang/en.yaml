@@ -1,0 +1,439 @@
+# English text for data/adhd-map.yaml. Keys are the ids from that file.
+
+language: en
+name: English
+title: ADHD map
+
+ui:
+  title: ADHD map
+  language: Language
+  find_node: Find a node
+  fit: Fit
+  expand_all: Expand all
+  reset: Reset
+  switch_to_cytoscape: Switch to Cytoscape.js
+  switch_to_force_graph: Switch to force-graph
+  prototype_cytoscape: "Prototype A: Cytoscape.js + fcose"
+  prototype_force_graph: "Prototype B: force-graph"
+  intro: "Click a node to open it: its details appear here and its neighbours unfold on the map. Click an open node again to fold away what it revealed."
+  intro_hint: "Drag to pan, scroll to zoom, or use the search box to jump to any node."
+  counts: "{nodes} nodes, {links} links."
+  hidden_one: 1 connected node is not shown yet. Click the node again to reveal it.
+  hidden_many: "{count} connected nodes are not shown yet. Click the node again to reveal them."
+  fold_one: All connections are on the map. Click the node again to fold away the node it revealed.
+  fold_many: "All connections are on the map. Click the node again to fold away the {count} nodes it revealed."
+  all_shown: All connections are on the map.
+  reveal_chip: Not on the map yet. Click to reveal.
+
+kinds:
+  hub: Overview
+  cluster: Symptom cluster
+  symptom: Symptom
+  trigger: Trigger
+  strategy: Coping strategy
+  treatment: "Treatment & support"
+  impact: Impact
+
+relations:
+  includes:   { label: includes, inverse: part of }
+  related_to: { label: related to, inverse: related to }
+  worsens:    { label: worsens, inverse: worsened by }
+  helps_with: { label: helps with, inverse: helped by }
+  reduces:    { label: reduces, inverse: reduced by }
+  leads_to:   { label: leads to, inverse: follows from }
+
+nodes:
+  # ---------------------------------------------------------------- hub
+  adhd:
+    label: ADHD
+    description: >-
+      Attention deficit hyperactivity disorder is a neurodevelopmental
+      condition that affects attention regulation, activity level, impulse
+      control and executive function. Click a cluster to explore its symptoms,
+      then follow the links to triggers, coping strategies and impacts.
+
+  # ---------------------------------------------------------------- cluster
+  inattention:
+    label: Inattention
+    description: >-
+      Difficulty directing and holding attention where it is needed, and
+      sometimes the opposite problem of not being able to let go of it.
+  hyperactivity:
+    label: "Hyperactivity & impulsivity"
+    description: >-
+      An inner motor that keeps running, and actions that arrive before the
+      thought that should have preceded them. In adults hyperactivity is often
+      felt rather than seen.
+  executive:
+    label: Executive function
+    description: >-
+      The management layer of the brain: starting, planning, sequencing,
+      prioritising, keeping track of time and holding things in mind.
+  emotional:
+    label: Emotional regulation
+    description: >-
+      Emotions that arrive fast, hit hard and take longer to settle. Not part
+      of the formal diagnostic criteria, but one of the most disabling aspects
+      for many adults.
+
+  # ---------------------------------------------------------------- symptom
+  distractibility:
+    label: Distractibility
+    description: >-
+      Attention is pulled away by outside stimuli or by internal thoughts,
+      even in the middle of tasks that matter.
+  sustained-attention:
+    label: Difficulty sustaining attention
+    description: >-
+      Long, low-stimulation tasks such as reading, forms or meetings are hard
+      to stay with. Attention is not absent, it is unevenly available.
+  hyperfocus:
+    label: Hyperfocus
+    description: >-
+      Intense, hard-to-break absorption in an interesting task, often at the
+      expense of everything else including food, sleep and other people.
+  forgetfulness:
+    label: Forgetfulness
+    description: >-
+      Appointments, promises and routine tasks slip away. Usually not from
+      lack of caring but from the reminder never arriving at the right moment.
+  losing-things:
+    label: Losing things
+    description: >-
+      Keys, phone, wallet, documents. Items put down "for a second" vanish.
+  careless-mistakes:
+    label: Careless mistakes
+    description: >-
+      Details get skipped in work or paperwork despite knowing the material
+      well.
+  restlessness:
+    label: Restlessness
+    description: >-
+      Sitting still feels uncomfortable. In adults this is often an inner
+      tension rather than visible movement.
+  fidgeting:
+    label: Fidgeting
+    description: >-
+      Tapping, bouncing, picking, shifting. Often a self-regulation strategy
+      rather than a distraction.
+  impulsivity:
+    label: Impulsivity
+    description: >-
+      Acting before thinking: blurting things out, impulse purchases, snap
+      decisions and risky choices.
+  interrupting:
+    label: "Interrupting & talking a lot"
+    description: >-
+      Finishing other people's sentences, jumping into conversations,
+      monologuing about a favourite topic.
+  impatience:
+    label: Impatience
+    description: >-
+      Waiting in queues, in traffic or for a slow answer feels physically hard
+      to bear.
+  task-initiation:
+    label: Task initiation difficulty
+    description: >-
+      Knowing exactly what to do and being unable to start. Sometimes called
+      ADHD paralysis.
+  procrastination:
+    label: Procrastination
+    description: >-
+      Delaying tasks until the pressure of a deadline supplies enough urgency
+      to act.
+  time-blindness:
+    label: Time blindness
+    description: >-
+      A weak sense of how much time has passed and how long things take.
+      Chronic lateness and over-committing follow.
+  disorganisation:
+    label: Disorganisation
+    description: >-
+      Piles, cluttered spaces, chaotic files, lost paperwork.
+  working-memory:
+    label: Working memory problems
+    description: >-
+      Holding several things in mind at once is hard: multi-step instructions,
+      mental arithmetic, remembering why you walked into a room.
+  prioritising:
+    label: Difficulty prioritising
+    description: >-
+      Everything feels equally urgent, or the least important task gets done
+      first because it is the most interesting one.
+  task-switching:
+    label: Difficulty switching tasks
+    description: >-
+      Transitions are costly. Hard to stop what you are doing, and hard to
+      start the next thing.
+  emotional-dysregulation:
+    label: Emotional dysregulation
+    description: >-
+      Emotions arrive quickly and strongly and take longer to settle than the
+      situation seems to warrant.
+  rejection-sensitivity:
+    label: Rejection sensitivity
+    description: >-
+      Perceived criticism or rejection triggers intense emotional pain. Not a
+      formal diagnostic term, but very widely reported.
+  frustration-tolerance:
+    label: Low frustration tolerance
+    description: >-
+      Small obstacles can produce disproportionate anger, or the urge to give
+      up entirely.
+  boredom-intolerance:
+    label: Boredom intolerance
+    description: >-
+      Under-stimulation feels aversive. The mind goes looking for novelty or
+      intensity wherever it can find it.
+  sleep-problems:
+    label: Sleep problems
+    description: >-
+      Trouble falling asleep, a delayed body clock, and staying up late to
+      reclaim time that the day did not provide.
+
+  # ---------------------------------------------------------------- trigger
+  boring-tasks:
+    label: Boring or repetitive tasks
+    description: >-
+      Low-interest tasks provide too little stimulation to hold attention.
+  poor-sleep:
+    label: Lack of sleep
+    description: >-
+      Almost every ADHD symptom gets worse after a bad night.
+  noisy-environment:
+    label: Noisy environment
+    description: >-
+      Open-plan offices, cafés, a television in the background.
+  unclear-instructions:
+    label: Unclear instructions
+    description: >-
+      Vague or verbal-only tasks leave nothing to anchor on.
+  notifications:
+    label: "Notifications & phone"
+    description: >-
+      Every buzz is an invitation to leave the task.
+  stress:
+    label: "Stress & overload"
+    description: >-
+      Too many demands at once shrink an already limited executive capacity.
+  long-meetings:
+    label: Long meetings
+    description: >-
+      An hour of passive listening with no interaction.
+  open-ended-tasks:
+    label: Open-ended tasks
+    description: >-
+      No clear start, no clear end, no definition of done.
+  hunger:
+    label: "Hunger & skipped meals"
+    description: >-
+      Forgetting to eat, then crashing.
+
+  # ---------------------------------------------------------------- strategy
+  body-doubling:
+    label: Body doubling
+    description: >-
+      Working alongside another person, in the same room or on a video call,
+      whose presence makes starting and staying on task easier.
+  pomodoro:
+    label: Pomodoro timer
+    description: >-
+      Work in short timed sprints with breaks in between. The timer supplies
+      structure and, importantly, an end point.
+  visual-timers:
+    label: Visual timers
+    description: >-
+      Timers that show time as a shrinking disc or bar make the passing of
+      time visible.
+  external-reminders:
+    label: "Alarms & external reminders"
+    description: >-
+      Move memory out of the head: phone alarms, calendar notifications,
+      sticky notes at the point of action.
+  task-breakdown:
+    label: Break tasks into tiny steps
+    description: >-
+      Turn "write the report" into "open the document, write one heading". The
+      first step should be almost trivially small.
+  checklists:
+    label: Written checklists
+    description: >-
+      Put the plan on paper so working memory does not have to hold it.
+  home-for-things:
+    label: A home for everything
+    description: >-
+      Fixed spots for keys, wallet and glasses. A bowl by the door beats a
+      mental note.
+  exercise:
+    label: Regular exercise
+    description: >-
+      Aerobic activity improves attention and mood for hours afterwards and
+      helps with sleep.
+  sleep-routine:
+    label: Consistent sleep routine
+    description: >-
+      A fixed wake time, a wind-down ritual, screens out of the bedroom.
+  mindfulness:
+    label: Mindfulness practice
+    description: >-
+      Short, regular practice in noticing attention drifting and emotions
+      rising before they take over.
+  fidget-tools:
+    label: Fidget tools
+    description: >-
+      Giving the body something to do can free attention rather than consume
+      it.
+  noise-control:
+    label: "Headphones & white noise"
+    description: >-
+      Noise-cancelling headphones or steady background sound reduce auditory
+      distraction.
+  time-boxing:
+    label: Time-boxing the calendar
+    description: >-
+      Give every task a slot in the calendar with a realistic, usually longer,
+      estimate.
+  accountability-partner:
+    label: Accountability partner
+    description: >-
+      Tell someone what you will do by when, and report back.
+  routines:
+    label: "Routines & habit stacking"
+    description: >-
+      Attach new habits to existing anchors (after coffee, take medication) so
+      fewer decisions are needed.
+  prepare-night-before:
+    label: Prepare the night before
+    description: >-
+      Clothes, bag, lunch and keys laid out. Mornings then run on autopilot.
+  externalise-memory:
+    label: Externalise working memory
+    description: >-
+      Whiteboards, notes apps, voice memos. Capture the thought the moment it
+      appears.
+  dopamine-menu:
+    label: Dopamine menu
+    description: >-
+      A pre-written list of healthy rewarding activities to reach for instead
+      of endless scrolling.
+  gamification:
+    label: Gamify tasks
+    description: >-
+      Points, streaks, races against a timer. Novelty and competition create
+      the urgency that boring tasks lack.
+  single-tasking:
+    label: Single-tasking
+    description: >-
+      One tab, one task, one thing on the desk. Shrink the surface area for
+      distraction.
+  done-not-perfect:
+    label: Done beats perfect
+    description: >-
+      Lower the bar deliberately. Perfectionism is a common driver of
+      procrastination.
+  pause-before-acting:
+    label: Pause before acting
+    description: >-
+      A built-in delay: 24 hours before a purchase, a slow breath before
+      replying.
+  self-compassion:
+    label: Self-compassion
+    description: >-
+      Treat slips as data rather than as evidence of failure. Shame fuels
+      avoidance.
+  decision-reduction:
+    label: Reduce decisions
+    description: >-
+      Fewer choices to make: standard meals, a small wardrobe, default
+      answers.
+
+  # ---------------------------------------------------------------- treatment
+  assessment:
+    label: "Diagnosis & assessment"
+    description: >-
+      A formal assessment by a qualified clinician is the gateway to treatment
+      and to accommodations.
+  medication:
+    label: Medication
+    description: >-
+      Stimulant and non-stimulant medication, prescribed and monitored by a
+      clinician. A first-line treatment for many adults.
+  cbt:
+    label: CBT for ADHD
+    description: >-
+      Cognitive behavioural therapy adapted for ADHD: skills for planning,
+      procrastination and unhelpful thinking patterns.
+  coaching:
+    label: ADHD coaching
+    description: >-
+      Practical, goal-oriented support for building systems and routines that
+      fit the person.
+  workplace-accommodations:
+    label: Workplace accommodations
+    description: >-
+      Flexible hours, written instructions, a quiet workspace, deadline check-
+      ins.
+
+  # ---------------------------------------------------------------- impact
+  missed-deadlines:
+    label: Missed deadlines
+    description: >-
+      Work delivered late or not at all, despite good intentions and real
+      effort.
+  relationship-strain:
+    label: Relationship strain
+    description: >-
+      Forgotten promises, interrupting and emotional outbursts wear on
+      partners, friends and colleagues.
+  low-self-esteem:
+    label: Low self-esteem
+    description: >-
+      Years of "just try harder" feedback leave a sense of being lazy or
+      broken.
+  burnout:
+    label: Burnout
+    description: >-
+      Masking symptoms and constantly compensating for them is exhausting.
+  financial-trouble:
+    label: Financial trouble
+    description: >-
+      Late fees, forgotten subscriptions, impulse purchases.
+  underachievement:
+    label: Underachievement
+    description: >-
+      Performance below ability at school or at work.
+  anxiety-depression:
+    label: "Anxiety & depression"
+    description: >-
+      Frequently co-occurring conditions, often fuelled by the other impacts
+      on this map.
+
+edges:
+  hyperfocus-time-blindness:
+    note: >-
+      Hours disappear inside a hyperfocus session.
+  sleep-problems-time-blindness:
+    note: >-
+      Bedtime keeps slipping because the evening does not feel as long as it
+      is.
+  body-doubling-task-initiation:
+    note: >-
+      Another person's presence supplies the starting cue the brain does not
+      generate on its own.
+  pomodoro-task-initiation:
+    note: >-
+      Committing to only 25 minutes lowers the cost of starting.
+  pomodoro-hyperfocus:
+    note: >-
+      The break alarm is an external interrupt for a session that would
+      otherwise run for hours.
+  fidget-tools-fidgeting:
+    note: >-
+      Channels the movement instead of suppressing it.
+  routines-task-switching:
+    note: >-
+      A fixed transition ritual makes the switch predictable.
+  pause-before-acting-rejection-sensitivity:
+    note: >-
+      Waiting before replying to a perceived slight gives the first wave of
+      emotion time to pass.

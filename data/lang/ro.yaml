@@ -1,0 +1,449 @@
+# Text în română pentru data/adhd-map.yaml. Cheile sunt id-urile din acel fișier.
+
+language: ro
+name: Română
+title: Harta ADHD
+
+ui:
+  title: Harta ADHD
+  language: Limbă
+  find_node: Caută un nod
+  fit: Încadrează
+  expand_all: Extinde tot
+  reset: Resetează
+  switch_to_cytoscape: Treci la Cytoscape.js
+  switch_to_force_graph: Treci la force-graph
+  prototype_cytoscape: "Prototipul A: Cytoscape.js + fcose"
+  prototype_force_graph: "Prototipul B: force-graph"
+  intro: "Apasă pe un nod pentru a-l deschide: detaliile lui apar aici, iar vecinii se desfășoară pe hartă. Apasă din nou pe un nod deschis pentru a strânge ce a dezvăluit."
+  intro_hint: Trage pentru a muta harta, derulează pentru a mări sau folosește căutarea pentru a sări la orice nod.
+  counts: "{nodes} noduri, {links} legături."
+  hidden_one: "1 nod conectat nu este încă afișat. Apasă din nou pe nod pentru a-l dezvălui."
+  hidden_many: "{count} noduri conectate nu sunt încă afișate. Apasă din nou pe nod pentru a le dezvălui."
+  fold_one: Toate legăturile sunt pe hartă. Apasă din nou pe nod pentru a strânge nodul dezvăluit.
+  fold_many: "Toate legăturile sunt pe hartă. Apasă din nou pe nod pentru a strânge cele {count} noduri dezvăluite."
+  all_shown: Toate legăturile sunt pe hartă.
+  reveal_chip: Nu este încă pe hartă. Apasă pentru a-l dezvălui.
+
+kinds:
+  hub: Prezentare generală
+  cluster: Grup de simptome
+  symptom: Simptom
+  trigger: Factor declanșator
+  strategy: Strategie de adaptare
+  treatment: Tratament și sprijin
+  impact: Consecință
+
+relations:
+  includes:   { label: include, inverse: parte din }
+  related_to: { label: legat de, inverse: legat de }
+  worsens:    { label: agravează, inverse: agravat de }
+  helps_with: { label: ajută la, inverse: ajutat de }
+  reduces:    { label: reduce, inverse: redus de }
+  leads_to:   { label: duce la, inverse: rezultă din }
+
+nodes:
+  # ---------------------------------------------------------------- hub
+  adhd:
+    label: ADHD
+    description: >-
+      Tulburarea de deficit de atenție și hiperactivitate este o condiție de
+      neurodezvoltare care afectează reglarea atenției, nivelul de
+      activitate, controlul impulsurilor și funcțiile executive. Apasă pe un
+      grup pentru a-i explora simptomele, apoi urmărește legăturile către
+      factorii declanșatori, strategii și consecințe.
+
+  # ---------------------------------------------------------------- cluster
+  inattention:
+    label: Neatenție
+    description: >-
+      Dificultatea de a direcționa și de a menține atenția acolo unde este
+      nevoie, și uneori problema opusă: de a nu putea să îi dai drumul.
+  hyperactivity:
+    label: Hiperactivitate și impulsivitate
+    description: >-
+      Un motor interior care merge continuu și acțiuni care vin înaintea
+      gândului care ar fi trebuit să le preceadă. La adulți, hiperactivitatea
+      este adesea mai degrabă simțită decât văzută.
+  executive:
+    label: Funcții executive
+    description: >-
+      Stratul de management al creierului: a începe, a planifica, a ordona, a
+      prioritiza, a urmări timpul și a ține lucrurile în minte.
+  emotional:
+    label: Reglarea emoțiilor
+    description: >-
+      Emoții care vin repede, lovesc puternic și se liniștesc mai greu. Nu
+      fac parte din criteriile formale de diagnostic, dar pentru mulți adulți
+      sunt unul dintre cele mai apăsătoare aspecte.
+
+  # ---------------------------------------------------------------- symptom
+  distractibility:
+    label: Distractibilitate
+    description: >-
+      Atenția este trasă de stimuli exteriori sau de gânduri interioare,
+      chiar în mijlocul sarcinilor care contează.
+  sustained-attention:
+    label: Dificultate de a menține atenția
+    description: >-
+      Sarcinile lungi și puțin stimulante, precum cititul, formularele sau
+      ședințele, sunt greu de dus până la capăt. Atenția nu lipsește, ci
+      este disponibilă inegal.
+  hyperfocus:
+    label: Hiperfocalizare
+    description: >-
+      Absorbție intensă, greu de întrerupt, într-o sarcină interesantă,
+      adesea în detrimentul a orice altceva, inclusiv mâncarea, somnul și
+      ceilalți oameni.
+  forgetfulness:
+    label: Uitare
+    description: >-
+      Programările, promisiunile și sarcinile de rutină se pierd. De obicei
+      nu din nepăsare, ci pentru că memento-ul nu vine niciodată la momentul
+      potrivit.
+  losing-things:
+    label: Pierderea lucrurilor
+    description: >-
+      Chei, telefon, portofel, documente. Lucrurile puse jos „doar o clipă”
+      dispar.
+  careless-mistakes:
+    label: Greșeli din neatenție
+    description: >-
+      Detalii sunt sărite în muncă sau în acte, deși materialul este bine
+      cunoscut.
+  restlessness:
+    label: Neliniște
+    description: >-
+      Statul locului este inconfortabil. La adulți, aceasta este adesea o
+      tensiune interioară, nu o mișcare vizibilă.
+  fidgeting:
+    label: Agitație motorie
+    description: >-
+      Bătut cu degetele, legănat, ciupit, foit. Adesea o strategie de
+      autoreglare, nu o distragere.
+  impulsivity:
+    label: Impulsivitate
+    description: >-
+      A acționa înainte de a gândi: vorbe scăpate, cumpărături impulsive,
+      decizii pripite și alegeri riscante.
+  interrupting:
+    label: Întreruperea celorlalți și vorbitul mult
+    description: >-
+      Terminarea frazelor celorlalți, intrarea peste conversații, monologuri
+      despre un subiect preferat.
+  impatience:
+    label: Nerăbdare
+    description: >-
+      Așteptatul la coadă, în trafic sau după un răspuns lent este greu de
+      suportat fizic.
+  task-initiation:
+    label: Dificultate de a începe sarcini
+    description: >-
+      A ști exact ce ai de făcut și a nu putea să începi. Numită uneori
+      paralizie ADHD.
+  procrastination:
+    label: Amânare
+    description: >-
+      Amânarea sarcinilor până când presiunea termenului oferă destulă
+      urgență pentru a acționa.
+  time-blindness:
+    label: Percepție slabă a timpului
+    description: >-
+      Un simț slab al timpului scurs și al duratei lucrurilor. Urmează
+      întârzieri cronice și angajamente prea multe.
+  disorganisation:
+    label: Dezorganizare
+    description: >-
+      Grămezi, spații aglomerate, dosare haotice, acte pierdute.
+  working-memory:
+    label: Probleme de memorie de lucru
+    description: >-
+      Este greu să ții mai multe lucruri în minte deodată: instrucțiuni în
+      mai mulți pași, calcule mintale, motivul pentru care ai intrat într-o
+      cameră.
+  prioritising:
+    label: Dificultate de a stabili priorități
+    description: >-
+      Totul pare la fel de urgent, sau sarcina cea mai puțin importantă este
+      făcută prima pentru că este cea mai interesantă.
+  task-switching:
+    label: Dificultate de a trece de la o sarcină la alta
+    description: >-
+      Tranzițiile costă mult. Este greu să te oprești din ce faci și greu să
+      începi următorul lucru.
+  emotional-dysregulation:
+    label: Dereglare emoțională
+    description: >-
+      Emoțiile vin repede și puternic și se liniștesc mai greu decât pare să
+      justifice situația.
+  rejection-sensitivity:
+    label: Sensibilitate la respingere
+    description: >-
+      Critica sau respingerea percepută declanșează o durere emoțională
+      intensă. Nu este un termen formal de diagnostic, dar este raportată
+      foarte des.
+  frustration-tolerance:
+    label: Toleranță scăzută la frustrare
+    description: >-
+      Obstacole mici pot produce furie disproporționată sau impulsul de a
+      renunța cu totul.
+  boredom-intolerance:
+    label: Intoleranță la plictiseală
+    description: >-
+      Substimularea este neplăcută. Mintea caută noutate sau intensitate
+      oriunde le găsește.
+  sleep-problems:
+    label: Probleme de somn
+    description: >-
+      Dificultăți de a adormi, un ceas intern decalat și statul târziu pentru
+      a recupera timpul pe care ziua nu l-a oferit.
+
+  # ---------------------------------------------------------------- trigger
+  boring-tasks:
+    label: Sarcini plictisitoare sau repetitive
+    description: >-
+      Sarcinile puțin interesante oferă prea puțină stimulare pentru a
+      menține atenția.
+  poor-sleep:
+    label: Lipsa somnului
+    description: >-
+      Aproape orice simptom ADHD se agravează după o noapte proastă.
+  noisy-environment:
+    label: Mediu zgomotos
+    description: >-
+      Birouri deschise, cafenele, un televizor pornit în fundal.
+  unclear-instructions:
+    label: Instrucțiuni neclare
+    description: >-
+      Sarcinile vagi sau doar verbale nu lasă nimic de care să te agăți.
+  notifications:
+    label: Notificări și telefon
+    description: >-
+      Fiecare vibrație este o invitație de a părăsi sarcina.
+  stress:
+    label: Stres și suprasolicitare
+    description: >-
+      Prea multe cerințe deodată micșorează o capacitate executivă deja
+      limitată.
+  long-meetings:
+    label: Ședințe lungi
+    description: >-
+      O oră de ascultat pasiv, fără interacțiune.
+  open-ended-tasks:
+    label: Sarcini fără un final clar
+    description: >-
+      Fără un început clar, fără un sfârșit clar, fără o definiție a lui
+      „gata”.
+  hunger:
+    label: Foame și mese sărite
+    description: >-
+      Uiți să mănânci, apoi te prăbușești.
+
+  # ---------------------------------------------------------------- strategy
+  body-doubling:
+    label: Body doubling (lucru în prezența cuiva)
+    description: >-
+      A lucra alături de o altă persoană, în aceeași cameră sau pe video, a
+      cărei prezență face mai ușor să începi și să rămâi la sarcină.
+  pomodoro:
+    label: Cronometru Pomodoro
+    description: >-
+      Lucru în sprinturi scurte, cronometrate, cu pauze între ele.
+      Cronometrul oferă structură și, mai ales, un punct final.
+  visual-timers:
+    label: Cronometre vizuale
+    description: >-
+      Cronometrele care arată timpul ca un disc sau o bară care se
+      micșorează fac trecerea timpului vizibilă.
+  external-reminders:
+    label: Alarme și memento-uri externe
+    description: >-
+      Scoate memoria din cap: alarme pe telefon, notificări în calendar,
+      bilețele exact acolo unde trebuie acționat.
+  task-breakdown:
+    label: Împărțirea sarcinilor în pași mici
+    description: >-
+      „Scrie raportul” devine „deschide documentul, scrie un titlu”. Primul
+      pas ar trebui să fie aproape ridicol de mic.
+  checklists:
+    label: Liste de verificare scrise
+    description: >-
+      Pune planul pe hârtie, ca memoria de lucru să nu trebuiască să îl țină.
+  home-for-things:
+    label: Un loc fix pentru fiecare lucru
+    description: >-
+      Locuri fixe pentru chei, portofel și ochelari. Un bol lângă ușă bate
+      orice notiță mentală.
+  exercise:
+    label: Mișcare regulată
+    description: >-
+      Activitatea aerobică îmbunătățește atenția și dispoziția ore întregi
+      după aceea și ajută somnul.
+  sleep-routine:
+    label: Rutină de somn constantă
+    description: >-
+      O oră fixă de trezire, un ritual de seară, fără ecrane în dormitor.
+  mindfulness:
+    label: Practica mindfulness
+    description: >-
+      Exercițiu scurt și regulat de a observa atenția care rătăcește și
+      emoțiile care urcă, înainte să preia controlul.
+  fidget-tools:
+    label: Obiecte fidget
+    description: >-
+      A da corpului ceva de făcut poate elibera atenția în loc să o consume.
+  noise-control:
+    label: Căști și zgomot alb
+    description: >-
+      Căștile cu anulare a zgomotului sau un sunet de fundal constant reduc
+      distragerea auditivă.
+  time-boxing:
+    label: Blocuri de timp în calendar
+    description: >-
+      Dă fiecărei sarcini un loc în calendar, cu o estimare realistă, de
+      obicei mai lungă.
+  accountability-partner:
+    label: Partener de responsabilizare
+    description: >-
+      Spune cuiva ce vei face și până când, apoi raportează.
+  routines:
+    label: Rutine și înlănțuirea obiceiurilor
+    description: >-
+      Leagă obiceiurile noi de ancore existente (după cafea, ia medicația),
+      ca să fie nevoie de mai puține decizii.
+  prepare-night-before:
+    label: Pregătirea din seara precedentă
+    description: >-
+      Haine, geantă, prânz și chei pregătite. Dimineața merge apoi pe pilot
+      automat.
+  externalise-memory:
+    label: Externalizarea memoriei de lucru
+    description: >-
+      Table, aplicații de notițe, memo-uri vocale. Prinde gândul în clipa în
+      care apare.
+  dopamine-menu:
+    label: Meniu de dopamină
+    description: >-
+      O listă scrisă dinainte cu activități sănătoase și plăcute, la care să
+      apelezi în loc de derulat la nesfârșit.
+  gamification:
+    label: Transformarea sarcinilor în joc
+    description: >-
+      Puncte, serii, curse contra cronometru. Noutatea și competiția creează
+      urgența care lipsește sarcinilor plictisitoare.
+  single-tasking:
+    label: O singură sarcină odată
+    description: >-
+      O filă, o sarcină, un singur lucru pe birou. Micșorează suprafața de
+      atac a distragerii.
+  done-not-perfect:
+    label: Mai bine gata decât perfect
+    description: >-
+      Coboară ștacheta în mod deliberat. Perfecționismul este un motor
+      frecvent al amânării.
+  pause-before-acting:
+    label: Pauză înainte de a acționa
+    description: >-
+      O întârziere încorporată: 24 de ore înaintea unei cumpărături, o
+      respirație lentă înaintea unui răspuns.
+  self-compassion:
+    label: Autocompasiune
+    description: >-
+      Tratează derapajele ca date, nu ca dovezi de eșec. Rușinea alimentează
+      evitarea.
+  decision-reduction:
+    label: Mai puține decizii
+    description: >-
+      Mai puține alegeri de făcut: mese standard, o garderobă mică,
+      răspunsuri implicite.
+
+  # ---------------------------------------------------------------- treatment
+  assessment:
+    label: Diagnostic și evaluare
+    description: >-
+      O evaluare formală făcută de un clinician calificat este poarta către
+      tratament și adaptări.
+  medication:
+    label: Medicație
+    description: >-
+      Medicație stimulantă și nestimulantă, prescrisă și monitorizată de un
+      clinician. Un tratament de primă linie pentru mulți adulți.
+  cbt:
+    label: TCC pentru ADHD
+    description: >-
+      Terapie cognitiv-comportamentală adaptată pentru ADHD: abilități pentru
+      planificare, amânare și tipare de gândire nefolositoare.
+  coaching:
+    label: Coaching pentru ADHD
+    description: >-
+      Sprijin practic, orientat spre obiective, pentru a construi sisteme și
+      rutine potrivite persoanei.
+  workplace-accommodations:
+    label: Adaptări la locul de muncă
+    description: >-
+      Program flexibil, instrucțiuni scrise, un spațiu de lucru liniștit,
+      verificări intermediare ale termenelor.
+
+  # ---------------------------------------------------------------- impact
+  missed-deadlines:
+    label: Termene ratate
+    description: >-
+      Lucrări predate târziu sau deloc, în ciuda intențiilor bune și a
+      efortului real.
+  relationship-strain:
+    label: Relații tensionate
+    description: >-
+      Promisiunile uitate, întreruperile și izbucnirile emoționale uzează
+      relațiile cu partenerii, prietenii și colegii.
+  low-self-esteem:
+    label: Stimă de sine scăzută
+    description: >-
+      Ani de „străduiește-te mai mult” lasă senzația de a fi leneș sau
+      defect.
+  burnout:
+    label: Epuizare (burnout)
+    description: >-
+      Mascarea simptomelor și compensarea lor continuă sunt epuizante.
+  financial-trouble:
+    label: Probleme financiare
+    description: >-
+      Penalizări de întârziere, abonamente uitate, cumpărături impulsive.
+  underachievement:
+    label: Rezultate sub potențial
+    description: >-
+      Rezultate sub capacități la școală sau la muncă.
+  anxiety-depression:
+    label: Anxietate și depresie
+    description: >-
+      Condiții care apar frecvent împreună cu ADHD, adesea alimentate de
+      celelalte consecințe de pe această hartă.
+
+edges:
+  hyperfocus-time-blindness:
+    note: >-
+      Într-o sesiune de hiperfocalizare dispar ore întregi.
+  sleep-problems-time-blindness:
+    note: >-
+      Ora de culcare alunecă tot mai târziu pentru că seara nu pare atât de
+      lungă pe cât este.
+  body-doubling-task-initiation:
+    note: >-
+      Prezența altei persoane oferă semnalul de start pe care creierul nu îl
+      generează singur.
+  pomodoro-task-initiation:
+    note: >-
+      Angajamentul de doar 25 de minute scade costul începerii.
+  pomodoro-hyperfocus:
+    note: >-
+      Alarma de pauză este o întrerupere exterioară pentru o sesiune care
+      altfel ar dura ore.
+  fidget-tools-fidgeting:
+    note: >-
+      Canalizează mișcarea în loc să o suprime.
+  routines-task-switching:
+    note: >-
+      Un ritual fix de tranziție face schimbarea previzibilă.
+  pause-before-acting-rejection-sensitivity:
+    note: >-
+      Așteptarea înainte de a răspunde la o jignire percepută dă primului val
+      de emoție timp să treacă.
