@@ -11,10 +11,6 @@ ui:
   fit: Fit
   expand_all: Expand all
   reset: Reset
-  switch_to_cytoscape: Switch to Cytoscape.js
-  switch_to_force_graph: Switch to force-graph
-  prototype_cytoscape: "Prototype A: Cytoscape.js + fcose"
-  prototype_force_graph: "Prototype B: force-graph"
   intro: "Click a node to open it: its details appear here and its neighbours unfold on the map. Click an open node again to fold away what it revealed."
   intro_hint: "Drag to pan, scroll to zoom, or use the search box to jump to any node."
   counts: "{nodes} nodes, {links} links."
@@ -27,6 +23,16 @@ ui:
   show_loop: Show the whole loop
   show_reach: Show what this reaches
   strategy_caveat: "Strategies help some people and not others. Try it, keep what works, drop the rest."
+  options: Options
+  options_reset: Restore defaults
+  option_fade: Inactive node visibility
+  option_inactive_labels: Labels on inactive nodes
+  option_label_size: Label size
+  option_spacing: Node spacing
+  option_animate: Animate layout
+  option_auto_frame: Keep the opened node in view
+  option_relation_labels: Relation names on highlighted links
+  option_reach: Highlight what a strategy reaches
 
 kinds:
   hub: Overview
@@ -83,6 +89,13 @@ nodes:
       Emotions that arrive fast, hit hard and take longer to settle. Not part
       of the formal diagnostic criteria, but one of the most disabling aspects
       for many adults.
+
+  thinking-traps:
+    label: Thinking traps
+    description: >-
+      Habitual distortions in how events get interpreted. CBT calls them
+      cognitive distortions. Years of criticism make several of them common
+      with ADHD.
 
   # ---------------------------------------------------------------- symptom
   distractibility:
@@ -225,6 +238,55 @@ nodes:
       Anxiety that arrives long before the task and often costs more than the
       task itself.
 
+  catastrophising:
+    label: Catastrophising
+    description: >-
+      Jumping to the worst possible outcome and treating it as likely: one
+      late email becomes losing the job.
+  all-or-nothing:
+    label: All-or-nothing thinking
+    description: >-
+      Anything short of perfect counts as failure. A missed workout means the
+      whole plan is ruined.
+  mind-reading:
+    label: Mind reading
+    description: >-
+      Assuming you know what others think of you, usually the worst, without
+      checking.
+  overgeneralisation:
+    label: Overgeneralisation
+    description: >-
+      One setback becomes a rule about your whole life: “I always mess this
+      up.”
+  should-statements:
+    label: Should statements
+    description: >-
+      Rigid rules about how you and others must behave. Every “should” that is
+      not met produces guilt or anger.
+  personalisation:
+    label: Personalisation
+    description: >-
+      Taking responsibility for things outside your control, or reading
+      neutral events as being about you.
+  safety-behaviours:
+    label: Safety behaviours
+    description: >-
+      Small things done to feel safer in feared situations: rehearsing every
+      sentence, keeping the camera off, always having an exit. They bring
+      relief and keep the fear alive.
+
+  sensory-sensitivity:
+    label: Sensory sensitivity
+    description: >-
+      Sounds, smells, textures and light register louder than they do for
+      other people and keep pulling attention. Not in the ADHD criteria, but
+      found in most adults with ADHD.
+  misophonia:
+    label: Misophonia
+    description: >-
+      Intense anger or disgust at specific sounds such as chewing, tapping or
+      sniffing. Reported far more often with ADHD.
+
   # ---------------------------------------------------------------- trigger
   boring-tasks:
     label: Boring or repetitive tasks
@@ -262,6 +324,27 @@ nodes:
     label: "Hunger & skipped meals"
     description: >-
       Forgetting to eat, then crashing.
+
+  strong-smells:
+    label: Strong smells
+    description: >-
+      Perfume, cleaning products, a colleague's lunch, the scented candle
+      someone else loves.
+  crowded-places:
+    label: Crowded places
+    description: >-
+      Supermarkets, stations, parties: many sound sources, movement and smells
+      at the same time.
+  harsh-light:
+    label: Harsh light and flicker
+    description: >-
+      Fluorescent tubes, screens too bright, flickering lights, low sun
+      through a windscreen.
+  textures:
+    label: Textures and labels
+    description: >-
+      Scratchy fabrics, clothing labels, seams in socks, a wet sleeve. Small,
+      constant, impossible to ignore.
 
   # ---------------------------------------------------------------- strategy
   body-doubling:
@@ -574,6 +657,84 @@ nodes:
       Agree to do only five minutes of the dreaded thing. Stopping after five
       is allowed. Most of the time you will not.
 
+  thought-record:
+    label: Thought record
+    description: >-
+      Write the situation, the automatic thought, the emotion and its
+      strength, the evidence for and against, and a more balanced thought. The
+      classic CBT worksheet.
+  decatastrophising:
+    label: Decatastrophising
+    description: >-
+      Three questions: what is the worst that could happen, how likely is it
+      really, and how would I cope if it did?
+  behavioural-experiments:
+    label: Behavioural experiments
+    description: >-
+      Treat a fearful prediction as a hypothesis and test it: send the message
+      without rereading it ten times and see what actually happens.
+  graded-exposure:
+    label: Graded exposure
+    description: >-
+      Rank feared situations from easy to hard and work up the ladder, staying
+      in each until the anxiety falls on its own. Avoidance shrinks the world;
+      exposure widens it again.
+  structured-problem-solving:
+    label: Structured problem solving
+    description: >-
+      Define the problem in one sentence, list every option without judging,
+      pick one, plan the first step, review afterwards. Turns rumination into
+      a decision.
+  mood-diary:
+    label: Mood and activity diary
+    description: >-
+      Note what you did and how you felt, hour by hour, for a week. The
+      pattern shows which activities lift mood and which drain it.
+  relaxation-breathing:
+    label: Paced breathing and muscle relaxation
+    description: >-
+      Slow breathing with a long exhale, or tensing and releasing muscle
+      groups in turn. Teaches the body the off switch.
+  relapse-plan:
+    label: Relapse prevention plan
+    description: >-
+      A written page: early warning signs, what helped last time, who to call.
+      Made while well, read when not.
+  psychoeducation:
+    label: Learn how anxiety works
+    description: >-
+      Understanding the fight-or-flight response, why avoidance feeds fear,
+      and why anxiety always peaks and falls takes much of its power away.
+
+  earplugs:
+    label: Everyday earplugs
+    description: >-
+      Filtered earplugs that take the edge off without cutting out speech,
+      kept on the keyring so they are always there.
+  control-the-environment:
+    label: Control the environment
+    description: >-
+      Choose the seat, the room and the time of day. Unscented products at
+      home, dimmable lights, a quiet corner at work. Fewer inputs in the first
+      place.
+  comfortable-clothes:
+    label: Clothes that feel right
+    description: >-
+      Cut out labels, buy the same soft fabrics again, never compromise on
+      socks. Comfort is not fussiness when the alternative is all-day
+      distraction.
+  quiet-after-loud:
+    label: Quiet time after loud days
+    description: >-
+      Scheduled silence after a noisy day: no music, no calls, low light.
+      Recovery is part of the plan, not a luxury.
+  leave-early:
+    label: Permission to leave
+    description: >-
+      Agree beforehand, with yourself and with companions, that leaving a loud
+      place early is fine. Knowing there is an exit lowers the load from the
+      start.
+
   # ---------------------------------------------------------------- treatment
   assessment:
     label: "Diagnosis & assessment"
@@ -657,6 +818,12 @@ nodes:
       The exhaustion of hours spent worrying, masking and compensating, with
       nothing to show for it.
 
+  sensory-overload:
+    label: Sensory overload
+    description: >-
+      Too much input at once: irritability, shutdown, the urge to leave the
+      room. It drains energy for hours afterwards.
+
   # ---------------------------------------------------------------- situation
   chaotic-home:
     label: Chaotic home
@@ -674,6 +841,12 @@ nodes:
     description: >-
       Bills, subscriptions, taxes, the account you have not opened in months.
       Forgetfulness, avoidance and impulsivity all meet here.
+
+  loud-evening-out:
+    label: A loud restaurant or party
+    description: >-
+      Everyone is talking at once, the music is up, someone is chewing next to
+      you. Following the conversation costs more than it gives.
 
   # ---------------------------------------------------------------- mechanism
   dopamine-boost:
@@ -757,3 +930,27 @@ edges:
     note: >-
       This is why a run before a boring task can feel like a dose of
       medication.
+  safety-behaviours-anticipatory-anxiety:
+    note: >-
+      The relief they bring teaches the brain that the situation really was
+      dangerous.
+  thought-record-rumination:
+    note: >-
+      Rumination goes round in circles; a thought record goes forward, because
+      it ends in a balanced thought.
+  graded-exposure-avoidance:
+    note: >-
+      Each step must be small enough to actually take, and repeated until it
+      gets boring.
+  sensory-sensitivity-sensory-overload:
+    note: >-
+      Each sound or smell costs a little attention. By evening the budget is
+      gone.
+  explain-your-adhd-sensory-sensitivity:
+    note: >-
+      The person chewing next to you cannot hear what you hear. Saying so
+      beforehand turns a fight into a seating plan.
+  assessment-sensory-sensitivity:
+    note: >-
+      Strong, lifelong sensitivity is worth raising at assessment. It overlaps
+      with autism, and that changes which accommodations help.

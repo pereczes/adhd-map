@@ -1,7 +1,7 @@
 #!/usr/bin/env node
-/* Drives both prototypes in headless Chrome over the DevTools Protocol:
- * loads the page, clicks real nodes, checks that neighbours appear, switches
- * the language, and writes screenshots to tmp/. Requires google-chrome and a
+/* Drives the map in headless Chrome over the DevTools Protocol: loads the
+ * page, clicks real nodes, checks that neighbours appear, switches the
+ * language, and writes screenshots to tmp/. Requires google-chrome and a
  * static server.
  *
  *   python3 -m http.server 8765 --bind 127.0.0.1 &
@@ -96,7 +96,7 @@ async function clickNode(session, nodeId) {
   const position = await evaluate(session, `adhdMapDebug.nodeScreenPosition(${JSON.stringify(nodeId)})`);
   const common = { x: position.x, y: position.y, button: 'left', clickCount: 1 };
   await session.send('Input.dispatchMouseEvent', { type: 'mouseMoved', x: position.x, y: position.y });
-  /* force-graph resolves the hovered node on the next animation frame. */
+  /* A short pause between moving and pressing, like a real hand. */
   await sleep(150);
   await session.send('Input.dispatchMouseEvent', { type: 'mousePressed', ...common });
   await session.send('Input.dispatchMouseEvent', { type: 'mouseReleased', ...common });
@@ -113,7 +113,7 @@ async function visibleCount(session) {
 }
 
 async function runScenario(session, prototype, problems) {
-  const url = `${baseUrl}/${prototype}/?lang=en`;
+  const url = `${baseUrl}/?lang=en`;
   const loaded = new Promise((resolve) => {
     session.onEvent((message) => {
       if (message.method === 'Page.loadEventFired') {
@@ -126,9 +126,13 @@ async function runScenario(session, prototype, problems) {
   await sleep(settleMs);
 
   const initial = await visibleCount(session);
-  console.log(`${prototype}: initial visible nodes = ${initial}`);
-  if (initial !== 9) {
-    problems.push(`${prototype}: expected 9 initial nodes, got ${initial}`);
+  const expectedInitial = await evaluate(
+    session,
+    'adhdMapDebug.graph.neighboursOf(adhdMapDebug.graph.start).length + 1',
+  );
+  console.log(`${prototype}: initial visible nodes = ${initial} (expected ${expectedInitial})`);
+  if (initial !== expectedInitial) {
+    problems.push(`${prototype}: expected ${expectedInitial} initial nodes, got ${initial}`);
   }
   await screenshot(session, `smoke-${prototype}-1-initial.png`);
 
@@ -183,6 +187,23 @@ async function runScenario(session, prototype, problems) {
     problems.push(`${prototype}: "Show the whole loop" did not reveal the rumination loop`);
   }
   await screenshot(session, `smoke-${prototype}-6-loop.png`);
+
+  const optionInputs = await evaluate(session, `(() => {
+    document.getElementById('options-toggle').click();
+    const box = document.getElementById('options');
+    if (box.hidden) return -1;
+    const labels = box.querySelector('input[type=checkbox]');
+    labels.checked = true;
+    labels.dispatchEvent(new Event('change'));
+    return box.querySelectorAll('input').length;
+  })()`);
+  console.log(`${prototype}: options box open with ${optionInputs} controls`);
+  if (optionInputs < 8) {
+    problems.push(`${prototype}: options box did not open or is missing controls (${optionInputs})`);
+  }
+  await sleep(500);
+  await screenshot(session, `smoke-${prototype}-7-options.png`);
+  await evaluate(session, 'document.getElementById("options-toggle").click(); true');
 
   await clickNode(session, 'distractibility');
   await sleep(1000);
@@ -242,9 +263,7 @@ async function main() {
         problems.push(`console.error: ${message.params.args.map((argument) => argument.value || argument.description).join(' ')}`);
       }
     });
-    for (const prototype of ['cytoscape', 'force-graph']) {
-      await runScenario(session, prototype, problems);
-    }
+    await runScenario(session, 'map', problems);
     session.close();
   } finally {
     chrome.kill();

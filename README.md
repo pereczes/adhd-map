@@ -7,29 +7,28 @@ daily life. Click a node to open it and reveal what it is connected to.
 The site is plain static HTML and JavaScript, served straight from this
 repository by GitHub Pages. There is no build step.
 
-## Two prototypes
+## How it works
 
-The project currently holds two renderings of the same data so the browsing
-feel can be compared:
+The map is rendered with [Cytoscape.js](https://js.cytoscape.org/) and the
+fcose layout. `index.html` and `app.js` are the page; `shared/` holds the
+YAML loader, the expand and collapse state, the side panel, legend and
+search, the language handling, and the stylesheet.
 
-| Prototype | Directory | Library | Feel |
-|-----------|-----------|---------|------|
-| A | `cytoscape/` | [Cytoscape.js](https://js.cytoscape.org/) with the fcose layout | Tidy diagram; every expansion re-runs the layout and settles into a still picture |
-| B | `force-graph/` | [force-graph](https://github.com/vasturiano/force-graph) | Live physics; nodes drift and settle in a running force simulation, and can be dragged and pinned |
-
-Both read the same `data/adhd-map.yaml` and share the same expand and collapse
-logic (`shared/explorer.js`), side panel and legend (`shared/panel.js`) and
-styling (`shared/style.css`). Only the rendering code differs.
-
-Browsing works the same way in both:
+Browsing:
 
 - Click a node: it becomes selected, its details and connections appear in
   the side panel, and its hidden neighbours unfold next to it.
 - Click an open node again: the nodes it revealed fold away again.
 - A dashed ring marks nodes that still have hidden neighbours.
 - Chips in the side panel jump to that node, revealing it if needed.
+- "Show the whole loop" reveals a vicious cycle in one go, and "Show what
+  this reaches" reveals what a strategy does through its mechanisms.
 - The search box jumps to any node by name.
 - Fit, Expand all and Reset live in the toolbar. Escape clears the selection.
+- Options opens a box with sliders and toggles: how far inactive nodes fade,
+  whether they keep their labels, label size, node spacing, layout animation,
+  automatic framing of the opened node, relation names on highlighted links,
+  and the two-hop reach highlight. Choices are stored in the browser.
 
 ## Data
 
@@ -68,9 +67,8 @@ An edge only needs an `id` when a language file attaches a note to it.
 Two optional flags on a relation change how it is drawn and browsed:
 
 - `loop: true` marks a vicious cycle (the `feeds` relation). Its edges are
-  drawn thick and curved, force-graph animates particles along them
-  permanently, and the panel of any node in the cycle offers "Show the
-  whole loop", which reveals the entire ring at once.
+  drawn thick and curved, and the panel of any node in the cycle offers
+  "Show the whole loop", which reveals the entire ring at once.
 - `via: true` marks a chaining relation (the `produces` relation from a
   strategy to a mechanism). Selecting a node highlights its two-hop reach
   through such edges in a second tone, and the panel offers "Show what this
@@ -122,22 +120,25 @@ string.
 
 ## Running locally
 
-The pages fetch the YAML file, so they need an HTTP server rather than a
-`file://` URL:
+The page fetches the YAML files, so it needs an HTTP server rather than a
+`file://` URL. The bundled server disables caching so every reload shows
+the current files:
 
 ```sh
-python3 -m http.server 8765 --bind 127.0.0.1
+./tools/serve.py 127.0.0.1 8080
 ```
 
-Then open <http://127.0.0.1:8765/>.
+Then open <http://127.0.0.1:8080/>. Pass a LAN address instead of
+`127.0.0.1` to reach it from other devices.
 
-`tools/smoke-test.mjs` drives both prototypes in headless Chrome: it loads
-each page, clicks real nodes, checks that neighbours appear and fold away,
-switches the language to German, and writes screenshots to `tmp/`. It needs `google-chrome` and Node 22 or
+`tools/smoke-test.mjs` drives the map in headless Chrome: it loads the
+page, clicks real nodes, checks that neighbours appear and fold away,
+reveals the rumination loop, switches the language to German, and writes
+screenshots to `tmp/`. It needs `google-chrome` and Node 22 or
 newer:
 
 ```sh
-node tools/smoke-test.mjs http://127.0.0.1:8765
+node tools/smoke-test.mjs http://127.0.0.1:8080
 ```
 
 ## Deploying to GitHub Pages

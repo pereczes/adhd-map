@@ -11,10 +11,6 @@ ui:
   fit: Igazítás
   expand_all: Összes kibontása
   reset: Alaphelyzet
-  switch_to_cytoscape: Váltás Cytoscape.js-re
-  switch_to_force_graph: Váltás force-graph-ra
-  prototype_cytoscape: "A prototípus: Cytoscape.js + fcose"
-  prototype_force_graph: "B prototípus: force-graph"
   intro: "Kattints egy csomópontra a megnyitásához: itt megjelennek a részletei, a térképen pedig kibomlanak a szomszédai. Egy nyitott csomópontra újra kattintva összecsukódik, amit felfedett."
   intro_hint: Húzással mozgathatod, görgetéssel nagyíthatod a térképet, a keresővel pedig bármelyik csomópontra ugorhatsz.
   counts: "{nodes} csomópont, {links} kapcsolat."
@@ -27,6 +23,16 @@ ui:
   show_loop: A teljes kör megjelenítése
   show_reach: "Mutasd, mire hat"
   strategy_caveat: "A stratégiák egyeseknek segítenek, másoknak nem. Próbáld ki, tartsd meg, ami működik, a többit engedd el."
+  options: Beállítások
+  options_reset: Alapértelmezések visszaállítása
+  option_fade: Inaktív csomópontok láthatósága
+  option_inactive_labels: Inaktív csomópontok feliratai
+  option_label_size: Feliratméret
+  option_spacing: Csomópontok távolsága
+  option_animate: Elrendezés animálása
+  option_auto_frame: A megnyitott csomópont maradjon képben
+  option_relation_labels: Kapcsolatnevek a kiemelt vonalakon
+  option_reach: Stratégia hatókörének kiemelése
 
 kinds:
   hub: Áttekintés
@@ -85,6 +91,13 @@ nodes:
       Érzelmek, amelyek gyorsan jönnek, erősen ütnek, és tovább tart, míg
       lecsillapodnak. Nem része a hivatalos diagnosztikai kritériumoknak, de
       sok felnőtt számára az egyik legmegterhelőbb terület.
+
+  thinking-traps:
+    label: Gondolkodási csapdák
+    description: >-
+      Megszokott torzítások abban, ahogyan az eseményeket értelmezzük. A KVT
+      kognitív torzításoknak nevezi őket. Évekig tartó kritika után több is
+      gyakori ADHD mellett.
 
   # ---------------------------------------------------------------- symptom
   distractibility:
@@ -232,6 +245,55 @@ nodes:
       Szorongás, amely jóval a feladat előtt érkezik, és gyakran többe kerül,
       mint maga a feladat.
 
+  catastrophising:
+    label: Katasztrofizálás
+    description: >-
+      A lehető legrosszabb kimenetelre ugrani, és valószínűnek tartani: egy
+      késve küldött e-mailből az állás elvesztése lesz.
+  all-or-nothing:
+    label: Mindent vagy semmit gondolkodás
+    description: >-
+      Ami nem tökéletes, az kudarcnak számít. Egy kihagyott edzés azt jelenti,
+      hogy az egész terv romba dőlt.
+  mind-reading:
+    label: Gondolatolvasás
+    description: >-
+      Azt feltételezni, hogy tudod, mit gondolnak rólad mások, általában a
+      legrosszabbat, anélkül, hogy megkérdeznéd.
+  overgeneralisation:
+    label: Túláltalánosítás
+    description: >-
+      Egyetlen kudarcból szabály lesz az egész életedről: „Ezt mindig
+      elrontom.”
+  should-statements:
+    label: Kellene-mondatok
+    description: >-
+      Merev szabályok arról, hogyan kell viselkedned neked és másoknak. Minden
+      nem teljesített „kellene” bűntudatot vagy dühöt szül.
+  personalisation:
+    label: Személyessé tétel
+    description: >-
+      Felelősséget vállalni olyan dolgokért, amelyek nem rajtad múlnak, vagy
+      semleges eseményeket magadra venni.
+  safety-behaviours:
+    label: Biztonsági viselkedések
+    description: >-
+      Apró dolgok, amelyektől félelmetes helyzetekben biztonságosabbnak érzed
+      magad: minden mondat elpróbálása, a kamera kikapcsolva, mindig van kiút.
+      Megkönnyebbülést hoznak, és életben tartják a félelmet.
+
+  sensory-sensitivity:
+    label: Ingerérzékenység
+    description: >-
+      A hangok, szagok, anyagok és fények hangosabban érkeznek, mint másoknak,
+      és folyton elvonják a figyelmet. Nem ADHD-kritérium, de a legtöbb ADHD-s
+      felnőttnél megtalálható.
+  misophonia:
+    label: Mizofónia
+    description: >-
+      Heves düh vagy undor bizonyos hangokra, mint a rágás, a kopogás vagy a
+      szipogás. ADHD mellett sokkal gyakrabban számolnak be róla.
+
   # ---------------------------------------------------------------- trigger
   boring-tasks:
     label: Unalmas vagy ismétlődő feladatok
@@ -273,6 +335,26 @@ nodes:
     label: Éhség és kihagyott étkezések
     description: >-
       Elfelejteni enni, aztán összeomlani.
+
+  strong-smells:
+    label: Erős szagok
+    description: >-
+      Parfüm, tisztítószerek, a kolléga ebédje, az illatgyertya, amit valaki
+      más szeret.
+  crowded-places:
+    label: Zsúfolt helyek
+    description: >-
+      Áruházak, pályaudvarok, bulik: sok hangforrás, mozgás és szag egyszerre.
+  harsh-light:
+    label: Éles fény és villódzás
+    description: >-
+      Fénycsövek, túl világos képernyők, vibráló lámpák, alacsonyan tűző nap a
+      szélvédőn át.
+  textures:
+    label: Anyagok és címkék
+    description: >-
+      Kapargó szövetek, ruhacímkék, zoknivarrások, egy nedves ujj. Apró,
+      állandó, lehetetlen figyelmen kívül hagyni.
 
   # ---------------------------------------------------------------- strategy
   body-doubling:
@@ -592,6 +674,88 @@ nodes:
       Vállalj csak öt percet a rettegett dologból. Öt perc után abbahagyni
       szabad. Legtöbbször nem fogod.
 
+  thought-record:
+    label: Gondolatnapló
+    description: >-
+      Írd le a helyzetet, az automatikus gondolatot, az érzést és az
+      erősségét, a mellette és ellene szóló bizonyítékokat, és egy
+      kiegyensúlyozottabb gondolatot. A klasszikus KVT-munkalap.
+  decatastrophising:
+    label: Dekatasztrofizálás
+    description: >-
+      Három kérdés: mi a legrosszabb, ami történhet, mennyire valószínű
+      valójában, és hogyan birkóznék meg vele, ha megtörténne?
+  behavioural-experiments:
+    label: Viselkedéskísérletek
+    description: >-
+      Kezeld a félelmetes jóslatot hipotézisként, és teszteld: küldd el az
+      üzenetet anélkül, hogy tízszer újraolvasnád, és nézd meg, mi történik
+      valójában.
+  graded-exposure:
+    label: Fokozatos expozíció
+    description: >-
+      Rangsorold a félelmetes helyzeteket könnyűtől nehézig, és haladj felfelé
+      a létrán, mindegyikben addig maradva, amíg a szorongás magától lecseng.
+      Az elkerülés szűkíti a világot, az expozíció újra kitágítja.
+  structured-problem-solving:
+    label: Strukturált problémamegoldás
+    description: >-
+      Fogalmazd meg a problémát egy mondatban, sorold fel az összes
+      lehetőséget ítélkezés nélkül, válassz egyet, tervezd meg az első lépést,
+      utána értékelj. A rágódásból döntést csinál.
+  mood-diary:
+    label: Hangulat- és tevékenységnapló
+    description: >-
+      Egy héten át óráról órára jegyezd fel, mit csináltál és hogyan érezted
+      magad. A minta megmutatja, mely tevékenységek emelik a hangulatot, és
+      melyek merítik le.
+  relaxation-breathing:
+    label: Ütemezett légzés és izomlazítás
+    description: >-
+      Lassú, kilégzésre hangsúlyos légzés, vagy az izomcsoportok sorban
+      történő megfeszítése és ellazítása. Megtanítja a testnek a
+      kikapcsológombot.
+  relapse-plan:
+    label: Visszaesés-megelőzési terv
+    description: >-
+      Egy megírt oldal: korai figyelmeztető jelek, mi segített legutóbb, kit
+      hívj. Jó napokon írva, rosszabb napokon olvasva.
+  psychoeducation:
+    label: "Értsd meg, hogyan működik a szorongás"
+    description: >-
+      Ha érted az üss-vagy-fuss reakciót, hogy az elkerülés miért táplálja a
+      félelmet, és hogy a szorongás mindig tetőzik, majd lecseng, az sokat
+      elvesz az erejéből.
+
+  earplugs:
+    label: Hétköznapi füldugók
+    description: >-
+      Szűrős füldugók, amelyek tompítják a csúcsokat, de nem nyelik el a
+      beszédet, a kulcscsomón, hogy mindig kéznél legyenek.
+  control-the-environment:
+    label: Irányítsd a környezetet
+    description: >-
+      Válaszd meg az ülőhelyet, a helyiséget és a napszakot. Illatmentes
+      termékek otthon, szabályozható fény, csendes sarok a munkahelyen. Eleve
+      kevesebb inger.
+  comfortable-clothes:
+    label: "Ruhák, amelyek jól esnek"
+    description: >-
+      Vágd ki a címkéket, vedd meg újra ugyanazokat a puha anyagokat, zokniban
+      soha ne alkudj. A kényelem nem kényeskedés, ha az alternatíva egész
+      napos figyelemelterelés.
+  quiet-after-loud:
+    label: Csend a hangos napok után
+    description: >-
+      Betervezett csend egy zajos nap után: se zene, se hívások, tompa fény. A
+      regenerálódás a terv része, nem luxus.
+  leave-early:
+    label: Engedély a távozásra
+    description: >-
+      Előre megbeszélve magaddal és a társasággal, hogy egy hangos helyről
+      korán eljönni rendben van. Ha tudod, hogy van kiút, már az elején kisebb
+      a teher.
+
   # ---------------------------------------------------------------- treatment
   assessment:
     label: Diagnózis és kivizsgálás
@@ -675,6 +839,12 @@ nodes:
       Az aggódással, maszkolással és kompenzálással töltött órák kimerültsége,
       amiért cserébe nincs semmi felmutatható.
 
+  sensory-overload:
+    label: Ingertúlterhelés
+    description: >-
+      Túl sok inger egyszerre: ingerlékenység, leblokkolás, késztetés a szoba
+      elhagyására. Órákkal később is emészti az energiát.
+
   # ---------------------------------------------------------------- situation
   chaotic-home:
     label: Káosz a lakásban
@@ -692,6 +862,12 @@ nodes:
     description: >-
       Számlák, előfizetések, adók, a fiók, amit hónapok óta nem nyitottál meg.
       A feledékenység, az elkerülés és az impulzivitás itt találkozik.
+
+  loud-evening-out:
+    label: Hangos étterem vagy buli
+    description: >-
+      Mindenki egyszerre beszél, szól a zene, melletted valaki rág. A
+      beszélgetés követése többe kerül, mint amennyit ad.
 
   # ---------------------------------------------------------------- mechanism
   dopamine-boost:
@@ -774,3 +950,27 @@ edges:
     note: >-
       Ezért érződhet egy futás egy unalmas feladat előtt úgy, mint egy adag
       gyógyszer.
+  safety-behaviours-anticipatory-anxiety:
+    note: >-
+      A megkönnyebbülés, amit hoznak, arra tanítja az agyat, hogy a helyzet
+      tényleg veszélyes volt.
+  thought-record-rumination:
+    note: >-
+      A rágódás körbe-körbe jár; a gondolatnapló előrehalad, mert egy
+      kiegyensúlyozott gondolattal végződik.
+  graded-exposure-avoidance:
+    note: >-
+      Minden lépés legyen elég kicsi ahhoz, hogy tényleg megtedd, és ismételd,
+      amíg unalmassá nem válik.
+  sensory-sensitivity-sensory-overload:
+    note: >-
+      Minden hang és szag egy kevés figyelembe kerül. Estére elfogy a keret.
+  explain-your-adhd-sensory-sensitivity:
+    note: >-
+      Aki melletted rág, nem hallja, amit te hallasz. Ha előre elmondod, a
+      veszekedésből ülésrend lesz.
+  assessment-sensory-sensitivity:
+    note: >-
+      Az erős, egész életen át tartó érzékenységet érdemes a kivizsgáláson
+      szóba hozni. Átfed az autizmussal, és ez megváltoztatja, milyen
+      alkalmazkodások segítenek.

@@ -5,83 +5,37 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>ADHD map</title>
   <link rel="stylesheet" href="shared/style.css">
-  <style>
-    .landing {
-      max-width: 760px;
-      margin: 0 auto;
-      padding: 48px 24px;
-    }
-    .landing h1 {
-      font-size: 32px;
-      margin: 0 0 8px;
-    }
-    .landing p.lead {
-      color: var(--text-muted);
-      font-size: 16px;
-      line-height: 1.5;
-      margin: 0 0 32px;
-    }
-    .cards {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 16px;
-    }
-    .card {
-      display: block;
-      background: var(--panel);
-      border: 1px solid var(--panel-border);
-      border-radius: 10px;
-      padding: 20px;
-      color: var(--text);
-      text-decoration: none;
-    }
-    .card:hover {
-      border-color: var(--text-muted);
-    }
-    .card h2 {
-      margin: 0 0 6px;
-      font-size: 18px;
-    }
-    .card p {
-      margin: 0;
-      color: var(--text-muted);
-      line-height: 1.5;
-    }
-    .landing .footnote {
-      margin-top: 32px;
-      color: var(--text-muted);
-      font-size: 13px;
-      line-height: 1.5;
-    }
-    .landing code {
-      background: var(--panel);
-      padding: 1px 5px;
-      border-radius: 4px;
-    }
-  </style>
+  <script src="https://cdn.jsdelivr.net/npm/js-yaml@4.1.0/dist/js-yaml.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/cytoscape@3.34.3/dist/cytoscape.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/layout-base@2.0.1/layout-base.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/cose-base@2.2.0/cose-base.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/cytoscape-fcose@2.2.0/cytoscape-fcose.js"></script>
 </head>
 <body>
-  <main class="landing">
-    <h1>ADHD map</h1>
-    <p class="lead">
-      An explorable map of ADHD symptoms, the triggers that make them worse,
-      the strategies and treatments that help, and the impacts they have.
-      Click a node to open it and reveal what it is connected to.
-    </p>
-    <div class="cards">
-      <a class="card" href="cytoscape/">
-        <h2>Prototype A: Cytoscape.js</h2>
-        <p>Tidy diagram. Each expansion re-runs the fcose layout and the map settles into a still picture.</p>
-      </a>
-      <a class="card" href="force-graph/">
-        <h2>Prototype B: force-graph</h2>
-        <p>Live physics. Nodes drift and settle in a running force simulation, and can be dragged and pinned.</p>
-      </a>
-    </div>
-    <p class="footnote">
-      Both prototypes read the same <code>data/adhd-map.yaml</code> file and
-      share the same expand and collapse logic, so only the rendering differs.
-    </p>
-  </main>
+  <div class="app">
+    <header class="toolbar">
+      <h1 data-ui="title">ADHD map</h1>
+      <span class="spacer"></span>
+      <input id="search" type="search" list="node-list" data-ui-placeholder="find_node" placeholder="Find a node" autocomplete="off">
+      <datalist id="node-list"></datalist>
+      <button id="fit" type="button" data-ui="fit">Fit</button>
+      <button id="expand-all" type="button" data-ui="expand_all">Expand all</button>
+      <button id="reset" type="button" data-ui="reset">Reset</button>
+      <button id="options-toggle" type="button" data-ui="options">Options</button>
+      <select id="language" aria-label="Language"></select>
+    </header>
+    <main class="graph">
+      <div id="graph"></div>
+      <div id="legend" class="legend"></div>
+      <div id="options" class="options" hidden></div>
+    </main>
+    <aside id="panel" class="panel"></aside>
+  </div>
+  <script src="shared/graph-data.js"></script>
+  <script src="shared/i18n.js"></script>
+  <script src="shared/options.js"></script>
+  <script src="shared/explorer.js"></script>
+  <script src="shared/panel.js"></script>
+  <script src="app.js"></script>
 </body>
 </html>

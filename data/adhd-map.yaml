@@ -42,6 +42,8 @@ nodes:
   - { id: executive, kind: cluster }
   - { id: emotional, kind: cluster }
 
+  - { id: thinking-traps, kind: cluster }
+
   # ---------------------------------------------------------------- symptom
   - { id: distractibility, kind: symptom }
   - { id: sustained-attention, kind: symptom }
@@ -73,6 +75,17 @@ nodes:
   - { id: decision-paralysis, kind: symptom }
   - { id: anticipatory-anxiety, kind: symptom }
 
+  - { id: catastrophising, kind: symptom }
+  - { id: all-or-nothing, kind: symptom }
+  - { id: mind-reading, kind: symptom }
+  - { id: overgeneralisation, kind: symptom }
+  - { id: should-statements, kind: symptom }
+  - { id: personalisation, kind: symptom }
+  - { id: safety-behaviours, kind: symptom }
+
+  - { id: sensory-sensitivity, kind: symptom }
+  - { id: misophonia, kind: symptom }
+
   # ---------------------------------------------------------------- trigger
   - { id: boring-tasks, kind: trigger }
   - { id: poor-sleep, kind: trigger }
@@ -83,6 +96,11 @@ nodes:
   - { id: long-meetings, kind: trigger }
   - { id: open-ended-tasks, kind: trigger }
   - { id: hunger, kind: trigger }
+
+  - { id: strong-smells, kind: trigger }
+  - { id: crowded-places, kind: trigger }
+  - { id: harsh-light, kind: trigger }
+  - { id: textures, kind: trigger }
 
   # ---------------------------------------------------------------- strategy
   - { id: body-doubling, kind: strategy }
@@ -149,6 +167,22 @@ nodes:
   - { id: define-done, kind: strategy }
   - { id: five-minute-rule, kind: strategy }
 
+  - { id: thought-record, kind: strategy }
+  - { id: decatastrophising, kind: strategy }
+  - { id: behavioural-experiments, kind: strategy }
+  - { id: graded-exposure, kind: strategy }
+  - { id: structured-problem-solving, kind: strategy }
+  - { id: mood-diary, kind: strategy }
+  - { id: relaxation-breathing, kind: strategy }
+  - { id: relapse-plan, kind: strategy }
+  - { id: psychoeducation, kind: strategy }
+
+  - { id: earplugs, kind: strategy }
+  - { id: control-the-environment, kind: strategy }
+  - { id: comfortable-clothes, kind: strategy }
+  - { id: quiet-after-loud, kind: strategy }
+  - { id: leave-early, kind: strategy }
+
   # ---------------------------------------------------------------- treatment
   - { id: assessment, kind: treatment }
   - { id: medication, kind: treatment }
@@ -170,10 +204,14 @@ nodes:
   - { id: anxiety-depression, kind: impact }
   - { id: energy-drain, kind: impact }
 
+  - { id: sensory-overload, kind: impact }
+
   # ---------------------------------------------------------------- situation
   - { id: chaotic-home, kind: situation }
   - { id: dreaded-task, kind: situation }
   - { id: money-admin, kind: situation }
+
+  - { id: loud-evening-out, kind: situation }
 
   # ---------------------------------------------------------------- mechanism
   - { id: dopamine-boost, kind: mechanism }
@@ -580,3 +618,139 @@ edges:
   - { from: mood-lift, to: anxiety-depression, relation: helps_with }
   - { from: mood-lift, to: low-self-esteem, relation: helps_with }
   - { from: mood-lift, to: frustration-tolerance, relation: helps_with }
+
+  # ---------------------------------------------------------------- thinking traps
+  - { from: adhd, to: thinking-traps, relation: includes }
+  - { from: thinking-traps, to: catastrophising, relation: includes }
+  - { from: thinking-traps, to: all-or-nothing, relation: includes }
+  - { from: thinking-traps, to: mind-reading, relation: includes }
+  - { from: thinking-traps, to: overgeneralisation, relation: includes }
+  - { from: thinking-traps, to: should-statements, relation: includes }
+  - { from: thinking-traps, to: personalisation, relation: includes }
+  - { from: emotional, to: safety-behaviours, relation: includes }
+  - { from: catastrophising, to: anticipatory-anxiety, relation: leads_to }
+  - { from: catastrophising, to: anxiety-depression, relation: leads_to }
+  - { from: catastrophising, to: rumination, relation: related_to }
+  - { from: all-or-nothing, to: procrastination, relation: leads_to }
+  - { from: all-or-nothing, to: frustration-tolerance, relation: related_to }
+  - { from: mind-reading, to: rejection-sensitivity, relation: related_to }
+  - { from: mind-reading, to: relationship-strain, relation: leads_to }
+  - { from: overgeneralisation, to: low-self-esteem, relation: leads_to }
+  - { from: overgeneralisation, to: anxiety-depression, relation: leads_to }
+  - { from: should-statements, to: low-self-esteem, relation: leads_to }
+  - { from: should-statements, to: frustration-tolerance, relation: related_to }
+  - { from: personalisation, to: low-self-esteem, relation: leads_to }
+  - { from: personalisation, to: rejection-sensitivity, relation: related_to }
+  - { from: safety-behaviours, to: avoidance, relation: related_to }
+  - { id: safety-behaviours-anticipatory-anxiety, from: safety-behaviours, to: anticipatory-anxiety, relation: leads_to }
+  - { from: poor-sleep, to: catastrophising, relation: worsens }
+  - { from: stress, to: all-or-nothing, relation: worsens }
+
+  # ---------------------------------------------------------------- the cbt toolkit
+  - { from: cbt, to: thought-record, relation: includes }
+  - { from: cbt, to: decatastrophising, relation: includes }
+  - { from: cbt, to: behavioural-experiments, relation: includes }
+  - { from: cbt, to: graded-exposure, relation: includes }
+  - { from: cbt, to: structured-problem-solving, relation: includes }
+  - { from: cbt, to: mood-diary, relation: includes }
+  - { from: cbt, to: relaxation-breathing, relation: includes }
+  - { from: cbt, to: relapse-plan, relation: includes }
+  - { from: cbt, to: psychoeducation, relation: includes }
+  - { from: cbt, to: behavioural-activation, relation: includes }
+  - { from: cbt, to: worry-window, relation: includes }
+  - { from: psychotherapy, to: cbt, relation: related_to }
+  - { from: thought-record, to: catastrophising, relation: helps_with }
+  - { from: thought-record, to: mind-reading, relation: helps_with }
+  - { from: thought-record, to: overgeneralisation, relation: helps_with }
+  - { from: thought-record, to: should-statements, relation: helps_with }
+  - { from: thought-record, to: personalisation, relation: helps_with }
+  - { id: thought-record-rumination, from: thought-record, to: rumination, relation: helps_with }
+  - { from: thought-record, to: rejection-sensitivity, relation: helps_with }
+  - { from: thought-record, to: anxiety-depression, relation: helps_with }
+  - { from: decatastrophising, to: catastrophising, relation: helps_with }
+  - { from: decatastrophising, to: anticipatory-anxiety, relation: helps_with }
+  - { from: behavioural-experiments, to: mind-reading, relation: helps_with }
+  - { from: behavioural-experiments, to: safety-behaviours, relation: helps_with }
+  - { from: behavioural-experiments, to: anticipatory-anxiety, relation: helps_with }
+  - { from: behavioural-experiments, to: rejection-sensitivity, relation: helps_with }
+  - { id: graded-exposure-avoidance, from: graded-exposure, to: avoidance, relation: helps_with }
+  - { from: graded-exposure, to: anticipatory-anxiety, relation: helps_with }
+  - { from: graded-exposure, to: safety-behaviours, relation: helps_with }
+  - { from: graded-exposure, to: dreaded-task, relation: helps_with }
+  - { from: graded-exposure, to: five-minute-rule, relation: related_to }
+  - { from: structured-problem-solving, to: rumination, relation: helps_with }
+  - { from: structured-problem-solving, to: decision-paralysis, relation: helps_with }
+  - { from: structured-problem-solving, to: dreaded-task, relation: helps_with }
+  - { from: structured-problem-solving, to: prioritising, relation: helps_with }
+  - { from: mood-diary, to: anxiety-depression, relation: helps_with }
+  - { from: mood-diary, to: emotional-dysregulation, relation: helps_with }
+  - { from: mood-diary, to: behavioural-activation, relation: related_to }
+  - { from: relaxation-breathing, to: anticipatory-anxiety, relation: helps_with }
+  - { from: relaxation-breathing, to: emotional-dysregulation, relation: helps_with }
+  - { from: relaxation-breathing, to: sleep-problems, relation: helps_with }
+  - { from: relaxation-breathing, to: distress-tolerance, relation: related_to }
+  - { from: relapse-plan, to: anxiety-depression, relation: helps_with }
+  - { from: relapse-plan, to: burnout, relation: helps_with }
+  - { from: psychoeducation, to: anticipatory-anxiety, relation: helps_with }
+  - { from: psychoeducation, to: safety-behaviours, relation: helps_with }
+  - { from: psychoeducation, to: anxiety-depression, relation: helps_with }
+  - { from: done-not-perfect, to: all-or-nothing, relation: helps_with }
+  - { from: ask-instead-of-assume, to: mind-reading, relation: helps_with }
+  - { from: self-compassion, to: overgeneralisation, relation: helps_with }
+  - { from: self-compassion, to: should-statements, relation: helps_with }
+
+  # ---------------------------------------------------------------- sensory sensitivity
+  - { from: adhd, to: sensory-sensitivity, relation: includes }
+  - { from: sensory-sensitivity, to: misophonia, relation: includes }
+  - { from: adhd, to: loud-evening-out, relation: includes }
+  - { from: sensory-sensitivity, to: distractibility, relation: related_to }
+  - { from: sensory-sensitivity, to: emotional-dysregulation, relation: related_to }
+  - { from: misophonia, to: frustration-tolerance, relation: related_to }
+  - { id: sensory-sensitivity-sensory-overload, from: sensory-sensitivity, to: sensory-overload, relation: leads_to }
+  - { from: misophonia, to: relationship-strain, relation: leads_to }
+  - { from: sensory-overload, to: energy-drain, relation: leads_to }
+  - { from: sensory-overload, to: emotional-dysregulation, relation: leads_to }
+  - { from: sensory-overload, to: avoidance, relation: leads_to }
+  - { from: noisy-environment, to: sensory-sensitivity, relation: worsens }
+  - { from: strong-smells, to: sensory-sensitivity, relation: worsens }
+  - { from: crowded-places, to: sensory-sensitivity, relation: worsens }
+  - { from: crowded-places, to: distractibility, relation: worsens }
+  - { from: harsh-light, to: sensory-sensitivity, relation: worsens }
+  - { from: harsh-light, to: sustained-attention, relation: worsens }
+  - { from: textures, to: sensory-sensitivity, relation: worsens }
+  - { from: textures, to: restlessness, relation: worsens }
+  - { from: poor-sleep, to: sensory-sensitivity, relation: worsens }
+  - { from: stress, to: sensory-sensitivity, relation: worsens }
+  - { from: loud-evening-out, to: sensory-sensitivity, relation: involves }
+  - { from: loud-evening-out, to: misophonia, relation: involves }
+  - { from: loud-evening-out, to: distractibility, relation: involves }
+  - { from: loud-evening-out, to: impatience, relation: involves }
+  - { from: loud-evening-out, to: sensory-overload, relation: leads_to }
+  - { from: earplugs, to: sensory-sensitivity, relation: helps_with }
+  - { from: earplugs, to: misophonia, relation: helps_with }
+  - { from: earplugs, to: loud-evening-out, relation: helps_with }
+  - { from: earplugs, to: noisy-environment, relation: reduces }
+  - { from: earplugs, to: crowded-places, relation: reduces }
+  - { from: noise-control, to: sensory-sensitivity, relation: helps_with }
+  - { from: noise-control, to: misophonia, relation: helps_with }
+  - { from: control-the-environment, to: sensory-sensitivity, relation: helps_with }
+  - { from: control-the-environment, to: sensory-overload, relation: helps_with }
+  - { from: control-the-environment, to: loud-evening-out, relation: helps_with }
+  - { from: control-the-environment, to: strong-smells, relation: reduces }
+  - { from: control-the-environment, to: harsh-light, relation: reduces }
+  - { from: control-the-environment, to: noisy-environment, relation: reduces }
+  - { from: comfortable-clothes, to: sensory-sensitivity, relation: helps_with }
+  - { from: comfortable-clothes, to: textures, relation: reduces }
+  - { from: quiet-after-loud, to: sensory-overload, relation: helps_with }
+  - { from: quiet-after-loud, to: sensory-sensitivity, relation: helps_with }
+  - { from: quiet-after-loud, to: recovery-time, relation: related_to }
+  - { from: leave-early, to: sensory-overload, relation: helps_with }
+  - { from: leave-early, to: loud-evening-out, relation: helps_with }
+  - { from: leave-early, to: crowded-places, relation: reduces }
+  - { id: explain-your-adhd-sensory-sensitivity, from: explain-your-adhd, to: sensory-sensitivity, relation: helps_with }
+  - { from: explain-your-adhd, to: misophonia, relation: helps_with }
+  - { from: explain-your-adhd, to: loud-evening-out, relation: helps_with }
+  - { from: workplace-accommodations, to: sensory-sensitivity, relation: helps_with }
+  - { from: workplace-accommodations, to: harsh-light, relation: reduces }
+  - { from: self-compassion, to: sensory-sensitivity, relation: helps_with }
+  - { id: assessment-sensory-sensitivity, from: assessment, to: sensory-sensitivity, relation: helps_with }

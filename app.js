@@ -1,4 +1,4 @@
-/* Prototype A: Cytoscape.js with the fcose layout.
+/* ADHD map: Cytoscape.js with the fcose layout.
  *
  * Every expansion adds the new nodes next to the node that was clicked, pins
  * that node in place, and re-runs fcose incrementally so the rest of the map
@@ -6,12 +6,25 @@
 (function () {
   'use strict';
 
-  const DATA_URL = '../data/adhd-map.yaml';
-  const LANGUAGES_URL = '../data/languages.yaml';
+  const DATA_URL = 'data/adhd-map.yaml';
+  const LANGUAGES_URL = 'data/languages.yaml';
   const BASE_NODE_SIZE = 26;
   const SIZE_STEP = 14;
   const SPAWN_RADIUS = 40;
   const LAYOUT_ANIMATION_MS = 650;
+  const SPACING_RELAYOUT_DELAY_MS = 350;
+
+  /* User-adjustable settings, shown in the options box and kept in the browser. */
+  const OPTION_DEFINITIONS = [
+    { key: 'fade', type: 'range', labelKey: 'option_fade', defaultValue: 4, min: 0, max: 100 },
+    { key: 'inactiveLabels', type: 'checkbox', labelKey: 'option_inactive_labels', defaultValue: false },
+    { key: 'labelSize', type: 'range', labelKey: 'option_label_size', defaultValue: 11, min: 8, max: 18 },
+    { key: 'spacing', type: 'range', labelKey: 'option_spacing', defaultValue: 110, min: 60, max: 220, step: 10 },
+    { key: 'animate', type: 'checkbox', labelKey: 'option_animate', defaultValue: true },
+    { key: 'autoFrame', type: 'checkbox', labelKey: 'option_auto_frame', defaultValue: true },
+    { key: 'relationLabels', type: 'checkbox', labelKey: 'option_relation_labels', defaultValue: false },
+    { key: 'reach', type: 'checkbox', labelKey: 'option_reach', defaultValue: true },
+  ];
   const VIEW_ANIMATION_MS = 450;
 
   async function main() {
@@ -25,10 +38,12 @@
     const graphElement = document.getElementById('graph');
     let selectedId = null;
     let activeLayout = null;
+    let spacingTimer = null;
+    const options = AdhdMapOptions.createOptions(OPTION_DEFINITIONS, 'adhd-map-options');
 
     const cy = cytoscape({
       container: graphElement,
-      style: buildStyle(),
+      style: buildStyle(options),
       minZoom: 0.15,
       maxZoom: 3,
       boxSelectionEnabled: false,
@@ -79,6 +94,7 @@
           source: edge.source,
           target: edge.target,
           relation: edge.relation,
+          relationLabel: relation.label,
           color: relation.color,
         },
         classes: classes.join(' '),
@@ -134,29 +150,29 @@
       });
     }
 
-    function runLayout(options) {
+    function runLayout(layoutOptions) {
       if (activeLayout) {
         activeLayout.stop();
       }
       let fixedNodeConstraint;
-      if (options.fixedId) {
-        const fixedNode = cy.getElementById(options.fixedId);
+      if (layoutOptions.fixedId) {
+        const fixedNode = cy.getElementById(layoutOptions.fixedId);
         if (fixedNode.nonempty()) {
           const position = fixedNode.position();
-          fixedNodeConstraint = [{ nodeId: options.fixedId, position: { x: position.x, y: position.y } }];
+          fixedNodeConstraint = [{ nodeId: layoutOptions.fixedId, position: { x: position.x, y: position.y } }];
         }
       }
       const layout = cy.layout({
         name: 'fcose',
         quality: 'default',
-        randomize: Boolean(options.randomize),
-        animate: true,
+        randomize: Boolean(layoutOptions.randomize),
+        animate: options.get('animate'),
         animationDuration: LAYOUT_ANIMATION_MS,
         animationEasing: 'ease-out',
         fit: false,
         nodeDimensionsIncludeLabels: true,
-        nodeRepulsion: () => 9000,
-        idealEdgeLength: () => 110,
+        nodeRepulsion: () => 80 * options.get('spacing'),
+        idealEdgeLength: () => options.get('spacing'),
         edgeElasticity: () => 0.25,
         gravity: 0.2,
         gravityRange: 3.8,
@@ -179,13 +195,15 @@
       cy.elements().difference(neighbourhood).addClass('dimmed');
 
       /* Ripple: what this node reaches through mechanisms, in a second tone. */
-      const reach = explorer.reachOf(id);
-      [...reach.via, ...reach.targets].forEach((reachId) => {
-        cy.getElementById(reachId).removeClass('dimmed').addClass('reach');
-      });
-      reach.edges.forEach((edge) => {
-        cy.getElementById(edge.id).removeClass('dimmed').addClass('reach');
-      });
+      if (options.get('reach')) {
+        const reach = explorer.reachOf(id);
+        [...reach.via, ...reach.targets].forEach((reachId) => {
+          cy.getElementById(reachId).removeClass('dimmed').addClass('reach');
+        });
+        reach.edges.forEach((edge) => {
+          cy.getElementById(edge.id).removeClass('dimmed').addClass('reach');
+        });
+      }
       panel.show(id);
     }
 
@@ -233,9 +251,11 @@
     async function openNode(id, change) {
       applyChange(change, id);
       select(id);
-      centerOn(id);
+      if (options.get('autoFrame')) {
+        centerOn(id);
+      }
       await runLayout({ fixedId: id });
-      if (selectedId === id) {
+      if (selectedId === id && options.get('autoFrame')) {
         frameNeighbourhood(id);
       }
     }
@@ -279,7 +299,31 @@
       AdhdMapI18n.remember(code);
       AdhdMapI18n.applyUiStrings(graph.ui, code);
       cy.nodes().forEach((node) => node.data('label', graph.node(node.id()).label));
+      cy.edges().forEach((edge) => edge.data('relationLabel', graph.relations[edge.data('relation')].label));
+      options.render(optionsElement, graph.ui);
       panel.refresh();
+    });
+
+    /* Options box. */
+    const optionsElement = document.getElementById('options');
+    const optionsToggle = document.getElementById('options-toggle');
+    optionsToggle.addEventListener('click', () => {
+      optionsElement.hidden = !optionsElement.hidden;
+    });
+    options.render(optionsElement, graph.ui);
+    options.onChange((key) => {
+      if (key === 'spacing') {
+        clearTimeout(spacingTimer);
+        spacingTimer = setTimeout(() => runLayout({ fixedId: selectedId }), SPACING_RELAYOUT_DELAY_MS);
+        return;
+      }
+      cy.style().fromJson(buildStyle(options)).update();
+      if (key === 'reach' && selectedId) {
+        select(selectedId);
+      }
+      if (key === null) {
+        runLayout({ fixedId: selectedId });
+      }
     });
 
     document.getElementById('reset').addEventListener('click', reset);
@@ -287,12 +331,17 @@
     document.getElementById('fit').addEventListener('click', fitAll);
     document.addEventListener('keydown', (event) => {
       if (event.key === 'Escape') {
+        if (!optionsElement.hidden) {
+          optionsElement.hidden = true;
+          return;
+        }
         clearSelection();
       }
     });
 
     /* Small hook for tools/smoke-test.mjs: page coordinates of a node. */
     window.adhdMapDebug = {
+      graph,
       explorer,
       nodeScreenPosition(id) {
         const rendered = cy.getElementById(id).renderedPosition();
@@ -305,10 +354,22 @@
   }
 
   function languageFileUrl(index, code) {
-    return `../data/${AdhdMapI18n.fileFor(index, code)}`;
+    return `data/${AdhdMapI18n.fileFor(index, code)}`;
   }
 
-  function buildStyle() {
+  function buildStyle(options) {
+    const fade = options.get('fade') / 100;
+    const relationLabelStyle = options.get('relationLabels')
+      ? {
+          label: 'data(relationLabel)',
+          'font-size': Math.max(8, options.get('labelSize') - 2),
+          color: '#9aa5b1',
+          'text-rotation': 'autorotate',
+          'text-background-color': '#101418',
+          'text-background-opacity': 0.85,
+          'text-background-padding': 2,
+        }
+      : { label: '' };
     return [
       {
         selector: 'node',
@@ -318,7 +379,7 @@
           height: 'data(size)',
           label: 'data(label)',
           color: '#e6ebef',
-          'font-size': 11,
+          'font-size': options.get('labelSize'),
           'font-family': 'system-ui, sans-serif',
           'text-wrap': 'wrap',
           'text-max-width': 100,
@@ -387,7 +448,7 @@
       },
       {
         selector: 'edge.highlighted',
-        style: { width: 2.5, opacity: 1 },
+        style: { width: 2.5, opacity: 1, ...relationLabelStyle },
       },
       {
         selector: 'node.reach',
@@ -398,8 +459,16 @@
         style: { width: 2, opacity: 0.85 },
       },
       {
-        selector: '.dimmed',
-        style: { opacity: 0.18 },
+        selector: 'node.dimmed',
+        style: {
+          'background-opacity': fade,
+          'text-opacity': options.get('inactiveLabels') ? Math.max(0.3, fade) : 0,
+          'border-opacity': 0,
+        },
+      },
+      {
+        selector: 'edge.dimmed',
+        style: { opacity: fade / 2 },
       },
     ];
   }

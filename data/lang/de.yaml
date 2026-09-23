@@ -11,10 +11,6 @@ ui:
   fit: Einpassen
   expand_all: Alles aufklappen
   reset: Zurücksetzen
-  switch_to_cytoscape: Zu Cytoscape.js wechseln
-  switch_to_force_graph: Zu force-graph wechseln
-  prototype_cytoscape: "Prototyp A: Cytoscape.js + fcose"
-  prototype_force_graph: "Prototyp B: force-graph"
   intro: "Klicke auf einen Knoten, um ihn zu öffnen: Seine Details erscheinen hier, und seine Nachbarn entfalten sich auf der Karte. Ein erneuter Klick auf einen geöffneten Knoten klappt zusammen, was er aufgedeckt hat."
   intro_hint: Ziehen zum Verschieben, Scrollen zum Zoomen, oder über das Suchfeld direkt zu einem Knoten springen.
   counts: "{nodes} Knoten, {links} Verbindungen."
@@ -27,6 +23,16 @@ ui:
   show_loop: Ganze Schleife zeigen
   show_reach: "Zeigen, was das erreicht"
   strategy_caveat: "Strategien helfen manchen Menschen und anderen nicht. Ausprobieren, behalten, was wirkt, den Rest weglassen."
+  options: Optionen
+  options_reset: Standard wiederherstellen
+  option_fade: Sichtbarkeit inaktiver Knoten
+  option_inactive_labels: Beschriftung inaktiver Knoten
+  option_label_size: Schriftgröße
+  option_spacing: Knotenabstand
+  option_animate: Layout animieren
+  option_auto_frame: Geöffneten Knoten im Blick halten
+  option_relation_labels: Beziehungsnamen an hervorgehobenen Verbindungen
+  option_reach: Reichweite einer Strategie hervorheben
 
 kinds:
   hub: Überblick
@@ -85,6 +91,13 @@ nodes:
       Gefühle, die schnell kommen, heftig treffen und länger brauchen, um sich
       zu legen. Kein Teil der formalen Diagnosekriterien, für viele
       Erwachsene aber einer der belastendsten Aspekte.
+
+  thinking-traps:
+    label: Denkfallen
+    description: >-
+      Gewohnheitsmäßige Verzerrungen in der Deutung von Ereignissen. Die KVT
+      nennt sie kognitive Verzerrungen. Jahre der Kritik machen einige davon
+      bei ADHS besonders häufig.
 
   # ---------------------------------------------------------------- symptom
   distractibility:
@@ -234,6 +247,55 @@ nodes:
       Angst, die lange vor der Aufgabe kommt und oft mehr kostet als die
       Aufgabe selbst.
 
+  catastrophising:
+    label: Katastrophisieren
+    description: >-
+      Zum schlimmstmöglichen Ausgang springen und ihn für wahrscheinlich
+      halten: eine verspätete E-Mail wird zum Jobverlust.
+  all-or-nothing:
+    label: Alles-oder-nichts-Denken
+    description: >-
+      Alles unterhalb von perfekt zählt als Scheitern. Ein ausgelassenes
+      Training bedeutet, dass der ganze Plan ruiniert ist.
+  mind-reading:
+    label: Gedankenlesen
+    description: >-
+      Annehmen, zu wissen, was andere über dich denken, meist das Schlimmste,
+      ohne nachzufragen.
+  overgeneralisation:
+    label: Übergeneralisieren
+    description: >-
+      Ein Rückschlag wird zur Regel über das ganze Leben: „Ich vermassle das
+      immer.“
+  should-statements:
+    label: Sollte-Sätze
+    description: >-
+      Starre Regeln, wie du und andere sich verhalten müssen. Jedes nicht
+      erfüllte „sollte“ erzeugt Schuld oder Ärger.
+  personalisation:
+    label: Personalisieren
+    description: >-
+      Verantwortung für Dinge außerhalb der eigenen Kontrolle übernehmen oder
+      neutrale Ereignisse auf sich beziehen.
+  safety-behaviours:
+    label: Sicherheitsverhalten
+    description: >-
+      Kleine Dinge, um sich in gefürchteten Situationen sicherer zu fühlen:
+      jeden Satz proben, die Kamera auslassen, immer einen Ausweg haben. Sie
+      bringen Erleichterung und halten die Angst am Leben.
+
+  sensory-sensitivity:
+    label: Reizempfindlichkeit
+    description: >-
+      Geräusche, Gerüche, Stoffe und Licht kommen lauter an als bei anderen
+      und ziehen ständig Aufmerksamkeit ab. Kein ADHS-Kriterium, aber bei den
+      meisten Erwachsenen mit ADHS zu finden.
+  misophonia:
+    label: Misophonie
+    description: >-
+      Heftige Wut oder Ekel bei bestimmten Geräuschen wie Kauen, Tippen oder
+      Schniefen. Bei ADHS deutlich häufiger berichtet.
+
   # ---------------------------------------------------------------- trigger
   boring-tasks:
     label: Langweilige oder eintönige Aufgaben
@@ -274,6 +336,27 @@ nodes:
     label: Hunger & ausgelassene Mahlzeiten
     description: >-
       Vergessen zu essen, dann der Einbruch.
+
+  strong-smells:
+    label: Starke Gerüche
+    description: >-
+      Parfüm, Putzmittel, das Mittagessen der Kollegin, die Duftkerze, die
+      jemand anderes liebt.
+  crowded-places:
+    label: Volle Orte
+    description: >-
+      Supermärkte, Bahnhöfe, Partys: viele Geräuschquellen, Bewegung und
+      Gerüche gleichzeitig.
+  harsh-light:
+    label: Grelles Licht und Flimmern
+    description: >-
+      Leuchtstoffröhren, zu helle Bildschirme, flackernde Lampen, tiefe Sonne
+      durch die Windschutzscheibe.
+  textures:
+    label: Stoffe und Etiketten
+    description: >-
+      Kratzige Stoffe, Kleideretiketten, Nähte in Socken, ein nasser Ärmel.
+      Klein, ständig, unmöglich zu ignorieren.
 
   # ---------------------------------------------------------------- strategy
   body-doubling:
@@ -604,6 +687,87 @@ nodes:
       Nur fünf Minuten der gefürchteten Sache tun. Nach fünf Minuten aufhören
       ist erlaubt. Meistens tut man es nicht.
 
+  thought-record:
+    label: Gedankenprotokoll
+    description: >-
+      Situation, automatischer Gedanke, Gefühl und seine Stärke, Belege dafür
+      und dagegen, und ein ausgewogenerer Gedanke. Das klassische KVT-
+      Arbeitsblatt.
+  decatastrophising:
+    label: Entkatastrophisieren
+    description: >-
+      Drei Fragen: Was ist das Schlimmste, das passieren könnte, wie
+      wahrscheinlich ist es wirklich, und wie würde ich damit umgehen?
+  behavioural-experiments:
+    label: Verhaltensexperimente
+    description: >-
+      Eine ängstliche Vorhersage als Hypothese behandeln und testen: die
+      Nachricht abschicken, ohne sie zehnmal zu lesen, und sehen, was
+      tatsächlich passiert.
+  graded-exposure:
+    label: Abgestufte Konfrontation
+    description: >-
+      Gefürchtete Situationen von leicht bis schwer ordnen und die Leiter
+      hinaufarbeiten, in jeder Stufe bleiben, bis die Angst von selbst sinkt.
+      Vermeidung macht die Welt kleiner, Konfrontation wieder größer.
+  structured-problem-solving:
+    label: Strukturiertes Problemlösen
+    description: >-
+      Das Problem in einem Satz beschreiben, alle Optionen ohne Bewertung
+      auflisten, eine wählen, den ersten Schritt planen, danach auswerten.
+      Macht aus Grübeln eine Entscheidung.
+  mood-diary:
+    label: Stimmungs- und Aktivitätstagebuch
+    description: >-
+      Eine Woche lang Stunde für Stunde notieren, was du getan und wie du dich
+      gefühlt hast. Das Muster zeigt, welche Aktivitäten die Stimmung heben
+      und welche sie drücken.
+  relaxation-breathing:
+    label: Ruhige Atmung und Muskelentspannung
+    description: >-
+      Langsames Atmen mit betonter Ausatmung, oder Muskelgruppen nacheinander
+      anspannen und lösen. Bringt dem Körper den Ausschalter bei.
+  relapse-plan:
+    label: Rückfallplan
+    description: >-
+      Eine geschriebene Seite: frühe Warnzeichen, was letztes Mal geholfen
+      hat, wen anrufen. Geschrieben, wenn es gut geht, gelesen, wenn nicht.
+  psychoeducation:
+    label: "Verstehen, wie Angst funktioniert"
+    description: >-
+      Zu verstehen, wie die Kampf-oder-Flucht-Reaktion abläuft, warum
+      Vermeidung die Angst nährt und warum Angst immer ansteigt und wieder
+      abfällt, nimmt ihr viel von ihrer Macht.
+
+  earplugs:
+    label: Ohrstöpsel für den Alltag
+    description: >-
+      Gefilterte Ohrstöpsel, die die Spitzen nehmen, ohne Sprache zu
+      schlucken, am Schlüsselbund, damit sie immer dabei sind.
+  control-the-environment:
+    label: Die Umgebung steuern
+    description: >-
+      Sitzplatz, Raum und Tageszeit wählen. Unparfümierte Produkte zu Hause,
+      dimmbares Licht, eine ruhige Ecke bei der Arbeit. Von vornherein weniger
+      Reize.
+  comfortable-clothes:
+    label: "Kleidung, die sich richtig anfühlt"
+    description: >-
+      Etiketten herausschneiden, dieselben weichen Stoffe nachkaufen, bei
+      Socken nie Kompromisse. Komfort ist keine Empfindlichkeit, wenn die
+      Alternative Ablenkung den ganzen Tag ist.
+  quiet-after-loud:
+    label: Ruhe nach lauten Tagen
+    description: >-
+      Eingeplante Stille nach einem lauten Tag: keine Musik, keine Anrufe,
+      gedämpftes Licht. Erholung ist Teil des Plans, kein Luxus.
+  leave-early:
+    label: Erlaubnis zu gehen
+    description: >-
+      Vorher mit sich selbst und der Begleitung vereinbaren, dass frühes Gehen
+      aus einem lauten Ort in Ordnung ist. Zu wissen, dass es einen Ausgang
+      gibt, senkt die Last von Anfang an.
+
   # ---------------------------------------------------------------- treatment
   assessment:
     label: Diagnose & Abklärung
@@ -687,6 +851,12 @@ nodes:
       Die Erschöpfung nach Stunden voller Sorgen, Maskieren und Ausgleichen,
       ohne etwas vorweisen zu können.
 
+  sensory-overload:
+    label: Reizüberflutung
+    description: >-
+      Zu viel Input auf einmal: Gereiztheit, Abschalten, der Drang, den Raum
+      zu verlassen. Zehrt noch Stunden danach an der Energie.
+
   # ---------------------------------------------------------------- situation
   chaotic-home:
     label: Chaos in der Wohnung
@@ -705,6 +875,12 @@ nodes:
     description: >-
       Rechnungen, Abos, Steuern, das Konto, das du seit Monaten nicht geöffnet
       hast. Vergesslichkeit, Vermeidung und Impulsivität treffen sich hier.
+
+  loud-evening-out:
+    label: Ein lautes Restaurant oder eine Party
+    description: >-
+      Alle reden gleichzeitig, die Musik ist laut, neben dir kaut jemand. Dem
+      Gespräch zu folgen kostet mehr, als es gibt.
 
   # ---------------------------------------------------------------- mechanism
   dopamine-boost:
@@ -790,3 +966,28 @@ edges:
     note: >-
       Deshalb kann sich ein Lauf vor einer langweiligen Aufgabe wie eine Dosis
       Medikament anfühlen.
+  safety-behaviours-anticipatory-anxiety:
+    note: >-
+      Die Erleichterung, die sie bringen, lehrt das Gehirn, dass die Situation
+      wirklich gefährlich war.
+  thought-record-rumination:
+    note: >-
+      Grübeln dreht sich im Kreis; ein Gedankenprotokoll geht vorwärts, weil
+      es mit einem ausgewogenen Gedanken endet.
+  graded-exposure-avoidance:
+    note: >-
+      Jede Stufe muss klein genug sein, um sie wirklich zu gehen, und wird
+      wiederholt, bis sie langweilig wird.
+  sensory-sensitivity-sensory-overload:
+    note: >-
+      Jedes Geräusch, jeder Geruch kostet ein wenig Aufmerksamkeit. Am Abend
+      ist das Budget aufgebraucht.
+  explain-your-adhd-sensory-sensitivity:
+    note: >-
+      Wer neben dir kaut, hört nicht, was du hörst. Es vorher zu sagen, macht
+      aus einem Streit einen Sitzplan.
+  assessment-sensory-sensitivity:
+    note: >-
+      Starke, lebenslange Empfindlichkeit gehört in die Abklärung. Sie
+      überschneidet sich mit Autismus, und das ändert, welche Anpassungen
+      helfen.

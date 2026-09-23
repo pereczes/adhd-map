@@ -44,11 +44,6 @@ body {
   font-weight: 600;
 }
 
-.toolbar .prototype-name {
-  color: var(--text-muted);
-  font-size: 13px;
-}
-
 .toolbar .spacer {
   flex: 1;
 }
@@ -62,8 +57,7 @@ body {
   width: 220px;
 }
 
-.toolbar button,
-.toolbar a.switch {
+.toolbar button {
   background: transparent;
   border: 1px solid var(--panel-border);
   color: var(--text);
@@ -74,13 +68,8 @@ body {
   text-decoration: none;
 }
 
-.toolbar button:hover,
-.toolbar a.switch:hover {
+.toolbar button:hover {
   border-color: var(--text-muted);
-}
-
-.toolbar a.switch {
-  color: var(--text-muted);
 }
 
 .graph {
@@ -92,6 +81,7 @@ body {
 #graph {
   position: absolute;
   inset: 0;
+  z-index: 0;
 }
 
 .legend {
@@ -287,4 +277,64 @@ body {
 
 .panel .action:hover {
   background: rgba(92, 107, 192, 0.2);
+}
+
+.options {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  width: 300px;
+  max-width: calc(100% - 24px);
+  background: rgba(23, 29, 35, 0.96);
+  border: 1px solid var(--panel-border);
+  border-radius: 8px;
+  padding: 12px 14px;
+  font-size: 13px;
+  z-index: 5;
+}
+
+.options h2 {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  color: var(--text-muted);
+  margin: 0 0 10px;
+}
+
+.options-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin: 8px 0;
+  cursor: pointer;
+}
+
+.options-row input[type="range"] {
+  width: 110px;
+  flex: none;
+}
+
+.options-row input[type="checkbox"] {
+  width: 16px;
+  height: 16px;
+  flex: none;
+  accent-color: var(--accent);
+}
+
+.options-reset {
+  margin-top: 8px;
+  background: transparent;
+  border: 1px solid var(--panel-border);
+  color: var(--text-muted);
+  border-radius: 6px;
+  padding: 5px 10px;
+  font-size: 12px;
+  font-family: inherit;
+  cursor: pointer;
+}
+
+.options-reset:hover {
+  border-color: var(--text-muted);
+  color: var(--text);
 }

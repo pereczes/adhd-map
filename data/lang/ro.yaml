@@ -11,10 +11,6 @@ ui:
   fit: Încadrează
   expand_all: Extinde tot
   reset: Resetează
-  switch_to_cytoscape: Treci la Cytoscape.js
-  switch_to_force_graph: Treci la force-graph
-  prototype_cytoscape: "Prototipul A: Cytoscape.js + fcose"
-  prototype_force_graph: "Prototipul B: force-graph"
   intro: "Apasă pe un nod pentru a-l deschide: detaliile lui apar aici, iar vecinii se desfășoară pe hartă. Apasă din nou pe un nod deschis pentru a strânge ce a dezvăluit."
   intro_hint: Trage pentru a muta harta, derulează pentru a mări sau folosește căutarea pentru a sări la orice nod.
   counts: "{nodes} noduri, {links} legături."
@@ -27,6 +23,16 @@ ui:
   show_loop: Arată tot cercul
   show_reach: Arată ce influențează
   strategy_caveat: "Strategiile ajută unele persoane și pe altele nu. Încearcă, păstrează ce funcționează, renunță la rest."
+  options: Opțiuni
+  options_reset: Restabilește valorile implicite
+  option_fade: Vizibilitatea nodurilor inactive
+  option_inactive_labels: Etichete pe nodurile inactive
+  option_label_size: Mărimea etichetelor
+  option_spacing: Distanța dintre noduri
+  option_animate: Animează aranjarea
+  option_auto_frame: Păstrează nodul deschis în vedere
+  option_relation_labels: Numele relațiilor pe legăturile evidențiate
+  option_reach: Evidențiază ce influențează o strategie
 
 kinds:
   hub: Prezentare generală
@@ -84,6 +90,13 @@ nodes:
       Emoții care vin repede, lovesc puternic și se liniștesc mai greu. Nu
       fac parte din criteriile formale de diagnostic, dar pentru mulți adulți
       sunt unul dintre cele mai apăsătoare aspecte.
+
+  thinking-traps:
+    label: Capcane de gândire
+    description: >-
+      Distorsiuni obișnuite în felul în care sunt interpretate evenimentele.
+      TCC le numește distorsiuni cognitive. Anii de critici fac câteva dintre
+      ele frecvente în ADHD.
 
   # ---------------------------------------------------------------- symptom
   distractibility:
@@ -232,6 +245,54 @@ nodes:
       Anxietate care sosește cu mult înaintea sarcinii și costă adesea mai
       mult decât sarcina însăși.
 
+  catastrophising:
+    label: Catastrofizare
+    description: >-
+      A sări la cel mai rău rezultat posibil și a-l trata ca probabil: un
+      e-mail întârziat devine pierderea locului de muncă.
+  all-or-nothing:
+    label: Gândire totul sau nimic
+    description: >-
+      Tot ce nu este perfect contează ca eșec. Un antrenament ratat înseamnă
+      că tot planul este ruinat.
+  mind-reading:
+    label: Citirea gândurilor
+    description: >-
+      A presupune că știi ce cred ceilalți despre tine, de obicei ce e mai
+      rău, fără să verifici.
+  overgeneralisation:
+    label: Suprageneralizare
+    description: >-
+      Un eșec devine o regulă despre toată viața ta: „Mereu stric asta.”
+  should-statements:
+    label: Afirmații cu „trebuie”
+    description: >-
+      Reguli rigide despre cum trebuie să te porți tu și ceilalți. Fiecare
+      „trebuie” neîndeplinit produce vinovăție sau furie.
+  personalisation:
+    label: Personalizare
+    description: >-
+      A-ți asuma responsabilitatea pentru lucruri din afara controlului tău
+      sau a citi evenimente neutre ca fiind despre tine.
+  safety-behaviours:
+    label: Comportamente de siguranță
+    description: >-
+      Lucruri mărunte făcute pentru a te simți mai în siguranță în situații
+      temute: repetarea fiecărei propoziții, camera oprită, întotdeauna o
+      ieșire la îndemână. Aduc ușurare și țin frica în viață.
+
+  sensory-sensitivity:
+    label: Sensibilitate senzorială
+    description: >-
+      Sunetele, mirosurile, texturile și lumina se înregistrează mai tare
+      decât la alți oameni și trag mereu de atenție. Nu face parte din
+      criteriile ADHD, dar apare la majoritatea adulților cu ADHD.
+  misophonia:
+    label: Misofonie
+    description: >-
+      Furie sau dezgust intens la sunete specifice precum mestecatul, bătutul
+      cu degetele sau trasul nasului. Raportată mult mai des în ADHD.
+
   # ---------------------------------------------------------------- trigger
   boring-tasks:
     label: Sarcini plictisitoare sau repetitive
@@ -272,6 +333,27 @@ nodes:
     label: Foame și mese sărite
     description: >-
       Uiți să mănânci, apoi te prăbușești.
+
+  strong-smells:
+    label: Mirosuri puternice
+    description: >-
+      Parfum, produse de curățenie, prânzul unui coleg, lumânarea parfumată pe
+      care altcineva o adoră.
+  crowded-places:
+    label: Locuri aglomerate
+    description: >-
+      Supermarketuri, gări, petreceri: multe surse de sunet, mișcare și
+      mirosuri în același timp.
+  harsh-light:
+    label: Lumină dură și pâlpâit
+    description: >-
+      Tuburi fluorescente, ecrane prea luminoase, lumini care pâlpâie, soarele
+      jos prin parbriz.
+  textures:
+    label: Texturi și etichete
+    description: >-
+      Materiale aspre, etichete de haine, cusături la șosete, o mânecă udă.
+      Mici, constante, imposibil de ignorat.
 
   # ---------------------------------------------------------------- strategy
   body-doubling:
@@ -595,6 +677,85 @@ nodes:
       Angajează-te doar la cinci minute din lucrul de care te temi. Oprirea
       după cinci minute este permisă. De cele mai multe ori nu te vei opri.
 
+  thought-record:
+    label: Jurnal de gânduri
+    description: >-
+      Scrie situația, gândul automat, emoția și intensitatea ei, dovezile
+      pentru și împotrivă, și un gând mai echilibrat. Fișa clasică de TCC.
+  decatastrophising:
+    label: Decatastrofizare
+    description: >-
+      Trei întrebări: care este cel mai rău lucru care s-ar putea întâmpla,
+      cât de probabil este cu adevărat, și cum m-aș descurca dacă s-ar
+      întâmpla?
+  behavioural-experiments:
+    label: Experimente comportamentale
+    description: >-
+      Tratează o predicție temută ca pe o ipoteză și testeaz-o: trimite
+      mesajul fără să îl recitești de zece ori și vezi ce se întâmplă de fapt.
+  graded-exposure:
+    label: Expunere gradată
+    description: >-
+      Ordonează situațiile temute de la ușor la greu și urcă scara, rămânând
+      în fiecare până când anxietatea scade de la sine. Evitarea micșorează
+      lumea; expunerea o lărgește la loc.
+  structured-problem-solving:
+    label: Rezolvare structurată a problemelor
+    description: >-
+      Definește problema într-o propoziție, listează toate opțiunile fără a
+      judeca, alege una, planifică primul pas, evaluează după. Transformă
+      ruminația într-o decizie.
+  mood-diary:
+    label: Jurnal de dispoziție și activitate
+    description: >-
+      Notează ce ai făcut și cum te-ai simțit, oră de oră, timp de o
+      săptămână. Tiparul arată ce activități ridică dispoziția și ce o
+      epuizează.
+  relaxation-breathing:
+    label: Respirație ritmată și relaxare musculară
+    description: >-
+      Respirație lentă, cu expirație prelungită, sau încordarea și relaxarea
+      pe rând a grupelor musculare. Învață corpul butonul de oprire.
+  relapse-plan:
+    label: Plan de prevenire a recăderii
+    description: >-
+      O pagină scrisă: semne timpurii de avertizare, ce a ajutat data trecută,
+      pe cine să suni. Făcută când ești bine, citită când nu ești.
+  psychoeducation:
+    label: Înțelege cum funcționează anxietatea
+    description: >-
+      Înțelegerea răspunsului luptă-sau-fugi, a motivului pentru care evitarea
+      hrănește frica și a faptului că anxietatea atinge mereu un vârf și apoi
+      scade îi ia mult din putere.
+
+  earplugs:
+    label: Dopuri de urechi pentru zi de zi
+    description: >-
+      Dopuri cu filtru care iau vârfurile fără a tăia vorbirea, ținute pe
+      breloc ca să fie mereu la îndemână.
+  control-the-environment:
+    label: Controlează mediul
+    description: >-
+      Alege locul, camera și momentul zilei. Produse fără parfum acasă, lumini
+      reglabile, un colț liniștit la birou. De la început mai puțini stimuli.
+  comfortable-clothes:
+    label: Haine care se simt bine
+    description: >-
+      Taie etichetele, cumpără din nou aceleași materiale moi, nu face
+      niciodată compromisuri la șosete. Confortul nu este moft când
+      alternativa este distragere toată ziua.
+  quiet-after-loud:
+    label: Liniște după zilele zgomotoase
+    description: >-
+      Tăcere programată după o zi zgomotoasă: fără muzică, fără apeluri,
+      lumină slabă. Recuperarea face parte din plan, nu este un lux.
+  leave-early:
+    label: Permisiunea de a pleca
+    description: >-
+      Convine dinainte, cu tine și cu cei care te însoțesc, că este în regulă
+      să pleci devreme dintr-un loc zgomotos. Să știi că există o ieșire scade
+      povara de la început.
+
   # ---------------------------------------------------------------- treatment
   assessment:
     label: Diagnostic și evaluare
@@ -679,6 +840,12 @@ nodes:
       Oboseala orelor petrecute cu griji, mascare și compensare, fără nimic de
       arătat în schimb.
 
+  sensory-overload:
+    label: Suprasolicitare senzorială
+    description: >-
+      Prea mulți stimuli deodată: iritabilitate, blocaj, nevoia de a părăsi
+      camera. Consumă energie ore întregi după aceea.
+
   # ---------------------------------------------------------------- situation
   chaotic-home:
     label: Haos în apartament
@@ -697,6 +864,12 @@ nodes:
     description: >-
       Facturi, abonamente, taxe, contul pe care nu l-ai deschis de luni de
       zile. Uitarea, evitarea și impulsivitatea se întâlnesc toate aici.
+
+  loud-evening-out:
+    label: Un restaurant zgomotos sau o petrecere
+    description: >-
+      Toți vorbesc deodată, muzica e tare, cineva mestecă lângă tine.
+      Urmărirea conversației costă mai mult decât oferă.
 
   # ---------------------------------------------------------------- mechanism
   dopamine-boost:
@@ -781,3 +954,27 @@ edges:
     note: >-
       De aceea o alergare înainte de o sarcină plictisitoare poate părea o
       doză de medicament.
+  safety-behaviours-anticipatory-anxiety:
+    note: >-
+      Ușurarea pe care o aduc învață creierul că situația chiar a fost
+      periculoasă.
+  thought-record-rumination:
+    note: >-
+      Ruminația se învârte în cerc; un jurnal de gânduri merge înainte, pentru
+      că se încheie cu un gând echilibrat.
+  graded-exposure-avoidance:
+    note: >-
+      Fiecare pas trebuie să fie destul de mic ca să îl faci cu adevărat și
+      repetat până devine plictisitor.
+  sensory-sensitivity-sensory-overload:
+    note: >-
+      Fiecare sunet sau miros costă puțină atenție. Până seara bugetul s-a
+      terminat.
+  explain-your-adhd-sensory-sensitivity:
+    note: >-
+      Persoana care mestecă lângă tine nu aude ce auzi tu. Spus dinainte,
+      transformă o ceartă într-un plan de așezare la masă.
+  assessment-sensory-sensitivity:
+    note: >-
+      Sensibilitatea puternică, de o viață, merită adusă în discuție la
+      evaluare. Se suprapune cu autismul, iar asta schimbă ce adaptări ajută.
