@@ -23,6 +23,7 @@
   }
 
   function buildGraph(structure) {
+    const sources = structure.sources || {};
     const kinds = {};
     Object.entries(structure.kinds || {}).forEach(([kindId, kind]) => {
       kinds[kindId] = { color: kind.color, size: kind.size || 1, label: kindId };
@@ -53,7 +54,20 @@
       if (!kinds[node.kind]) {
         problems.push(`node ${node.id} has unknown kind: ${node.kind}`);
       }
-      nodesById.set(node.id, { id: node.id, kind: node.kind, label: node.id, description: '' });
+      nodesById.set(node.id, {
+        id: node.id,
+        kind: node.kind,
+        scope: node.scope || null,
+        evidence: node.evidence || null,
+        label: node.id,
+        description: '',
+        aliases: [],
+        facts: [],
+        /* Works this node is described in, resolved to source records. */
+        references: (node.references || []).map((key) => sources[key]).filter(Boolean),
+        /* Works that support how this node is classified. */
+        sources: (node.sources || []).map((key) => sources[key]).filter(Boolean),
+      });
     });
 
     const edgeIds = new Set();
@@ -72,7 +86,15 @@
       if (!relations[edge.relation]) {
         problems.push(`edge ${id}: unknown relation ${edge.relation}`);
       }
-      return { id, source: edge.from, target: edge.to, relation: edge.relation, note: '' };
+      return {
+        id,
+        source: edge.from,
+        target: edge.to,
+        relation: edge.relation,
+        note: '',
+        /* Works supporting a population-level association. */
+        sources: (edge.sources || []).map((key) => sources[key]).filter(Boolean),
+      };
     });
 
     if (problems.length > 0) {
@@ -103,11 +125,14 @@
       title: 'Map',
       language: null,
       ui: {},
+      scopes: {},
+      evidenceLevels: {},
       start: structure.start,
       kinds,
       relations,
       nodes: Array.from(nodesById.values()),
       edges,
+      sources,
       node(id) {
         return nodesById.get(id);
       },
@@ -120,6 +145,14 @@
       },
       relationOf(edge) {
         return relations[edge.relation];
+      },
+      /* How the node relates to an ADHD diagnosis, as a reader-facing label. */
+      scopeLabel(node) {
+        return node.scope ? graph.scopes[node.scope] || node.scope : null;
+      },
+      /* How well supported a strategy or treatment is, as context. */
+      evidenceLabel(node) {
+        return node.evidence ? graph.evidenceLevels[node.evidence] || node.evidence : null;
       },
       async loadLanguage(url) {
         applyLanguage(graph, await loadYaml(url));
@@ -139,6 +172,8 @@
     graph.language = language.language || null;
     graph.title = language.title || graph.title;
     graph.ui = language.ui || {};
+    graph.scopes = language.scopes || {};
+    graph.evidenceLevels = language.evidence || {};
 
     Object.entries(graph.kinds).forEach(([kindId, kind]) => {
       kind.label = kindTexts[kindId] || kindId;
@@ -152,6 +187,13 @@
       const text = nodeTexts[node.id] || {};
       node.label = text.label || node.id;
       node.description = text.description || '';
+      /* Other words a reader might search for, such as RSD or ADHD paralysis. */
+      node.aliases = text.aliases || [];
+      /* Sourced statistics. The text is translated, the source is not. */
+      node.facts = (text.facts || []).map((fact) => ({
+        text: fact.text,
+        source: graph.sources[fact.source] || null,
+      }));
     });
     graph.edges.forEach((edge) => {
       const text = edgeTexts[edge.id] || {};

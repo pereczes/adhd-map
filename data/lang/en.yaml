@@ -1,4 +1,4 @@
-# English text for data/adhd-map.yaml. Keys are the ids from that file.
+# Text for data/adhd-map.yaml. Keys are the ids from that file.
 
 language: en
 name: English
@@ -33,6 +33,24 @@ ui:
   option_auto_frame: Keep the opened node in view
   option_relation_labels: Relation names on highlighted links
   option_reach: Highlight what a strategy reaches
+  option_popup: Popup on hover
+  option_translation: Popup language
+  translation_same: Same as map
+  evidence_note: "How well supported an approach is depends on what it is used for. This is context, not proof."
+  sources: Sources
+  sources_title: Sources and method
+  sources_intro: "This map is educational, not diagnostic. It cannot tell anyone whether they have ADHD, and it is not a substitute for assessment or treatment by a qualified clinician."
+  sources_scope_heading: What the map contains
+  sources_scope: "Nodes are marked with how they relate to a diagnosis: a core ADHD symptom, something commonly associated but not diagnostic, a pattern that is not specific to ADHD, or a condition that often occurs alongside it. No single node establishes ADHD."
+  sources_evidence_heading: How strongly supported
+  sources_evidence: "Strategies and treatments carry a coarse label: recommended in clinical guidance, some research support, or widely reported with limited research. It describes the approach in general, not every use of it, and it is context rather than proof."
+  sources_list_heading: Main sources
+  sources_reviewed: "Content last reviewed: September 2026."
+  sources_back: Back to the map
+  facts_heading: Facts and figures
+  fact_source: Source
+  described_in: Described in
+  used_on: On the map
 
 kinds:
   hub: Overview
@@ -42,19 +60,33 @@ kinds:
   strategy: Coping strategy
   treatment: "Treatment & support"
   impact: Impact
+  condition: Co-occurring condition
   situation: Situation
   mechanism: How it works
 
+scopes:
+  core: Core ADHD symptom
+  associated: "Commonly associated, not diagnostic"
+  transdiagnostic: Not specific to ADHD
+  co-occurring: Often occurs alongside ADHD
+  unspecified: Not yet classified
+
+evidence:
+  guideline: Recommended in clinical guidance
+  research: Some research support
+  reported: "Widely reported, limited research"
+
 relations:
-  includes:   { label: includes, inverse: part of }
-  related_to: { label: related to, inverse: related to }
-  worsens:    { label: worsens, inverse: worsened by }
-  helps_with: { label: helps with, inverse: helped by }
-  reduces:    { label: reduces, inverse: reduced by }
-  leads_to:   { label: leads to, inverse: follows from }
-  involves:   { label: involves, inverse: shows up in }
-  feeds:      { label: feeds, inverse: fed by }
-  produces:   { label: produces, inverse: produced by }
+  includes:        { label: includes, inverse: part of }
+  related_to:      { label: related to, inverse: related to }
+  associated_with: { label: associated with, inverse: associated with }
+  worsens:         { label: worsens, inverse: worsened by }
+  helps_with:      { label: helps with, inverse: helped by }
+  reduces:         { label: reduces, inverse: reduced by }
+  leads_to:        { label: can lead to, inverse: can follow from }
+  involves:        { label: involves, inverse: shows up in }
+  feeds:           { label: feeds, inverse: fed by }
+  produces:        { label: produces, inverse: produced by }
 
 nodes:
   # ---------------------------------------------------------------- hub
@@ -64,7 +96,39 @@ nodes:
       Attention deficit hyperactivity disorder is a neurodevelopmental
       condition that affects attention regulation, activity level, impulse
       control and executive function. Click a cluster to explore its symptoms,
-      then follow the links to triggers, coping strategies and impacts.
+      then follow the links to triggers, coping strategies and impacts. This
+      map is educational, not diagnostic. It holds diagnostic symptoms,
+      commonly associated experiences, co-occurring problems and practical
+      strategies. No single node establishes ADHD. Diagnosis weighs childhood
+      onset, persistence, difficulty in more than one setting, and other
+      possible explanations.
+    facts:
+      - text: >-
+          Pooled across 175 studies worldwide, about 7% of children and
+          adolescents meet the criteria for ADHD.
+        source: thomas-2015
+      - text: >-
+          In a US survey run in 2001 to 2003, 4.4% of adults aged 18 to 44 met
+          the criteria for current ADHD.
+        source: kessler-2006
+      - text: >-
+          In a US survey of adolescents run in 2001 to 2004, 13% of boys and
+          4.2% of girls had ADHD at some point in their life.
+        source: nimh-adhd-stats
+      - text: >-
+          In the adult survey of the same period, current ADHD was found in
+          5.4% of men and 3.2% of women. Lifetime and current figures come
+          from different surveys and different measures, so they cannot be
+          compared directly.
+        source: nimh-adhd-stats
+      - text: >-
+          In 2023 an estimated 15.5 million adults in the United States, about
+          6%, reported a current ADHD diagnosis. Around half were first
+          diagnosed at 18 or older.
+        source: cdc-adult-adhd
+      - text: >-
+          Twin studies put the heritability of ADHD at about 74%.
+        source: faraone-2019
 
   # ---------------------------------------------------------------- cluster
   inattention:
@@ -89,7 +153,6 @@ nodes:
       Emotions that arrive fast, hit hard and take longer to settle. Not part
       of the formal diagnostic criteria, but one of the most disabling aspects
       for many adults.
-
   thinking-traps:
     label: Thinking traps
     description: >-
@@ -113,6 +176,7 @@ nodes:
     description: >-
       Intense, hard-to-break absorption in an interesting task, often at the
       expense of everything else including food, sleep and other people.
+    aliases: [tunnel vision]
   forgetfulness:
     label: Forgetfulness
     description: >-
@@ -127,6 +191,7 @@ nodes:
     description: >-
       Details get skipped in work or paperwork despite knowing the material
       well.
+    aliases: [overlooked details]
   restlessness:
     label: Restlessness
     description: >-
@@ -157,6 +222,7 @@ nodes:
     description: >-
       Knowing exactly what to do and being unable to start. Sometimes called
       ADHD paralysis.
+    aliases: [ADHD paralysis, executive dysfunction]
   procrastination:
     label: Procrastination
     description: >-
@@ -167,6 +233,7 @@ nodes:
     description: >-
       A weak sense of how much time has passed and how long things take.
       Chronic lateness and over-committing follow.
+    aliases: [time management, always late]
   disorganisation:
     label: Disorganisation
     description: >-
@@ -176,6 +243,7 @@ nodes:
     description: >-
       Holding several things in mind at once is hard: multi-step instructions,
       mental arithmetic, remembering why you walked into a room.
+    aliases: [short-term memory]
   prioritising:
     label: Difficulty prioritising
     description: >-
@@ -191,11 +259,16 @@ nodes:
     description: >-
       Emotions arrive quickly and strongly and take longer to settle than the
       situation seems to warrant.
+    aliases: [big emotions, mood swings]
   rejection-sensitivity:
     label: Rejection sensitivity
     description: >-
-      Perceived criticism or rejection triggers intense emotional pain. Not a
-      formal diagnostic term, but very widely reported.
+      Perceived criticism, exclusion or rejection can trigger intense
+      distress. It is not an ADHD diagnostic criterion and is not unique to
+      ADHD, but it can interact with emotional dysregulation and with past
+      experience of criticism. The stronger idea of rejection sensitive
+      dysphoria has limited research support.
+    aliases: [RSD, rejection sensitive dysphoria]
   frustration-tolerance:
     label: Low frustration tolerance
     description: >-
@@ -211,7 +284,6 @@ nodes:
     description: >-
       Trouble falling asleep, a delayed body clock, and staying up late to
       reclaim time that the day did not provide.
-
   rumination:
     label: Rumination
     description: >-
@@ -237,7 +309,6 @@ nodes:
     description: >-
       Anxiety that arrives long before the task and often costs more than the
       task itself.
-
   catastrophising:
     label: Catastrophising
     description: >-
@@ -274,18 +345,52 @@ nodes:
       Small things done to feel safer in feared situations: rehearsing every
       sentence, keeping the camera off, always having an exit. They bring
       relief and keep the fear alive.
-
   sensory-sensitivity:
     label: Sensory sensitivity
     description: >-
-      Sounds, smells, textures and light register louder than they do for
-      other people and keep pulling attention. Not in the ADHD criteria, but
-      found in most adults with ADHD.
+      Sounds, smells, textures or light may feel unusually intense or keep
+      pulling attention. Sensory differences are reported more often by people
+      with ADHD, but they are not part of the diagnostic criteria and can also
+      occur with other conditions.
+    aliases: [overstimulation]
+    facts:
+      - text: >-
+          In one study of adults with ADHD, 43% of the women and 22% of the
+          men reported sensory hypo- or hypersensitivity.
+        source: bijlenga-2017
   misophonia:
     label: Misophonia
     description: >-
       Intense anger or disgust at specific sounds such as chewing, tapping or
-      sniffing. Reported far more often with ADHD.
+      sniffing. It can occur with ADHD, but how the two relate is still being
+      studied.
+    facts:
+      - text: >-
+          In a sample of 575 people with misophonia, 5% reported ADHD.
+        source: jager-2020
+  follow-through:
+    label: Difficulty following through
+    description: >-
+      Starting a task or the first instruction, then losing the thread before
+      every step is finished. The intention was real; the thread was not held.
+  losing-conversation-thread:
+    label: Losing the thread in conversation
+    description: >-
+      Attention slips while someone is speaking, so part of what they said
+      never lands. It can look like not listening when the person is trying
+      hard to follow.
+  mind-wandering:
+    label: Excessive mind wandering
+    description: >-
+      A stream of short, unrelated thoughts keeps pulling attention off the
+      task. Unlike rumination, the mind jumps between topics instead of
+      circling one worry.
+    aliases: [daydreaming]
+  planning-sequencing:
+    label: Difficulty planning and sequencing
+    description: >-
+      Knowing the goal but struggling to choose an order, see what depends on
+      what, and turn it into a workable sequence of actions.
 
   # ---------------------------------------------------------------- trigger
   boring-tasks:
@@ -295,7 +400,7 @@ nodes:
   poor-sleep:
     label: Lack of sleep
     description: >-
-      Almost every ADHD symptom gets worse after a bad night.
+      Many ADHD symptoms can get worse after a bad night.
   noisy-environment:
     label: Noisy environment
     description: >-
@@ -324,7 +429,6 @@ nodes:
     label: "Hunger & skipped meals"
     description: >-
       Forgetting to eat, then crashing.
-
   strong-smells:
     label: Strong smells
     description: >-
@@ -345,6 +449,16 @@ nodes:
     description: >-
       Scratchy fabrics, clothing labels, seams in socks, a wet sleeve. Small,
       constant, impossible to ignore.
+  competing-demands:
+    label: Too many competing demands
+    description: >-
+      Several requests, decisions and unfinished tasks all want attention at
+      once, which makes choosing and holding the next action hard.
+  unexpected-interruptions:
+    label: Unexpected interruptions
+    description: >-
+      A question, a call or an urgent request breaks the current task, and
+      rebuilding where you were costs more than the interruption itself.
 
   # ---------------------------------------------------------------- strategy
   body-doubling:
@@ -352,6 +466,7 @@ nodes:
     description: >-
       Working alongside another person, in the same room or on a video call,
       whose presence makes starting and staying on task easier.
+    aliases: [co-working]
   pomodoro:
     label: Pomodoro timer
     description: >-
@@ -384,8 +499,8 @@ nodes:
   exercise:
     label: Regular exercise
     description: >-
-      Aerobic activity improves attention and mood for hours afterwards and
-      helps with sleep.
+      Aerobic activity can improve attention and mood for a few hours
+      afterwards, and can help with sleep.
   sleep-routine:
     label: Consistent sleep routine
     description: >-
@@ -463,7 +578,6 @@ nodes:
     description: >-
       Fewer choices to make: standard meals, a small wardrobe, default
       answers.
-
   movement-breaks:
     label: Movement breaks
     description: >-
@@ -581,9 +695,8 @@ nodes:
   interest-pairing:
     label: Pair boring tasks with something enjoyable
     description: >-
-      A favourite podcast only during chores, admin only in the good café. The
-      enjoyable half supplies the stimulation the task lacks.
-
+      A favourite podcast only during chores, admin only in the good cafe. The
+      enjoyable half can supply some of the stimulation the task lacks.
   behavioural-activation:
     label: Behavioural activation
     description: >-
@@ -609,8 +722,8 @@ nodes:
   less-alcohol:
     label: Less alcohol
     description: >-
-      Alcohol worsens sleep, impulsivity and mood for days. Cutting down is
-      one of the cheapest improvements available.
+      Alcohol can worsen sleep, impulsivity and mood for days afterwards.
+      Cutting down is one of the cheapest improvements available.
   nightly-reset:
     label: Ten-minute nightly reset
     description: >-
@@ -626,6 +739,7 @@ nodes:
     description: >-
       One box for the pile of things that need a decision. The surface is
       clear now, the decisions wait for a calmer moment.
+    aliases: [doom pile]
   own-less:
     label: Own less
     description: >-
@@ -656,7 +770,6 @@ nodes:
     description: >-
       Agree to do only five minutes of the dreaded thing. Stopping after five
       is allowed. Most of the time you will not.
-
   thought-record:
     label: Thought record
     description: >-
@@ -669,10 +782,13 @@ nodes:
       Three questions: what is the worst that could happen, how likely is it
       really, and how would I cope if it did?
   behavioural-experiments:
-    label: Behavioural experiments
+    label: Test what you fear
     description: >-
-      Treat a fearful prediction as a hypothesis and test it: send the message
-      without rereading it ten times and see what actually happens.
+      Called a behavioural experiment in CBT. Write down exactly what you
+      expect to go wrong and how certain you are, out of ten. Then do the
+      thing once, without the usual precautions. Afterwards write down what
+      actually happened. The gap between the prediction and the outcome is
+      what changes the belief. Being told not to worry does not.
   graded-exposure:
     label: Graded exposure
     description: >-
@@ -705,7 +821,6 @@ nodes:
     description: >-
       Understanding the fight-or-flight response, why avoidance feeds fear,
       and why anxiety always peaks and falls takes much of its power away.
-
   earplugs:
     label: Everyday earplugs
     description: >-
@@ -734,6 +849,125 @@ nodes:
       Agree beforehand, with yourself and with companions, that leaving a loud
       place early is fine. Knowing there is an exit lowers the load from the
       start.
+  planning-time-to-plan:
+    label: Plan a time to plan
+    description: >-
+      Put the planning itself in the calendar as a short daily slot. Without
+      it the day starts by reacting, and planning is the step that gets
+      skipped first.
+  master-list:
+    label: One master list of everything
+    description: >-
+      A single list holding every commitment, large and small, in one place.
+      It is not the list you work from; it is the list you stop carrying in
+      your head.
+  daily-shortlist:
+    label: A short list for today
+    description: >-
+      Each day, copy a small number of items from the master list. A short
+      list can be finished, and a finished list is the only kind that builds
+      trust in the system.
+  underschedule:
+    label: Deliberately underschedule
+    description: >-
+      Plan fewer tasks than you think will fit, and leave more space between
+      them than seems necessary. Estimating time is the weak point, so the
+      plan should absorb the error.
+  if-then-plans:
+    label: If-then plans
+    description: >-
+      Decide in advance what you will do when a specific interruption arrives:
+      if a message comes in, then it waits until this block ends. The decision
+      is made once, while you are calm, rather than each time.
+  smallest-step:
+    label: Name the smallest first move
+    description: >-
+      Not the task, not even the first step, but the smallest physical action
+      that puts you in position: the file open on screen, the shoes by the
+      door.
+  escape-behaviours:
+    label: Know your escape moves
+    description: >-
+      Everyone has a short list of things they reliably do instead: the inbox,
+      the fridge, a quick errand. Naming them turns the urge into a signal
+      that you are avoiding something.
+  anticipation-ratio:
+    label: Rebalance what you expect
+    description: >-
+      Before a dreaded task, most people count only what will be unpleasant.
+      Add what is true on the other side: it is time limited, it can be done
+      badly, and finishing it feels better than carrying it.
+  accept-discomfort:
+    label: Start without waiting to feel ready
+    description: >-
+      The discomfort usually does not go away before you start; it goes away
+      shortly after. Waiting for the mood to arrive is what turns a task into
+      a week.
+  behavioural-scripts:
+    label: Reverse-engineer your routines
+    description: >-
+      Some sequences run themselves: coming home, the couch, the phone, the
+      evening gone. Writing the sequence down shows where the choice point
+      actually is.
+  reframe-time:
+    label: Put a real number on the time
+    description: >-
+      Ask how long the task truly takes, not how long it feels. Most items on
+      a daily list need under an hour, and an unbounded task is the one that
+      never starts.
+  manage-energy:
+    label: Spend your best hours deliberately
+    description: >-
+      Attention is not evenly available across the day. Match the demanding
+      work to the hours you actually have it, and the mechanical work to the
+      hours you do not.
+  earned-rewards:
+    label: Turn escapes into earned rewards
+    description: >-
+      The things you escape into can be moved to the other side of the task.
+      The same half hour online is a very different thing before and after the
+      work.
+  defense-attorney:
+    label: Argue the other side
+    description: >-
+      A harsh thought convinces because only one side was heard. Deliberately
+      make the case against it, the way a defence lawyer would, before
+      accepting the verdict.
+  method-acting:
+    label: Act as the person who does it
+    description: >-
+      Behave as someone who already keeps a planner or sends that email,
+      before it feels natural. Repetition is what makes it natural, not the
+      other way round.
+  values-commitment:
+    label: Connect the task to what you value
+    description: >-
+      A dull task that serves something you care about is easier to start than
+      one defended as merely necessary. Name the thing it serves.
+  problem-template:
+    label: A written template for problems
+    description: >-
+      Define the problem in one sentence, list options without judging them,
+      choose, plan the first step, and review afterwards. The template does
+      the thinking the moment cannot.
+  face-uncertainty:
+    label: Decide before the choice decides itself
+    description: >-
+      Waiting out a decision is still a decision, and usually the worst one,
+      because the options quietly expire. Acting under uncertainty beats
+      acting too late.
+  planned-distraction:
+    label: Schedule the distraction
+    description: >-
+      Give games, feeds and screens a real slot in the day rather than letting
+      them take the gaps. Scheduled downtime stops competing with everything
+      else.
+  coping-drift:
+    label: Expect the system to slip
+    description: >-
+      Every system slides after a few good weeks. Treat the slide as normal
+      and plan the restart in advance, rather than reading it as proof that
+      you cannot keep anything up.
 
   # ---------------------------------------------------------------- treatment
   assessment:
@@ -741,16 +975,30 @@ nodes:
     description: >-
       A formal assessment by a qualified clinician is the gateway to treatment
       and to accommodations.
+    aliases: [diagnosis, testing]
+    facts:
+      - text: >-
+          About half of US adults with a current ADHD diagnosis were first
+          diagnosed at 18 or older.
+        source: cdc-adult-adhd
   medication:
     label: Medication
     description: >-
       Stimulant and non-stimulant medication, prescribed and monitored by a
       clinician. A first-line treatment for many adults.
+    aliases: [stimulants, methylphenidate]
+    facts:
+      - text: >-
+          About a third of US adults with ADHD took a stimulant medication in
+          the previous year. Of those, 71.5% had difficulty filling a
+          prescription because the medication was unavailable.
+        source: cdc-adult-adhd
   cbt:
     label: CBT for ADHD
     description: >-
       Cognitive behavioural therapy adapted for ADHD: skills for planning,
       procrastination and unhelpful thinking patterns.
+    aliases: [CBT, cognitive behavioural therapy]
   coaching:
     label: ADHD coaching
     description: >-
@@ -761,7 +1009,6 @@ nodes:
     description: >-
       Flexible hours, written instructions, a quiet workspace, deadline check-
       ins.
-
   psychotherapy:
     label: Psychotherapy
     description: >-
@@ -803,26 +1050,100 @@ nodes:
     label: Financial trouble
     description: >-
       Late fees, forgotten subscriptions, impulse purchases.
-  underachievement:
-    label: Underachievement
+  inconsistent-performance:
+    label: Inconsistent performance at work or study
     description: >-
-      Performance below ability at school or at work.
-  anxiety-depression:
-    label: "Anxiety & depression"
-    description: >-
-      Frequently co-occurring conditions, often fuelled by the other impacts
-      on this map.
+      Results that swing between excellent and late or missing, often on the
+      same kind of task. The gap is between what is possible on a good day and
+      what happens on an average one, not between effort and ability.
+    aliases: [underachievement]
   energy-drain:
     label: Energy drain
     description: >-
       The exhaustion of hours spent worrying, masking and compensating, with
       nothing to show for it.
-
   sensory-overload:
     label: Sensory overload
     description: >-
       Too much input at once: irritability, shutdown, the urge to leave the
       room. It drains energy for hours afterwards.
+  driving-risk:
+    label: Driving and accident risk
+    description: >-
+      At population level, ADHD is associated with a higher accident risk.
+      Distractibility, impulsivity and poor sleep matter more behind a wheel
+      or around machinery. This is a group finding and says nothing about any
+      individual driver.
+    facts:
+      - text: >-
+          In a Swedish population study, periods on medication were associated
+          with a 58% lower rate of serious transport accidents among men with
+          ADHD. The authors estimated that 41% to 49% of those accidents could
+          have been avoided with treatment.
+        source: chang-2014
+
+  # ---------------------------------------------------------------- condition
+  anxiety:
+    label: Anxiety
+    description: >-
+      Anxiety disorders occur more often alongside ADHD than in the general
+      population. Worry, physical tension and avoidance can look like ADHD
+      symptoms and can also be made worse by them. Anxiety needs its own
+      assessment and treatment.
+    facts:
+      - text: >-
+          About 5.8% of the world's population, roughly 470 million people,
+          had an anxiety disorder in 2023.
+        source: who-anxiety
+      - text: >-
+          Only about one person in four who needs treatment for an anxiety
+          disorder receives any, 27.6%.
+        source: who-anxiety
+      - text: >-
+          Girls and women are more likely to experience an anxiety disorder
+          than boys and men.
+        source: who-anxiety
+      - text: >-
+          Pooled across studies, adults with ADHD had about five times the
+          odds of an anxiety disorder compared with adults without ADHD.
+        source: hartman-2023
+  depression:
+    label: Depression
+    description: >-
+      Depression occurs more often alongside ADHD than in the general
+      population. Low mood, loss of interest and exhaustion are not simply the
+      result of a hard week. Depression needs its own assessment and
+      treatment. If your thoughts turn to not wanting to be here, seek help
+      today.
+    facts:
+      - text: >-
+          About 5.2% of adults worldwide had a depressive disorder in 2023:
+          4.1% of men and 6.2% of women.
+        source: who-depression
+      - text: >-
+          That is roughly 322 million people.
+        source: who-depression
+      - text: >-
+          Depression is about 1.5 times more common among women than among
+          men.
+        source: who-depression
+      - text: >-
+          Pooled across studies, adults with ADHD had about four and a half
+          times the odds of major depression compared with adults without
+          ADHD.
+        source: hartman-2023
+  substance-use:
+    label: Substance use problems
+    description: >-
+      Substance use disorders occur more often alongside ADHD. Substances are
+      sometimes used to manage restlessness, sleep, mood or distress, but they
+      worsen functioning and need their own assessment and treatment.
+    facts:
+      - text: >-
+          Pooled across studies, adults with ADHD had about four and a half
+          times the odds of a substance use disorder compared with adults
+          without ADHD.
+        source: hartman-2023
 
   # ---------------------------------------------------------------- situation
   chaotic-home:
@@ -841,40 +1162,82 @@ nodes:
     description: >-
       Bills, subscriptions, taxes, the account you have not opened in months.
       Forgetfulness, avoidance and impulsivity all meet here.
-
   loud-evening-out:
     label: A loud restaurant or party
     description: >-
       Everyone is talking at once, the music is up, someone is chewing next to
       you. Following the conversation costs more than it gives.
+  getting-out-the-door:
+    label: Getting out of the door on time
+    description: >-
+      The last twenty minutes before leaving, when several small problems
+      stack up at once: the keys, the time, the thing you meant to bring.
+  meetings-and-lectures:
+    label: "A meeting, class or lecture"
+    description: >-
+      An hour of sitting still and listening, with no way to move and little
+      to do with your hands, while the thread of the discussion keeps
+      slipping.
+  messages-and-inbox:
+    label: Messages and an overflowing inbox
+    description: >-
+      Unanswered messages pile up. Each one needs a decision, some of them
+      feel risky to answer, and out of sight quickly becomes out of mind.
+  bedtime-and-waking:
+    label: Going to bed and getting up
+    description: >-
+      The evening stretches, the interesting thing is hard to put down, and
+      the morning arrives before the night felt finished.
+  health-admin:
+    label: "Appointments, prescriptions and health admin"
+    description: >-
+      Booking, rebooking, forms, repeat prescriptions and follow-up calls. The
+      admin around staying healthy needs exactly the skills that ADHD makes
+      expensive.
 
   # ---------------------------------------------------------------- mechanism
   dopamine-boost:
     label: Dopamine and noradrenaline rise
     description: >-
-      Aerobic exercise raises the same messengers that ADHD medication
-      targets, for a few hours afterwards.
+      One proposed pathway. Aerobic exercise may raise the same messengers
+      that ADHD medication acts on, for a few hours afterwards. It is part of
+      the explanation, not the whole of it.
   deeper-sleep:
     label: Deeper sleep
     description: >-
-      Physical tiredness makes falling asleep easier and sleep deeper, which
-      improves almost everything the next day.
+      Physical tiredness can make falling asleep easier and sleep deeper,
+      which helps almost everything the next day.
   stress-hormones-drop:
     label: Stress hormones drop
     description: >-
-      Exercise burns off the stress response, so the body stops signalling
+      Exercise can burn off the stress response, so the body stops signalling
       danger to the mind.
   energy-discharged:
     label: Restless energy discharged
     description: >-
-      The inner motor gets an outlet, and sitting still afterwards costs less.
+      The inner motor gets an outlet, and sitting still afterwards may cost
+      less.
   mood-lift:
     label: Mood lift
     description: >-
-      A reliable, if temporary, lift in mood that stacks up when it happens
-      most days.
+      A lift in mood that is often temporary, but that adds up when it happens
+      on most days.
 
 edges:
+  substance-use-adhd:
+    note: >-
+      An association found across populations. It is a reason for assessment,
+      not an expectation about any person.
+  adhd-anxiety:
+    note: >-
+      More common alongside ADHD than in the general population. Anxiety can
+      also look like inattention, which is one reason an assessment weighs
+      both.
+  adhd-depression:
+    note: >-
+      More common alongside ADHD than in the general population. Years of
+      difficulty are one risk factor, but depression is its own condition and
+      needs its own treatment.
   hyperfocus-time-blindness:
     note: >-
       Hours disappear inside a hyperfocus session.
@@ -882,6 +1245,26 @@ edges:
     note: >-
       Bedtime keeps slipping because the evening does not feel as long as it
       is.
+  avoidance-dreaded-task:
+    note: >-
+      Nothing was done, the deadline is closer, and the task looks bigger than
+      before.
+  safety-behaviours-anticipatory-anxiety:
+    note: >-
+      The relief they bring teaches the brain that the situation really was
+      dangerous.
+  sensory-sensitivity-sensory-overload:
+    note: >-
+      Each sound or smell costs a little attention. By evening the budget is
+      gone.
+  mind-wandering-rumination:
+    note: >-
+      Both pull attention inward, but wandering jumps between topics while
+      rumination circles one.
+  driving-risk-distractibility:
+    note: >-
+      A population-level association, not a statement about any individual
+      driver.
   body-doubling-task-initiation:
     note: >-
       Another person's presence supplies the starting cue the brain does not
@@ -918,22 +1301,15 @@ edges:
   reduce-masking-burnout:
     note: >-
       Masking costs more energy than the people around you can see.
-  avoidance-dreaded-task:
-    note: >-
-      Nothing was done, the deadline is closer, and the task looks bigger than
-      before.
   five-minute-rule-avoidance:
     note: >-
       Five minutes is small enough to start, and starting is the whole
       problem.
   exercise-dopamine-boost:
     note: >-
-      This is why a run before a boring task can feel like a dose of
-      medication.
-  safety-behaviours-anticipatory-anxiety:
-    note: >-
-      The relief they bring teaches the brain that the situation really was
-      dangerous.
+      Some people notice a window of easier focus for an hour or two
+      afterwards. Exercise is an addition to treatment, not a replacement for
+      it.
   thought-record-rumination:
     note: >-
       Rumination goes round in circles; a thought record goes forward, because
@@ -942,15 +1318,52 @@ edges:
     note: >-
       Each step must be small enough to actually take, and repeated until it
       gets boring.
-  sensory-sensitivity-sensory-overload:
-    note: >-
-      Each sound or smell costs a little attention. By evening the budget is
-      gone.
   explain-your-adhd-sensory-sensitivity:
     note: >-
       The person chewing next to you cannot hear what you hear. Saying so
       beforehand turns a fight into a seating plan.
+  smallest-step-task-initiation:
+    note: >-
+      Small enough that refusing it would be absurd. Starting is the part that
+      costs.
+  escape-behaviours-procrastination:
+    note: >-
+      You cannot interrupt a habit you have not noticed.
+  anticipation-ratio-procrastination:
+    note: >-
+      The prediction, not the task, is usually what is being avoided.
+  behavioural-scripts-procrastination:
+    note: >-
+      The script runs before any decision is made, so the decision has to be
+      moved earlier.
+  earned-rewards-procrastination:
+    note: >-
+      The same activity becomes a reward rather than an escape, purely by
+      moving it.
+  defense-attorney-catastrophising:
+    note: >-
+      Ask what evidence would be needed to convict, then check whether you
+      actually have it.
+  method-acting-task-initiation:
+    note: >-
+      Acting the part comes first; feeling like the part follows, sometimes
+      much later.
+  face-uncertainty-decision-paralysis:
+    note: >-
+      A decision left unmade expires on its own, and the expired version is
+      rarely the one you wanted.
+  coping-drift-inconsistent-performance:
+    note: >-
+      Plan the return in advance and the slip costs days instead of months.
+  medication-dopamine-boost:
+    note: >-
+      This pathway describes stimulant medication. Non-stimulant medication
+      works differently.
   assessment-sensory-sensitivity:
     note: >-
       Strong, lifelong sensitivity is worth raising at assessment. It overlaps
       with autism, and that changes which accommodations help.
+  anxiety-depression-overlap:
+    note: >-
+      The two frequently occur together, and each can make the other harder to
+      recognise and to treat.

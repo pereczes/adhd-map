@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Sources and method</title>
+  <link rel="stylesheet" href="shared/style.css">
+  <script src="https://cdn.jsdelivr.net/npm/js-yaml@4.1.0/dist/js-yaml.min.js"></script>
+</head>
+<body>
+  <main class="page">
+    <p><a href="index.html" data-ui="sources_back" data-keep-lang>Back to the map</a></p>
+    <h1 data-ui="sources_title">Sources and method</h1>
+    <p data-ui="sources_intro"></p>
+
+    <h2 data-ui="sources_scope_heading">What the map contains</h2>
+    <p data-ui="sources_scope"></p>
+
+    <h2 data-ui="sources_evidence_heading">How strongly supported</h2>
+    <p data-ui="sources_evidence"></p>
+
+    <h2 data-ui="sources_list_heading">Main sources</h2>
+    <ul id="source-list"></ul>
+
+    <p class="reviewed" data-ui="sources_reviewed"></p>
+  </main>
+  <script src="shared/graph-data.js"></script>
+  <script src="shared/i18n.js"></script>
+  <script>
+    /* The page text lives in the language files, like everything else. */
+    (async function () {
+      const index = await AdhdMapI18n.loadIndex('data/languages.yaml');
+      const code = AdhdMapI18n.pickLanguage(index);
+      const [language, structure] = await Promise.all([
+        AdhdMapData.loadYaml(`data/${AdhdMapI18n.fileFor(index, code)}`),
+        AdhdMapData.loadYaml('data/adhd-map.yaml'),
+      ]);
+      AdhdMapI18n.applyUiStrings(language.ui, code);
+      document.title = language.ui.sources_title || document.title;
+
+      /* The list comes from the structure file, so the citations the facts
+       * link to and the ones listed here cannot drift apart. */
+      const list = document.getElementById('source-list');
+
+      /* Which nodes cite or are described in each source, so a reader can go
+       * from a work to the parts of the map that came from it. */
+      const citedBy = {};
+      const note = (key, id) => {
+        citedBy[key] = citedBy[key] || new Set();
+        citedBy[key].add(id);
+      };
+      (structure.nodes || []).forEach((node) => {
+        (node.references || []).forEach((key) => note(key, node.id));
+      });
+      Object.entries(language.nodes || {}).forEach(([id, text]) => {
+        (text.facts || []).forEach((fact) => note(fact.source, id));
+      });
+
+      Object.entries(structure.sources || {}).forEach(([key, source]) => {
+        const item = document.createElement('li');
+        item.append(document.createTextNode(`${source.label}, `));
+        const title = document.createElement('em');
+        title.textContent = source.title;
+        const link = document.createElement('a');
+        link.href = source.url;
+        link.textContent = new URL(source.url).hostname;
+        item.append(title, document.createTextNode('. '), link);
+
+        const nodes = Array.from(citedBy[key] || []);
+        if (nodes.length > 0) {
+          const used = document.createElement('div');
+          used.className = 'used-by';
+          used.append(document.createTextNode(`${language.ui.used_on || 'On the map'}: `));
+          nodes
+            .map((id) => ({ id, label: (language.nodes[id] || {}).label || id }))
+            .sort((left, right) => left.label.localeCompare(right.label))
+            .forEach((entry, index) => {
+              if (index > 0) {
+                used.append(document.createTextNode(', '));
+              }
+              const nodeLink = document.createElement('a');
+              nodeLink.href = `index.html?lang=${code}&node=${encodeURIComponent(entry.id)}`;
+              nodeLink.textContent = entry.label;
+              used.append(nodeLink);
+            });
+          item.append(used);
+        }
+        list.append(item);
+      });
+    })();
+  </script>
+</body>
+</html>

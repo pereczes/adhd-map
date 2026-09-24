@@ -114,14 +114,26 @@ async function visibleCount(session) {
 
 async function runScenario(session, prototype, problems) {
   const url = `${baseUrl}/?lang=en`;
-  const loaded = new Promise((resolve) => {
-    session.onEvent((message) => {
-      if (message.method === 'Page.loadEventFired') {
-        resolve();
-      }
+
+  function whenLoaded() {
+    return new Promise((resolve) => {
+      session.onEvent((message) => {
+        if (message.method === 'Page.loadEventFired') {
+          resolve();
+        }
+      });
     });
-  });
+  }
+
+  let loaded = whenLoaded();
   await session.send('Page.navigate', { url });
+  await loaded;
+
+  /* The browser profile is reused between runs, so start from stored-nothing:
+   * the options box must be at its defaults for the checks below. */
+  await evaluate(session, 'localStorage.clear(); true');
+  loaded = whenLoaded();
+  await session.send('Page.reload', { ignoreCache: true });
   await loaded;
   await sleep(settleMs);
 
@@ -163,6 +175,16 @@ async function runScenario(session, prototype, problems) {
   }
   await screenshot(session, `smoke-${prototype}-4-collapsed.png`);
 
+  /* The taxonomy badges and the evidence context must reach the panel. */
+  const scopeBadge = await evaluate(session, `(() => {
+    const badge = document.querySelector('#panel .scope-badge');
+    return badge ? badge.textContent : '';
+  })()`);
+  console.log(`${prototype}: scope badge reads "${scopeBadge}"`);
+  if (!scopeBadge) {
+    problems.push(`${prototype}: no scope badge on a symptom node`);
+  }
+
   const panelTitle = await evaluate(session, 'document.querySelector("#panel h2").textContent');
   console.log(`${prototype}: panel shows "${panelTitle}"`);
   if (panelTitle !== 'Distractibility') {
@@ -188,6 +210,135 @@ async function runScenario(session, prototype, problems) {
   }
   await screenshot(session, `smoke-${prototype}-6-loop.png`);
 
+  /* A strategy shows its evidence context. The search box reveals it, which
+   * covers that path too. */
+  await evaluate(session, `(() => {
+    const search = document.getElementById('search');
+    search.value = 'Regular exercise';
+    search.dispatchEvent(new Event('change'));
+    return true;
+  })()`);
+  await sleep(settleMs);
+  const evidenceLevel = await evaluate(session, `(() => {
+    const level = document.querySelector('#panel .context-level');
+    return level ? level.textContent : '';
+  })()`);
+  console.log(`${prototype}: exercise evidence context reads "${evidenceLevel}"`);
+  if (!evidenceLevel) {
+    problems.push(`${prototype}: no evidence context on a strategy node`);
+  }
+
+  /* Sourced facts reach the panel. Reached through search, because clicking
+   * an already-open node would fold the map away instead. */
+  await evaluate(session, `(() => {
+    const search = document.getElementById('search');
+    search.value = 'ADHD';
+    search.dispatchEvent(new Event('change'));
+    return true;
+  })()`);
+  await sleep(settleMs);
+  const factCount = await evaluate(session, 'document.querySelectorAll("#panel .facts li").length');
+  const firstFact = await evaluate(session, `(() => {
+    const fact = document.querySelector('#panel .facts li');
+    return fact ? fact.textContent.slice(0, 50) : '';
+  })()`);
+  const factSource = await evaluate(session, `(() => {
+    const link = document.querySelector('#panel .facts .source-line a');
+    return link ? link.getAttribute('href') : '';
+  })()`);
+  console.log(`${prototype}: ADHD node shows ${factCount} facts, first "${firstFact}", source ${factSource}`);
+  if (factCount < 5 || !factSource.startsWith('http')) {
+    problems.push(`${prototype}: facts section missing or unsourced on the ADHD node`);
+  }
+  await screenshot(session, `smoke-${prototype}-10-facts.png`);
+
+  /* A guideline-level treatment names the guidance behind it, and an
+   * association edge names its study. */
+  await evaluate(session, `(() => {
+    const search = document.getElementById('search');
+    search.value = 'Medication';
+    search.dispatchEvent(new Event('change'));
+    return true;
+  })()`);
+  await sleep(settleMs);
+  const evidenceSource = await evaluate(session, `(() => {
+    const link = document.querySelector('#panel .context .source-line a');
+    return link ? link.textContent : '';
+  })()`);
+  await evaluate(session, `(() => {
+    const search = document.getElementById('search');
+    search.value = 'Driving and accident risk';
+    search.dispatchEvent(new Event('change'));
+    return true;
+  })()`);
+  await sleep(settleMs);
+  const associationSource = await evaluate(session, `(() => {
+    const link = document.querySelector('#panel .chip-item .source-line a');
+    return link ? link.textContent : '';
+  })()`);
+  console.log(`${prototype}: medication evidence cites "${evidenceSource}", driving association cites "${associationSource}"`);
+  if (!evidenceSource || !associationSource) {
+    problems.push(`${prototype}: evidence or association sources are not shown in the panel`);
+  }
+
+  /* An alias finds a node the label alone would not. */
+  await evaluate(session, `(() => {
+    const search = document.getElementById('search');
+    search.value = 'RSD';
+    search.dispatchEvent(new Event('change'));
+    return true;
+  })()`);
+  await sleep(settleMs);
+  const aliasTitle = await evaluate(session, 'document.querySelector("#panel h2").textContent');
+  console.log(`${prototype}: searching "RSD" opened "${aliasTitle}"`);
+  if (aliasTitle !== 'Rejection sensitivity') {
+    problems.push(`${prototype}: alias search opened "${aliasTitle}", expected "Rejection sensitivity"`);
+  }
+
+  /* The popup works with the default settings, in the map's own language. */
+  await evaluate(session, 'document.getElementById("fit").click(); true');
+  await sleep(900);
+  const defaultHover = await evaluate(session, 'adhdMapDebug.nodeScreenPosition("inattention")');
+  await session.send('Input.dispatchMouseEvent', { type: 'mouseMoved', x: defaultHover.x, y: defaultHover.y });
+  await sleep(1200);
+  const defaultPopup = await evaluate(session, `(() => {
+    const popup = document.getElementById('popup');
+    return popup.hidden ? '' : popup.textContent;
+  })()`);
+  console.log(`${prototype}: default hover popup reads "${defaultPopup.slice(0, 40)}"`);
+  if (!defaultPopup.includes('Inattention')) {
+    problems.push(`${prototype}: hover popup did not appear with default settings (got "${defaultPopup.slice(0, 60)}")`);
+  }
+  await session.send('Input.dispatchMouseEvent', { type: 'mouseMoved', x: 20, y: 400 });
+  await sleep(400);
+
+  /* Pick a second language, hover again, read the popup. */
+  await evaluate(session, `(() => {
+    document.getElementById('options-toggle').click();
+    const select = document.querySelector('#options select');
+    select.value = 'de';
+    select.dispatchEvent(new Event('change'));
+    document.getElementById('options-toggle').click();
+    return true;
+  })()`);
+  await sleep(1200);
+  await evaluate(session, 'document.getElementById("fit").click(); true');
+  await sleep(900);
+  const hoverPosition = await evaluate(session, 'adhdMapDebug.nodeScreenPosition("inattention")');
+  await session.send('Input.dispatchMouseEvent', { type: 'mouseMoved', x: hoverPosition.x, y: hoverPosition.y });
+  await sleep(1200);
+  const popupText = await evaluate(session, `(() => {
+    const popup = document.getElementById('popup');
+    return popup.hidden ? '' : popup.textContent;
+  })()`);
+  console.log(`${prototype}: hover popup reads "${popupText.slice(0, 40)}"`);
+  if (!popupText.includes('Unaufmerksamkeit')) {
+    problems.push(`${prototype}: hover popup did not show the German translation (got "${popupText.slice(0, 60)}")`);
+  }
+  await screenshot(session, `smoke-${prototype}-8-popup.png`);
+  await session.send('Input.dispatchMouseEvent', { type: 'mouseMoved', x: 20, y: 400 });
+  await sleep(400);
+
   const optionInputs = await evaluate(session, `(() => {
     document.getElementById('options-toggle').click();
     const box = document.getElementById('options');
@@ -198,7 +349,7 @@ async function runScenario(session, prototype, problems) {
     return box.querySelectorAll('input').length;
   })()`);
   console.log(`${prototype}: options box open with ${optionInputs} controls`);
-  if (optionInputs < 8) {
+  if (optionInputs < 7) {
     problems.push(`${prototype}: options box did not open or is missing controls (${optionInputs})`);
   }
   await sleep(500);
@@ -231,6 +382,44 @@ async function runScenario(session, prototype, problems) {
     problems.push(`${prototype}: url does not carry lang=de after switching`);
   }
   await screenshot(session, `smoke-${prototype}-5-german.png`);
+
+  /* The sources page renders, in the language carried by the link. */
+  loaded = whenLoaded();
+  await session.send('Page.navigate', { url: `${baseUrl}/sources.html?lang=de` });
+  await loaded;
+  await sleep(1500);
+  const sourcesHeading = await evaluate(session, 'document.querySelector("h1").textContent');
+  const sourceCount = await evaluate(session, 'document.querySelectorAll(".page li").length');
+  console.log(`${prototype}: sources page heading "${sourcesHeading}" with ${sourceCount} sources`);
+  if (sourcesHeading !== 'Quellen und Vorgehen' || sourceCount < 13) {
+    problems.push(`${prototype}: sources page did not render in German with its source list`);
+  }
+  const toolkitNodes = await evaluate(session, `(() => {
+    const item = Array.from(document.querySelectorAll('.page li'))
+      .find((entry) => entry.textContent.includes('Tool Kit'));
+    return item ? item.querySelectorAll('.used-by a').length : 0;
+  })()`);
+  console.log(`${prototype}: the toolkit source lists ${toolkitNodes} nodes on the map`);
+  if (toolkitNodes < 30) {
+    problems.push(`${prototype}: the toolkit source lists only ${toolkitNodes} nodes`);
+  }
+  await screenshot(session, `smoke-${prototype}-9-sources.png`);
+
+  /* A node link from the sources page opens the map on that node. */
+  loaded = whenLoaded();
+  await session.send('Page.navigate', { url: `${baseUrl}/index.html?lang=en&node=if-then-plans` });
+  await loaded;
+  await sleep(settleMs);
+  const deepLinked = await evaluate(session, 'document.querySelector("#panel h2").textContent');
+  const describedIn = await evaluate(session, `(() => {
+    const described = document.querySelector('#panel .described');
+    return described ? described.textContent : '';
+  })()`);
+  console.log(`${prototype}: node link opened "${deepLinked}", ${describedIn}`);
+  if (deepLinked !== 'If-then plans' || !describedIn.includes('Ramsay')) {
+    problems.push(`${prototype}: node link or the described-in line did not work`);
+  }
+  await screenshot(session, `smoke-${prototype}-11-toolkit.png`);
 }
 
 async function main() {

@@ -106,8 +106,28 @@
     });
   }
 
+  /* Load a language file for lookups only, without touching the graph's own
+   * texts. Used for the hover popup's second language. */
+  async function loadTranslation(url) {
+    const document = await AdhdMapData.loadYaml(url);
+    return {
+      code: document.language,
+      name: document.name,
+      kind(kindId) {
+        return (document.kinds || {})[kindId] || kindId;
+      },
+      scope(scopeId) {
+        return scopeId ? (document.scopes || {})[scopeId] || scopeId : null;
+      },
+      node(id) {
+        return (document.nodes || {})[id] || null;
+      },
+    };
+  }
+
   window.AdhdMapI18n = {
     loadIndex,
+    loadTranslation,
     pickLanguage,
     fileFor,
     remember,

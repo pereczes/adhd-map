@@ -56,12 +56,19 @@
     function fillDatalist() {
       const datalist = options.datalist;
       datalist.replaceChildren();
-      graph.nodes
-        .slice()
-        .sort((left, right) => left.label.localeCompare(right.label))
-        .forEach((node) => {
+      const entries = [];
+      graph.nodes.forEach((node) => {
+        entries.push({ value: node.label });
+        (node.aliases || []).forEach((alias) => entries.push({ value: alias, label: node.label }));
+      });
+      entries
+        .sort((left, right) => left.value.localeCompare(right.value))
+        .forEach((entry) => {
           const option = document.createElement('option');
-          option.value = node.label;
+          option.value = entry.value;
+          if (entry.label) {
+            option.label = `${entry.value} — ${entry.label}`;
+          }
           datalist.append(option);
         });
     }
@@ -72,9 +79,12 @@
         if (!wanted) {
           return;
         }
+        const aliasesOf = (node) => (node.aliases || []).map((alias) => alias.toLowerCase());
         const match =
           graph.nodes.find((node) => node.label.toLowerCase() === wanted) ||
-          graph.nodes.find((node) => node.label.toLowerCase().includes(wanted));
+          graph.nodes.find((node) => aliasesOf(node).includes(wanted)) ||
+          graph.nodes.find((node) => node.label.toLowerCase().includes(wanted)) ||
+          graph.nodes.find((node) => aliasesOf(node).some((alias) => alias.includes(wanted)));
         if (match) {
           options.search.value = '';
           options.search.blur();
@@ -83,7 +93,26 @@
       });
     }
 
-    function chipFor(neighbourId, note) {
+    /* A small "Source: name" link, used under facts, notes and evidence. */
+    function sourceLine(sources) {
+      const line = element('div', 'source-line');
+      line.append(document.createTextNode(`${text('fact_source', 'Source')}: `));
+      sources.forEach((source, index) => {
+        if (index > 0) {
+          line.append(document.createTextNode(', '));
+        }
+        const link = document.createElement('a');
+        link.href = source.url;
+        link.target = '_blank';
+        link.rel = 'noreferrer';
+        link.textContent = source.label;
+        link.title = source.title;
+        line.append(link);
+      });
+      return line;
+    }
+
+    function chipFor(neighbourId, note, sources) {
       const neighbour = graph.node(neighbourId);
       const kind = graph.kindOf(neighbour);
       const item = element('li', 'chip-item');
@@ -98,6 +127,9 @@
       item.append(chip);
       if (note) {
         item.append(element('div', 'note', note));
+      }
+      if (sources && sources.length > 0) {
+        item.append(sourceLine(sources));
       }
       return item;
     }
@@ -117,6 +149,7 @@
         groups.get(key).entries.push({
           neighbourId: outgoing ? edge.target : edge.source,
           note: edge.note,
+          sources: edge.sources,
         });
       });
       const order = Object.keys(graph.relations);
@@ -150,15 +183,34 @@
       const kind = graph.kindOf(node);
       panelElement.replaceChildren();
 
+      const badges = element('div', 'badges');
       const badge = element('span', 'kind-badge', kind.label || node.kind);
       badge.style.background = kind.color;
-      panelElement.append(badge);
+      badges.append(badge);
+      const scopeLabel = graph.scopeLabel(node);
+      if (scopeLabel) {
+        badges.append(element('span', 'scope-badge', scopeLabel));
+      }
+      panelElement.append(badges);
       panelElement.append(element('h2', null, node.label));
       panelElement.append(element('p', 'description', node.description));
-      if (node.kind === 'strategy') {
-        panelElement.append(
-          element('p', 'hint caveat', text('strategy_caveat', 'Strategies help some people and not others. Try it, keep what works, drop the rest.')),
-        );
+
+      /* Context on how well supported an approach is, deliberately coarse:
+       * it describes the approach in general, not each of its uses. */
+      const evidenceLabel = graph.evidenceLabel(node);
+      if (evidenceLabel) {
+        const context = element('div', 'context');
+        context.append(element('div', 'context-level', evidenceLabel));
+        if (node.sources.length > 0) {
+          context.append(sourceLine(node.sources));
+        }
+        context.append(element('div', 'context-note', text('evidence_note', 'How well supported an approach is depends on what it is used for. This is context, not proof.')));
+        if (node.kind === 'strategy') {
+          context.append(
+            element('div', 'context-note', text('strategy_caveat', 'Strategies help some people and not others. Try it, keep what works, drop the rest.')),
+          );
+        }
+        panelElement.append(context);
       }
 
       const actions = element('div', 'actions');
@@ -179,6 +231,37 @@
         panelElement.append(actions);
       }
 
+      if (node.references.length > 0) {
+        const described = element('div', 'described');
+        described.append(document.createTextNode(`${text('described_in', 'Described in')}: `));
+        node.references.forEach((source, index) => {
+          if (index > 0) {
+            described.append(document.createTextNode(', '));
+          }
+          const link = document.createElement('a');
+          link.href = source.url;
+          link.target = '_blank';
+          link.rel = 'noreferrer';
+          link.textContent = source.label;
+          link.title = source.title;
+          described.append(link);
+        });
+        panelElement.append(described);
+      }
+
+      if (node.facts.length > 0) {
+        panelElement.append(element('h3', null, text('facts_heading', 'Facts and figures')));
+        const list = element('ul', 'facts');
+        node.facts.forEach((fact) => {
+          const item = element('li', null, fact.text);
+          if (fact.source) {
+            item.append(sourceLine([fact.source]));
+          }
+          list.append(item);
+        });
+        panelElement.append(list);
+      }
+
       groupedEdges(id).forEach((group) => {
         const heading = element('h3', null, group.heading);
         const marker = element('span', 'heading-line');
@@ -186,7 +269,7 @@
         heading.prepend(marker);
         panelElement.append(heading);
         const list = element('ul', 'chip-list');
-        group.entries.forEach((entry) => list.append(chipFor(entry.neighbourId, entry.note)));
+        group.entries.forEach((entry) => list.append(chipFor(entry.neighbourId, entry.note, entry.sources)));
         panelElement.append(list);
       });
 

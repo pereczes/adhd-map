@@ -7,6 +7,33 @@
 # Ids are lowercase with hyphens. Every edge must reference existing ids.
 # An edge needs an explicit id only when a language file attaches a note
 # to it. Run tools/validate-data.py after editing.
+#
+# Node fields
+#   kind      drives colour and size, and the badge shown in the panel
+#   scope     how the node relates to an ADHD diagnosis. Required on every
+#             symptom node so that nothing can quietly read as diagnostic:
+#               core            a diagnostic manifestation of ADHD
+#               associated      commonly reported, not a diagnostic criterion
+#               transdiagnostic a pattern that is not specific to ADHD
+#               co-occurring    a condition that often occurs alongside ADHD
+#               unspecified     not yet classified
+#   evidence  how well supported a strategy or treatment is, as context
+#             rather than proof. Support varies by what it is used for:
+#               guideline  recommended in clinical guidance
+#               research   some supporting research
+#               reported   widely reported, limited research
+#
+# Relation boundaries that are easy to blur
+#   related_to      a conceptual or within-person connection between
+#                   experiences
+#   associated_with a documented population-level association, with no claim
+#                   about cause in any individual
+#   leads_to        a path the map asserts can follow, shown to the reader as
+#                   "can lead to"
+#   feeds           a step in a vicious cycle, drawn thick and offered as a
+#                   whole loop in the panel
+#   produces        a chaining relation: the panel follows it one hop further
+#                   to show what a strategy reaches
 
 start: adhd
 
@@ -18,19 +45,91 @@ kinds:
   strategy:  { color: "#66bb6a", size: 1 }
   treatment: { color: "#26a69a", size: 1 }
   impact:    { color: "#a1887f", size: 1 }
+  condition: { color: "#607d8b", size: 1 }
   situation: { color: "#f06292", size: 2 }
   mechanism: { color: "#42a5f5", size: 1 }
 
 relations:
-  includes:   { color: "#78909c", directed: true }
-  related_to: { color: "#90a4ae", directed: false, dashed: true }
-  worsens:    { color: "#ffa726", directed: true }
-  helps_with: { color: "#66bb6a", directed: true }
-  reduces:    { color: "#26a69a", directed: true }
-  leads_to:   { color: "#e57373", directed: true }
-  involves:   { color: "#f06292", directed: true }
-  feeds:      { color: "#ff7043", directed: true, loop: true }
-  produces:   { color: "#42a5f5", directed: true, via: true }
+  includes:        { color: "#78909c", directed: true }
+  related_to:      { color: "#90a4ae", directed: false, dashed: true }
+  associated_with: { color: "#b39ddb", directed: false, dashed: true }
+  worsens:         { color: "#ffa726", directed: true }
+  helps_with:      { color: "#66bb6a", directed: true }
+  reduces:         { color: "#26a69a", directed: true }
+  leads_to:        { color: "#e57373", directed: true }
+  involves:        { color: "#f06292", directed: true }
+  feeds:           { color: "#ff7043", directed: true, loop: true }
+  produces:        { color: "#42a5f5", directed: true, via: true }
+
+sources:
+  who-anxiety:
+    label: World Health Organization
+    title: "Anxiety disorders, fact sheet with 2023 data"
+    url: "https://www.who.int/news-room/fact-sheets/detail/anxiety-disorders"
+  who-depression:
+    label: World Health Organization
+    title: "Depressive disorder (depression), fact sheet with 2023 data"
+    url: "https://www.who.int/news-room/fact-sheets/detail/depression"
+  nimh-adhd-stats:
+    label: National Institute of Mental Health
+    title: Attention-Deficit/Hyperactivity Disorder (ADHD) statistics
+    url: "https://www.nimh.nih.gov/health/statistics/attention-deficit-hyperactivity-disorder-adhd"
+  cdc-adult-adhd:
+    label: Centers for Disease Control and Prevention
+    title: "ADHD Diagnosis, Treatment, and Telehealth Use in Adults, MMWR, October 2024"
+    url: "https://www.cdc.gov/mmwr/volumes/73/wr/mm7340a1.htm"
+  thomas-2015:
+    label: Thomas et al.
+    title: "Prevalence of attention-deficit/hyperactivity disorder: a systematic review and meta-analysis, Pediatrics, 2015"
+    url: "https://pubmed.ncbi.nlm.nih.gov/25733754/"
+  kessler-2006:
+    label: Kessler et al.
+    title: "The prevalence and correlates of adult ADHD in the United States, American Journal of Psychiatry, 2006"
+    url: "https://pubmed.ncbi.nlm.nih.gov/16585449/"
+  faraone-2019:
+    label: Faraone and Larsson
+    title: "Genetics of attention deficit hyperactivity disorder, Molecular Psychiatry, 2019"
+    url: "https://pubmed.ncbi.nlm.nih.gov/29892054/"
+  bijlenga-2017:
+    label: Bijlenga et al.
+    title: "Atypical sensory profiles as core features of adult ADHD, irrespective of autistic symptoms, European Psychiatry, 2017"
+    url: "https://pubmed.ncbi.nlm.nih.gov/28371743/"
+  nimh-adhd:
+    label: National Institute of Mental Health
+    title: "Attention-Deficit/Hyperactivity Disorder: What You Need to Know"
+    url: "https://www.nimh.nih.gov/health/publications/attention-deficit-hyperactivity-disorder-what-you-need-to-know"
+  nice-ng87:
+    label: National Institute for Health and Care Excellence
+    title: "Guideline NG87, Attention deficit hyperactivity disorder: diagnosis and management"
+    url: "https://www.nice.org.uk/guidance/ng87/chapter/Recommendations"
+  kooij-consensus:
+    label: Kooij et al.
+    title: "Updated European Consensus Statement on diagnosis and treatment of adult ADHD, European Psychiatry"
+    url: "https://www.cambridge.org/core/journals/european-psychiatry/article/updated-european-consensus-statement-on-diagnosis-and-treatment-of-adult-adhd/707E2A36539213CF85EACCA576F47427"
+  xu-2026:
+    label: "Xu, Zhao and Hu"
+    title: "The effects of acute and chronic exercise on executive functions and core symptoms in adults with ADHD, Psychology of Sport and Exercise, 2026"
+    url: "https://pubmed.ncbi.nlm.nih.gov/41638541/"
+  vanasselt-2026:
+    label: van Asselt
+    title: "Rejection sensitivity dysphoria: a critical reflection, Tijdschrift voor Psychiatrie, 2026"
+    url: "https://pubmed.ncbi.nlm.nih.gov/41944472/"
+  ramsay-rostain-2015:
+    label: Ramsay and Rostain
+    title: "The Adult ADHD Tool Kit: Using CBT to Facilitate Coping Inside and Out, Routledge, 2015"
+    url: "https://www.routledge.com/9780415815895"
+  hartman-2023:
+    label: Hartman et al.
+    title: "Anxiety, mood, and substance use disorders in adult men and women with and without ADHD, Neuroscience and Biobehavioral Reviews, 2023"
+    url: "https://pubmed.ncbi.nlm.nih.gov/37149075/"
+  chang-2014:
+    label: Chang et al.
+    title: "Serious transport accidents in adults with ADHD and the effect of medication: a population-based study, JAMA Psychiatry, 2014"
+    url: "https://pubmed.ncbi.nlm.nih.gov/24477798/"
+  jager-2020:
+    label: Jager et al.
+    title: "Misophonia: phenomenology, comorbidity and demographics in a large sample, PLoS One, 2020"
+    url: "https://pubmed.ncbi.nlm.nih.gov/32294104/"
 
 nodes:
   # ---------------------------------------------------------------- hub
@@ -41,50 +140,50 @@ nodes:
   - { id: hyperactivity, kind: cluster }
   - { id: executive, kind: cluster }
   - { id: emotional, kind: cluster }
-
-  - { id: thinking-traps, kind: cluster }
+  - { id: thinking-traps, kind: cluster, scope: transdiagnostic }
 
   # ---------------------------------------------------------------- symptom
-  - { id: distractibility, kind: symptom }
-  - { id: sustained-attention, kind: symptom }
-  - { id: hyperfocus, kind: symptom }
-  - { id: forgetfulness, kind: symptom }
-  - { id: losing-things, kind: symptom }
-  - { id: careless-mistakes, kind: symptom }
-  - { id: restlessness, kind: symptom }
-  - { id: fidgeting, kind: symptom }
-  - { id: impulsivity, kind: symptom }
-  - { id: interrupting, kind: symptom }
-  - { id: impatience, kind: symptom }
-  - { id: task-initiation, kind: symptom }
-  - { id: procrastination, kind: symptom }
-  - { id: time-blindness, kind: symptom }
-  - { id: disorganisation, kind: symptom }
-  - { id: working-memory, kind: symptom }
-  - { id: prioritising, kind: symptom }
-  - { id: task-switching, kind: symptom }
-  - { id: emotional-dysregulation, kind: symptom }
-  - { id: rejection-sensitivity, kind: symptom }
-  - { id: frustration-tolerance, kind: symptom }
-  - { id: boredom-intolerance, kind: symptom }
-  - { id: sleep-problems, kind: symptom }
-
-  - { id: rumination, kind: symptom }
-  - { id: avoidance, kind: symptom }
-  - { id: out-of-sight, kind: symptom }
-  - { id: decision-paralysis, kind: symptom }
-  - { id: anticipatory-anxiety, kind: symptom }
-
-  - { id: catastrophising, kind: symptom }
-  - { id: all-or-nothing, kind: symptom }
-  - { id: mind-reading, kind: symptom }
-  - { id: overgeneralisation, kind: symptom }
-  - { id: should-statements, kind: symptom }
-  - { id: personalisation, kind: symptom }
-  - { id: safety-behaviours, kind: symptom }
-
-  - { id: sensory-sensitivity, kind: symptom }
-  - { id: misophonia, kind: symptom }
+  - { id: distractibility, kind: symptom, scope: core }
+  - { id: sustained-attention, kind: symptom, scope: core }
+  - { id: hyperfocus, kind: symptom, scope: associated }
+  - { id: forgetfulness, kind: symptom, scope: core }
+  - { id: losing-things, kind: symptom, scope: core }
+  - { id: careless-mistakes, kind: symptom, scope: core }
+  - { id: restlessness, kind: symptom, scope: core }
+  - { id: fidgeting, kind: symptom, scope: core }
+  - { id: impulsivity, kind: symptom, scope: core }
+  - { id: interrupting, kind: symptom, scope: core }
+  - { id: impatience, kind: symptom, scope: core }
+  - { id: task-initiation, kind: symptom, scope: associated }
+  - { id: procrastination, kind: symptom, scope: associated }
+  - { id: time-blindness, kind: symptom, scope: associated }
+  - { id: disorganisation, kind: symptom, scope: core }
+  - { id: working-memory, kind: symptom, scope: associated }
+  - { id: prioritising, kind: symptom, scope: associated }
+  - { id: task-switching, kind: symptom, scope: associated }
+  - { id: emotional-dysregulation, kind: symptom, scope: associated }
+  - { id: rejection-sensitivity, kind: symptom, scope: associated }
+  - { id: frustration-tolerance, kind: symptom, scope: associated }
+  - { id: boredom-intolerance, kind: symptom, scope: associated }
+  - { id: sleep-problems, kind: symptom, scope: associated }
+  - { id: rumination, kind: symptom, scope: transdiagnostic }
+  - { id: avoidance, kind: symptom, scope: transdiagnostic }
+  - { id: out-of-sight, kind: symptom, scope: associated }
+  - { id: decision-paralysis, kind: symptom, scope: associated }
+  - { id: anticipatory-anxiety, kind: symptom, scope: transdiagnostic }
+  - { id: catastrophising, kind: symptom, scope: transdiagnostic }
+  - { id: all-or-nothing, kind: symptom, scope: transdiagnostic }
+  - { id: mind-reading, kind: symptom, scope: transdiagnostic }
+  - { id: overgeneralisation, kind: symptom, scope: transdiagnostic }
+  - { id: should-statements, kind: symptom, scope: transdiagnostic }
+  - { id: personalisation, kind: symptom, scope: transdiagnostic }
+  - { id: safety-behaviours, kind: symptom, scope: transdiagnostic }
+  - { id: sensory-sensitivity, kind: symptom, scope: associated, sources: [bijlenga-2017] }
+  - { id: misophonia, kind: symptom, scope: transdiagnostic }
+  - { id: follow-through, kind: symptom, scope: core }
+  - { id: losing-conversation-thread, kind: symptom, scope: core }
+  - { id: mind-wandering, kind: symptom, scope: associated }
+  - { id: planning-sequencing, kind: symptom, scope: associated }
 
   # ---------------------------------------------------------------- trigger
   - { id: boring-tasks, kind: trigger }
@@ -96,103 +195,119 @@ nodes:
   - { id: long-meetings, kind: trigger }
   - { id: open-ended-tasks, kind: trigger }
   - { id: hunger, kind: trigger }
-
   - { id: strong-smells, kind: trigger }
   - { id: crowded-places, kind: trigger }
   - { id: harsh-light, kind: trigger }
   - { id: textures, kind: trigger }
+  - { id: competing-demands, kind: trigger }
+  - { id: unexpected-interruptions, kind: trigger }
 
   # ---------------------------------------------------------------- strategy
-  - { id: body-doubling, kind: strategy }
-  - { id: pomodoro, kind: strategy }
-  - { id: visual-timers, kind: strategy }
-  - { id: external-reminders, kind: strategy }
-  - { id: task-breakdown, kind: strategy }
-  - { id: checklists, kind: strategy }
-  - { id: home-for-things, kind: strategy }
-  - { id: exercise, kind: strategy }
-  - { id: sleep-routine, kind: strategy }
-  - { id: mindfulness, kind: strategy }
-  - { id: fidget-tools, kind: strategy }
-  - { id: noise-control, kind: strategy }
-  - { id: time-boxing, kind: strategy }
-  - { id: accountability-partner, kind: strategy }
-  - { id: routines, kind: strategy }
-  - { id: prepare-night-before, kind: strategy }
-  - { id: externalise-memory, kind: strategy }
-  - { id: dopamine-menu, kind: strategy }
-  - { id: gamification, kind: strategy }
-  - { id: single-tasking, kind: strategy }
-  - { id: done-not-perfect, kind: strategy }
-  - { id: pause-before-acting, kind: strategy }
-  - { id: self-compassion, kind: strategy }
-  - { id: decision-reduction, kind: strategy }
-
-  - { id: movement-breaks, kind: strategy }
-  - { id: write-it-down-instead, kind: strategy }
-  - { id: item-trackers, kind: strategy }
-  - { id: duplicate-essentials, kind: strategy }
-  - { id: final-review-pass, kind: strategy }
-  - { id: written-instructions, kind: strategy }
-  - { id: repeat-back, kind: strategy }
-  - { id: hyperfocus-exit, kind: strategy }
-  - { id: name-the-emotion, kind: strategy }
-  - { id: cooling-off-rule, kind: strategy }
-  - { id: ask-instead-of-assume, kind: strategy }
-  - { id: distress-tolerance, kind: strategy }
-  - { id: automatic-payments, kind: strategy }
-  - { id: subscription-audit, kind: strategy }
-  - { id: explain-your-adhd, kind: strategy }
-  - { id: repair-routine, kind: strategy }
-  - { id: shared-calendar, kind: strategy }
-  - { id: buffer-time, kind: strategy }
-  - { id: deadline-check-ins, kind: strategy }
-  - { id: recovery-time, kind: strategy }
-  - { id: reduce-masking, kind: strategy }
-  - { id: play-to-strengths, kind: strategy }
-  - { id: interest-pairing, kind: strategy }
-
-  - { id: behavioural-activation, kind: strategy }
-  - { id: morning-daylight, kind: strategy }
-  - { id: social-contact, kind: strategy }
-  - { id: worry-window, kind: strategy }
-  - { id: less-alcohol, kind: strategy }
-  - { id: nightly-reset, kind: strategy }
-  - { id: one-surface, kind: strategy }
-  - { id: doom-box, kind: strategy }
-  - { id: own-less, kind: strategy }
-  - { id: visible-storage, kind: strategy }
-  - { id: sort-by-frequency, kind: strategy }
-  - { id: launch-pad, kind: strategy }
-  - { id: define-done, kind: strategy }
-  - { id: five-minute-rule, kind: strategy }
-
-  - { id: thought-record, kind: strategy }
-  - { id: decatastrophising, kind: strategy }
-  - { id: behavioural-experiments, kind: strategy }
-  - { id: graded-exposure, kind: strategy }
-  - { id: structured-problem-solving, kind: strategy }
-  - { id: mood-diary, kind: strategy }
-  - { id: relaxation-breathing, kind: strategy }
-  - { id: relapse-plan, kind: strategy }
-  - { id: psychoeducation, kind: strategy }
-
-  - { id: earplugs, kind: strategy }
-  - { id: control-the-environment, kind: strategy }
-  - { id: comfortable-clothes, kind: strategy }
-  - { id: quiet-after-loud, kind: strategy }
-  - { id: leave-early, kind: strategy }
+  - { id: body-doubling, kind: strategy, evidence: reported }
+  - { id: pomodoro, kind: strategy, evidence: reported }
+  - { id: visual-timers, kind: strategy, evidence: reported }
+  - { id: external-reminders, kind: strategy, evidence: research, references: [ramsay-rostain-2015] }
+  - { id: task-breakdown, kind: strategy, evidence: research, references: [ramsay-rostain-2015] }
+  - { id: checklists, kind: strategy, evidence: research, references: [ramsay-rostain-2015] }
+  - { id: home-for-things, kind: strategy, evidence: reported, references: [ramsay-rostain-2015] }
+  - { id: exercise, kind: strategy, evidence: research, references: [ramsay-rostain-2015], sources: [xu-2026] }
+  - { id: sleep-routine, kind: strategy, evidence: research, references: [ramsay-rostain-2015] }
+  - { id: mindfulness, kind: strategy, evidence: research }
+  - { id: fidget-tools, kind: strategy, evidence: reported }
+  - { id: noise-control, kind: strategy, evidence: reported }
+  - { id: time-boxing, kind: strategy, evidence: research, references: [ramsay-rostain-2015] }
+  - { id: accountability-partner, kind: strategy, evidence: reported }
+  - { id: routines, kind: strategy, evidence: reported }
+  - { id: prepare-night-before, kind: strategy, evidence: reported }
+  - { id: externalise-memory, kind: strategy, evidence: research, references: [ramsay-rostain-2015] }
+  - { id: dopamine-menu, kind: strategy, evidence: reported }
+  - { id: gamification, kind: strategy, evidence: reported }
+  - { id: single-tasking, kind: strategy, evidence: reported, references: [ramsay-rostain-2015] }
+  - { id: done-not-perfect, kind: strategy, evidence: reported }
+  - { id: pause-before-acting, kind: strategy, evidence: reported }
+  - { id: self-compassion, kind: strategy, evidence: research }
+  - { id: decision-reduction, kind: strategy, evidence: reported }
+  - { id: movement-breaks, kind: strategy, evidence: research }
+  - { id: write-it-down-instead, kind: strategy, evidence: reported }
+  - { id: item-trackers, kind: strategy, evidence: reported }
+  - { id: duplicate-essentials, kind: strategy, evidence: reported }
+  - { id: final-review-pass, kind: strategy, evidence: reported }
+  - { id: written-instructions, kind: strategy, evidence: reported }
+  - { id: repeat-back, kind: strategy, evidence: reported }
+  - { id: hyperfocus-exit, kind: strategy, evidence: reported }
+  - { id: name-the-emotion, kind: strategy, evidence: research }
+  - { id: cooling-off-rule, kind: strategy, evidence: reported }
+  - { id: ask-instead-of-assume, kind: strategy, evidence: reported }
+  - { id: distress-tolerance, kind: strategy, evidence: research }
+  - { id: automatic-payments, kind: strategy, evidence: reported, references: [ramsay-rostain-2015] }
+  - { id: subscription-audit, kind: strategy, evidence: reported }
+  - { id: explain-your-adhd, kind: strategy, evidence: reported, references: [ramsay-rostain-2015] }
+  - { id: repair-routine, kind: strategy, evidence: reported }
+  - { id: shared-calendar, kind: strategy, evidence: reported }
+  - { id: buffer-time, kind: strategy, evidence: reported }
+  - { id: deadline-check-ins, kind: strategy, evidence: research }
+  - { id: recovery-time, kind: strategy, evidence: reported }
+  - { id: reduce-masking, kind: strategy, evidence: reported }
+  - { id: play-to-strengths, kind: strategy, evidence: reported }
+  - { id: interest-pairing, kind: strategy, evidence: reported }
+  - { id: behavioural-activation, kind: strategy, evidence: research }
+  - { id: morning-daylight, kind: strategy, evidence: research }
+  - { id: social-contact, kind: strategy, evidence: research }
+  - { id: worry-window, kind: strategy, evidence: research }
+  - { id: less-alcohol, kind: strategy, evidence: research }
+  - { id: nightly-reset, kind: strategy, evidence: reported }
+  - { id: one-surface, kind: strategy, evidence: reported }
+  - { id: doom-box, kind: strategy, evidence: reported }
+  - { id: own-less, kind: strategy, evidence: reported }
+  - { id: visible-storage, kind: strategy, evidence: reported }
+  - { id: sort-by-frequency, kind: strategy, evidence: reported }
+  - { id: launch-pad, kind: strategy, evidence: reported }
+  - { id: define-done, kind: strategy, evidence: reported }
+  - { id: five-minute-rule, kind: strategy, evidence: reported, references: [ramsay-rostain-2015] }
+  - { id: thought-record, kind: strategy, evidence: research, references: [ramsay-rostain-2015] }
+  - { id: decatastrophising, kind: strategy, evidence: research }
+  - { id: behavioural-experiments, kind: strategy, evidence: research }
+  - { id: graded-exposure, kind: strategy, evidence: research }
+  - { id: structured-problem-solving, kind: strategy, evidence: research, references: [ramsay-rostain-2015] }
+  - { id: mood-diary, kind: strategy, evidence: research }
+  - { id: relaxation-breathing, kind: strategy, evidence: research }
+  - { id: relapse-plan, kind: strategy, evidence: research }
+  - { id: psychoeducation, kind: strategy, evidence: research }
+  - { id: earplugs, kind: strategy, evidence: reported }
+  - { id: control-the-environment, kind: strategy, evidence: reported, references: [ramsay-rostain-2015] }
+  - { id: comfortable-clothes, kind: strategy, evidence: reported }
+  - { id: quiet-after-loud, kind: strategy, evidence: reported }
+  - { id: leave-early, kind: strategy, evidence: reported }
+  - { id: planning-time-to-plan, kind: strategy, evidence: reported, references: [ramsay-rostain-2015] }
+  - { id: master-list, kind: strategy, evidence: reported, references: [ramsay-rostain-2015] }
+  - { id: daily-shortlist, kind: strategy, evidence: reported, references: [ramsay-rostain-2015] }
+  - { id: underschedule, kind: strategy, evidence: reported, references: [ramsay-rostain-2015] }
+  - { id: if-then-plans, kind: strategy, evidence: research, references: [ramsay-rostain-2015] }
+  - { id: smallest-step, kind: strategy, evidence: research, references: [ramsay-rostain-2015] }
+  - { id: escape-behaviours, kind: strategy, evidence: reported, references: [ramsay-rostain-2015] }
+  - { id: anticipation-ratio, kind: strategy, evidence: research, references: [ramsay-rostain-2015] }
+  - { id: accept-discomfort, kind: strategy, evidence: research, references: [ramsay-rostain-2015] }
+  - { id: behavioural-scripts, kind: strategy, evidence: reported, references: [ramsay-rostain-2015] }
+  - { id: reframe-time, kind: strategy, evidence: reported, references: [ramsay-rostain-2015] }
+  - { id: manage-energy, kind: strategy, evidence: reported, references: [ramsay-rostain-2015] }
+  - { id: earned-rewards, kind: strategy, evidence: reported, references: [ramsay-rostain-2015] }
+  - { id: defense-attorney, kind: strategy, evidence: research, references: [ramsay-rostain-2015] }
+  - { id: method-acting, kind: strategy, evidence: reported, references: [ramsay-rostain-2015] }
+  - { id: values-commitment, kind: strategy, evidence: research, references: [ramsay-rostain-2015] }
+  - { id: problem-template, kind: strategy, evidence: research, references: [ramsay-rostain-2015] }
+  - { id: face-uncertainty, kind: strategy, evidence: reported, references: [ramsay-rostain-2015] }
+  - { id: planned-distraction, kind: strategy, evidence: reported, references: [ramsay-rostain-2015] }
+  - { id: coping-drift, kind: strategy, evidence: reported, references: [ramsay-rostain-2015] }
 
   # ---------------------------------------------------------------- treatment
-  - { id: assessment, kind: treatment }
-  - { id: medication, kind: treatment }
-  - { id: cbt, kind: treatment }
-  - { id: coaching, kind: treatment }
-  - { id: workplace-accommodations, kind: treatment }
-
-  - { id: psychotherapy, kind: treatment }
-  - { id: crisis-help, kind: treatment }
-  - { id: professional-organiser, kind: treatment }
+  - { id: assessment, kind: treatment, evidence: guideline, sources: [nice-ng87, kooij-consensus] }
+  - { id: medication, kind: treatment, evidence: guideline, references: [ramsay-rostain-2015], sources: [nice-ng87, kooij-consensus] }
+  - { id: cbt, kind: treatment, evidence: guideline, references: [ramsay-rostain-2015], sources: [nice-ng87, kooij-consensus] }
+  - { id: coaching, kind: treatment, evidence: reported }
+  - { id: workplace-accommodations, kind: treatment, evidence: guideline, sources: [nice-ng87] }
+  - { id: psychotherapy, kind: treatment, evidence: guideline, sources: [kooij-consensus] }
+  - { id: crisis-help, kind: treatment, evidence: guideline, sources: [who-depression] }
+  - { id: professional-organiser, kind: treatment, evidence: reported, references: [ramsay-rostain-2015] }
 
   # ---------------------------------------------------------------- impact
   - { id: missed-deadlines, kind: impact }
@@ -200,18 +315,26 @@ nodes:
   - { id: low-self-esteem, kind: impact }
   - { id: burnout, kind: impact }
   - { id: financial-trouble, kind: impact }
-  - { id: underachievement, kind: impact }
-  - { id: anxiety-depression, kind: impact }
+  - { id: inconsistent-performance, kind: impact }
   - { id: energy-drain, kind: impact }
-
   - { id: sensory-overload, kind: impact }
+  - { id: driving-risk, kind: impact }
+
+  # ---------------------------------------------------------------- condition
+  - { id: anxiety, kind: condition, scope: co-occurring }
+  - { id: depression, kind: condition, scope: co-occurring }
+  - { id: substance-use, kind: condition, scope: co-occurring }
 
   # ---------------------------------------------------------------- situation
   - { id: chaotic-home, kind: situation }
   - { id: dreaded-task, kind: situation }
   - { id: money-admin, kind: situation }
-
   - { id: loud-evening-out, kind: situation }
+  - { id: getting-out-the-door, kind: situation }
+  - { id: meetings-and-lectures, kind: situation }
+  - { id: messages-and-inbox, kind: situation }
+  - { id: bedtime-and-waking, kind: situation }
+  - { id: health-admin, kind: situation }
 
   # ---------------------------------------------------------------- mechanism
   - { id: dopamine-boost, kind: mechanism }
@@ -221,12 +344,29 @@ nodes:
   - { id: mood-lift, kind: mechanism }
 
 edges:
-  # ---------------------------------------------------------------- structure
+
+  # ---------------------------------------------------------------- from hub
   - { from: adhd, to: inattention, relation: includes }
   - { from: adhd, to: hyperactivity, relation: includes }
   - { from: adhd, to: executive, relation: includes }
   - { from: adhd, to: emotional, relation: includes }
   - { from: adhd, to: sleep-problems, relation: includes }
+  - { from: adhd, to: chaotic-home, relation: includes }
+  - { from: adhd, to: dreaded-task, relation: includes }
+  - { from: adhd, to: money-admin, relation: includes }
+  - { from: adhd, to: thinking-traps, relation: includes }
+  - { from: adhd, to: sensory-sensitivity, relation: includes }
+  - { from: adhd, to: loud-evening-out, relation: includes }
+  - { id: substance-use-adhd, from: adhd, to: substance-use, relation: associated_with, sources: [hartman-2023] }
+  - { from: adhd, to: getting-out-the-door, relation: includes }
+  - { from: adhd, to: meetings-and-lectures, relation: includes }
+  - { from: adhd, to: messages-and-inbox, relation: includes }
+  - { from: adhd, to: bedtime-and-waking, relation: includes }
+  - { from: adhd, to: health-admin, relation: includes }
+  - { id: adhd-anxiety, from: adhd, to: anxiety, relation: associated_with, sources: [hartman-2023] }
+  - { id: adhd-depression, from: adhd, to: depression, relation: associated_with, sources: [hartman-2023] }
+
+  # ---------------------------------------------------------------- from cluster
   - { from: inattention, to: distractibility, relation: includes }
   - { from: inattention, to: sustained-attention, relation: includes }
   - { from: inattention, to: hyperfocus, relation: includes }
@@ -249,8 +389,24 @@ edges:
   - { from: emotional, to: rejection-sensitivity, relation: includes }
   - { from: emotional, to: frustration-tolerance, relation: includes }
   - { from: emotional, to: boredom-intolerance, relation: includes }
+  - { from: emotional, to: rumination, relation: includes }
+  - { from: emotional, to: anticipatory-anxiety, relation: includes }
+  - { from: executive, to: avoidance, relation: includes }
+  - { from: executive, to: out-of-sight, relation: includes }
+  - { from: executive, to: decision-paralysis, relation: includes }
+  - { from: thinking-traps, to: catastrophising, relation: includes }
+  - { from: thinking-traps, to: all-or-nothing, relation: includes }
+  - { from: thinking-traps, to: mind-reading, relation: includes }
+  - { from: thinking-traps, to: overgeneralisation, relation: includes }
+  - { from: thinking-traps, to: should-statements, relation: includes }
+  - { from: thinking-traps, to: personalisation, relation: includes }
+  - { from: emotional, to: safety-behaviours, relation: includes }
+  - { from: executive, to: follow-through, relation: includes }
+  - { from: inattention, to: losing-conversation-thread, relation: includes }
+  - { from: inattention, to: mind-wandering, relation: includes }
+  - { from: executive, to: planning-sequencing, relation: includes }
 
-  # ---------------------------------------------------------------- symptom links
+  # ---------------------------------------------------------------- from symptom
   - { from: distractibility, to: sustained-attention, relation: related_to }
   - { id: hyperfocus-time-blindness, from: hyperfocus, to: time-blindness, relation: related_to }
   - { from: hyperfocus, to: task-switching, relation: related_to }
@@ -267,8 +423,76 @@ edges:
   - { from: working-memory, to: careless-mistakes, relation: related_to }
   - { from: prioritising, to: time-blindness, relation: related_to }
   - { from: sleep-problems, to: poor-sleep, relation: leads_to }
+  - { from: procrastination, to: missed-deadlines, relation: leads_to }
+  - { from: time-blindness, to: missed-deadlines, relation: leads_to }
+  - { from: forgetfulness, to: relationship-strain, relation: leads_to }
+  - { from: forgetfulness, to: financial-trouble, relation: leads_to }
+  - { from: impulsivity, to: financial-trouble, relation: leads_to }
+  - { from: impulsivity, to: relationship-strain, relation: leads_to }
+  - { from: interrupting, to: relationship-strain, relation: leads_to }
+  - { from: emotional-dysregulation, to: relationship-strain, relation: leads_to }
+  - { from: rejection-sensitivity, to: low-self-esteem, relation: leads_to }
+  - { from: rejection-sensitivity, to: anxiety, relation: related_to }
+  - { from: rejection-sensitivity, to: depression, relation: related_to }
+  - { from: careless-mistakes, to: inconsistent-performance, relation: leads_to }
+  - { from: sustained-attention, to: inconsistent-performance, relation: leads_to }
+  - { from: sleep-problems, to: burnout, relation: leads_to }
+  - { from: avoidance, to: procrastination, relation: related_to }
+  - { from: avoidance, to: task-initiation, relation: related_to }
+  - { from: out-of-sight, to: forgetfulness, relation: related_to }
+  - { from: out-of-sight, to: disorganisation, relation: related_to }
+  - { from: out-of-sight, to: losing-things, relation: related_to }
+  - { from: decision-paralysis, to: prioritising, relation: related_to }
+  - { from: decision-paralysis, to: task-initiation, relation: related_to }
+  - { from: anticipatory-anxiety, to: procrastination, relation: related_to }
+  - { from: rumination, to: anxiety, relation: related_to }
+  - { from: avoidance, to: missed-deadlines, relation: leads_to }
+  - { from: rumination, to: anticipatory-anxiety, relation: feeds }
+  - { from: anticipatory-anxiety, to: avoidance, relation: feeds }
+  - { id: avoidance-dreaded-task, from: avoidance, to: dreaded-task, relation: feeds }
+  - { from: rumination, to: energy-drain, relation: feeds }
+  - { from: catastrophising, to: anticipatory-anxiety, relation: leads_to }
+  - { from: catastrophising, to: anxiety, relation: related_to }
+  - { from: catastrophising, to: rumination, relation: related_to }
+  - { from: all-or-nothing, to: procrastination, relation: leads_to }
+  - { from: all-or-nothing, to: frustration-tolerance, relation: related_to }
+  - { from: mind-reading, to: rejection-sensitivity, relation: related_to }
+  - { from: mind-reading, to: relationship-strain, relation: leads_to }
+  - { from: overgeneralisation, to: low-self-esteem, relation: leads_to }
+  - { from: overgeneralisation, to: depression, relation: related_to }
+  - { from: should-statements, to: low-self-esteem, relation: leads_to }
+  - { from: should-statements, to: frustration-tolerance, relation: related_to }
+  - { from: personalisation, to: low-self-esteem, relation: leads_to }
+  - { from: personalisation, to: rejection-sensitivity, relation: related_to }
+  - { from: safety-behaviours, to: avoidance, relation: related_to }
+  - { id: safety-behaviours-anticipatory-anxiety, from: safety-behaviours, to: anticipatory-anxiety, relation: leads_to }
+  - { from: sensory-sensitivity, to: misophonia, relation: related_to }
+  - { from: sensory-sensitivity, to: distractibility, relation: related_to }
+  - { from: sensory-sensitivity, to: emotional-dysregulation, relation: related_to }
+  - { from: misophonia, to: frustration-tolerance, relation: related_to }
+  - { id: sensory-sensitivity-sensory-overload, from: sensory-sensitivity, to: sensory-overload, relation: leads_to }
+  - { from: misophonia, to: relationship-strain, relation: leads_to }
+  - { from: follow-through, to: task-initiation, relation: related_to }
+  - { from: follow-through, to: procrastination, relation: related_to }
+  - { from: follow-through, to: missed-deadlines, relation: leads_to }
+  - { from: follow-through, to: inconsistent-performance, relation: leads_to }
+  - { from: losing-conversation-thread, to: distractibility, relation: related_to }
+  - { from: losing-conversation-thread, to: working-memory, relation: related_to }
+  - { from: losing-conversation-thread, to: relationship-strain, relation: leads_to }
+  - { from: mind-wandering, to: distractibility, relation: related_to }
+  - { from: mind-wandering, to: sustained-attention, relation: related_to }
+  - { from: mind-wandering, to: restlessness, relation: related_to }
+  - { id: mind-wandering-rumination, from: mind-wandering, to: rumination, relation: related_to }
+  - { from: planning-sequencing, to: prioritising, relation: related_to }
+  - { from: planning-sequencing, to: decision-paralysis, relation: related_to }
+  - { from: planning-sequencing, to: disorganisation, relation: related_to }
+  - { id: driving-risk-distractibility, from: distractibility, to: driving-risk, relation: associated_with, sources: [chang-2014] }
+  - { from: impulsivity, to: driving-risk, relation: associated_with, sources: [chang-2014] }
+  - { from: emotional-dysregulation, to: driving-risk, relation: associated_with, sources: [chang-2014] }
+  - { from: impulsivity, to: substance-use, relation: associated_with, sources: [hartman-2023] }
+  - { from: sleep-problems, to: substance-use, relation: associated_with, sources: [hartman-2023] }
 
-  # ---------------------------------------------------------------- triggers
+  # ---------------------------------------------------------------- from trigger
   - { from: boring-tasks, to: sustained-attention, relation: worsens }
   - { from: boring-tasks, to: task-initiation, relation: worsens }
   - { from: boring-tasks, to: procrastination, relation: worsens }
@@ -293,8 +517,43 @@ edges:
   - { from: open-ended-tasks, to: prioritising, relation: worsens }
   - { from: hunger, to: emotional-dysregulation, relation: worsens }
   - { from: hunger, to: frustration-tolerance, relation: worsens }
+  - { from: poor-sleep, to: rumination, relation: worsens }
+  - { from: stress, to: rumination, relation: worsens }
+  - { from: open-ended-tasks, to: anticipatory-anxiety, relation: worsens }
+  - { from: open-ended-tasks, to: decision-paralysis, relation: worsens }
+  - { from: unclear-instructions, to: anticipatory-anxiety, relation: worsens }
+  - { from: poor-sleep, to: catastrophising, relation: worsens }
+  - { from: stress, to: all-or-nothing, relation: worsens }
+  - { from: noisy-environment, to: sensory-sensitivity, relation: worsens }
+  - { from: strong-smells, to: sensory-sensitivity, relation: worsens }
+  - { from: crowded-places, to: sensory-sensitivity, relation: worsens }
+  - { from: crowded-places, to: distractibility, relation: worsens }
+  - { from: harsh-light, to: sensory-sensitivity, relation: worsens }
+  - { from: harsh-light, to: sustained-attention, relation: worsens }
+  - { from: textures, to: sensory-sensitivity, relation: worsens }
+  - { from: textures, to: restlessness, relation: worsens }
+  - { from: poor-sleep, to: sensory-sensitivity, relation: worsens }
+  - { from: stress, to: sensory-sensitivity, relation: worsens }
+  - { from: open-ended-tasks, to: follow-through, relation: worsens }
+  - { from: unclear-instructions, to: follow-through, relation: worsens }
+  - { from: competing-demands, to: follow-through, relation: worsens }
+  - { from: noisy-environment, to: losing-conversation-thread, relation: worsens }
+  - { from: crowded-places, to: losing-conversation-thread, relation: worsens }
+  - { from: poor-sleep, to: mind-wandering, relation: worsens }
+  - { from: open-ended-tasks, to: planning-sequencing, relation: worsens }
+  - { from: competing-demands, to: working-memory, relation: worsens }
+  - { from: competing-demands, to: prioritising, relation: worsens }
+  - { from: competing-demands, to: task-initiation, relation: worsens }
+  - { from: competing-demands, to: decision-paralysis, relation: worsens }
+  - { from: competing-demands, to: emotional-dysregulation, relation: worsens }
+  - { from: unexpected-interruptions, to: task-switching, relation: worsens }
+  - { from: unexpected-interruptions, to: working-memory, relation: worsens }
+  - { from: unexpected-interruptions, to: frustration-tolerance, relation: worsens }
+  - { from: unexpected-interruptions, to: sustained-attention, relation: worsens }
+  - { from: poor-sleep, to: driving-risk, relation: associated_with, sources: [chang-2014] }
+  - { from: long-meetings, to: meetings-and-lectures, relation: related_to }
 
-  # ---------------------------------------------------------------- strategies
+  # ---------------------------------------------------------------- from strategy
   - { id: body-doubling-task-initiation, from: body-doubling, to: task-initiation, relation: helps_with }
   - { from: body-doubling, to: sustained-attention, relation: helps_with }
   - { from: body-doubling, to: procrastination, relation: helps_with }
@@ -363,55 +622,6 @@ edges:
   - { from: decision-reduction, to: prioritising, relation: helps_with }
   - { from: decision-reduction, to: task-initiation, relation: helps_with }
   - { from: decision-reduction, to: disorganisation, relation: helps_with }
-
-  # ---------------------------------------------------------------- treatment
-  - { from: assessment, to: medication, relation: leads_to }
-  - { from: assessment, to: workplace-accommodations, relation: leads_to }
-  - { from: assessment, to: low-self-esteem, relation: helps_with }
-  - { from: medication, to: sustained-attention, relation: helps_with }
-  - { from: medication, to: distractibility, relation: helps_with }
-  - { from: medication, to: impulsivity, relation: helps_with }
-  - { from: medication, to: restlessness, relation: helps_with }
-  - { from: medication, to: emotional-dysregulation, relation: helps_with }
-  - { from: medication, to: task-initiation, relation: helps_with }
-  - { from: cbt, to: procrastination, relation: helps_with }
-  - { from: cbt, to: emotional-dysregulation, relation: helps_with }
-  - { from: cbt, to: low-self-esteem, relation: helps_with }
-  - { from: cbt, to: anxiety-depression, relation: helps_with }
-  - { from: coaching, to: disorganisation, relation: helps_with }
-  - { from: coaching, to: time-blindness, relation: helps_with }
-  - { from: coaching, to: prioritising, relation: helps_with }
-  - { from: workplace-accommodations, to: noisy-environment, relation: reduces }
-  - { from: workplace-accommodations, to: unclear-instructions, relation: reduces }
-  - { from: workplace-accommodations, to: long-meetings, relation: reduces }
-  - { from: workplace-accommodations, to: missed-deadlines, relation: reduces }
-
-  # ---------------------------------------------------------------- symptom links
-  - { from: procrastination, to: missed-deadlines, relation: leads_to }
-  - { from: time-blindness, to: missed-deadlines, relation: leads_to }
-  - { from: forgetfulness, to: relationship-strain, relation: leads_to }
-  - { from: forgetfulness, to: financial-trouble, relation: leads_to }
-  - { from: impulsivity, to: financial-trouble, relation: leads_to }
-  - { from: impulsivity, to: relationship-strain, relation: leads_to }
-  - { from: interrupting, to: relationship-strain, relation: leads_to }
-  - { from: emotional-dysregulation, to: relationship-strain, relation: leads_to }
-  - { from: rejection-sensitivity, to: low-self-esteem, relation: leads_to }
-  - { from: rejection-sensitivity, to: anxiety-depression, relation: leads_to }
-  - { from: careless-mistakes, to: underachievement, relation: leads_to }
-  - { from: sustained-attention, to: underachievement, relation: leads_to }
-
-  # ---------------------------------------------------------------- impacts
-  - { from: missed-deadlines, to: low-self-esteem, relation: leads_to }
-  - { from: missed-deadlines, to: underachievement, relation: leads_to }
-  - { from: low-self-esteem, to: anxiety-depression, relation: leads_to }
-
-  # ---------------------------------------------------------------- symptom links
-  - { from: sleep-problems, to: burnout, relation: leads_to }
-
-  # ---------------------------------------------------------------- impacts
-  - { from: burnout, to: anxiety-depression, relation: leads_to }
-
-  # ---------------------------------------------------------------- strategies for thin symptoms and impacts
   - { from: movement-breaks, to: restlessness, relation: helps_with }
   - { from: movement-breaks, to: impatience, relation: helps_with }
   - { from: movement-breaks, to: fidgeting, relation: helps_with }
@@ -459,98 +669,34 @@ edges:
   - { from: buffer-time, to: time-blindness, relation: helps_with }
   - { from: deadline-check-ins, to: missed-deadlines, relation: helps_with }
   - { from: deadline-check-ins, to: procrastination, relation: helps_with }
-  - { from: deadline-check-ins, to: underachievement, relation: helps_with }
+  - { from: deadline-check-ins, to: inconsistent-performance, relation: helps_with }
   - { id: reduce-masking-burnout, from: reduce-masking, to: burnout, relation: helps_with }
   - { from: reduce-masking, to: low-self-esteem, relation: helps_with }
   - { from: recovery-time, to: burnout, relation: helps_with }
   - { from: recovery-time, to: emotional-dysregulation, relation: helps_with }
   - { from: recovery-time, to: stress, relation: reduces }
-  - { from: play-to-strengths, to: underachievement, relation: helps_with }
+  - { from: play-to-strengths, to: inconsistent-performance, relation: helps_with }
   - { from: play-to-strengths, to: boredom-intolerance, relation: helps_with }
   - { from: play-to-strengths, to: low-self-esteem, relation: helps_with }
   - { from: interest-pairing, to: boredom-intolerance, relation: helps_with }
   - { from: interest-pairing, to: sustained-attention, relation: helps_with }
   - { from: interest-pairing, to: boring-tasks, relation: reduces }
-
-  # ---------------------------------------------------------------- structure
-  - { from: adhd, to: chaotic-home, relation: includes }
-  - { from: adhd, to: dreaded-task, relation: includes }
-  - { from: adhd, to: money-admin, relation: includes }
-  - { from: emotional, to: rumination, relation: includes }
-  - { from: emotional, to: anticipatory-anxiety, relation: includes }
-  - { from: executive, to: avoidance, relation: includes }
-  - { from: executive, to: out-of-sight, relation: includes }
-  - { from: executive, to: decision-paralysis, relation: includes }
-
-  # ---------------------------------------------------------------- symptom links
-  - { from: avoidance, to: procrastination, relation: related_to }
-  - { from: avoidance, to: task-initiation, relation: related_to }
-  - { from: out-of-sight, to: forgetfulness, relation: related_to }
-  - { from: out-of-sight, to: disorganisation, relation: related_to }
-  - { from: out-of-sight, to: losing-things, relation: related_to }
-  - { from: decision-paralysis, to: prioritising, relation: related_to }
-  - { from: decision-paralysis, to: task-initiation, relation: related_to }
-  - { from: anticipatory-anxiety, to: procrastination, relation: related_to }
-  - { from: rumination, to: anxiety-depression, relation: leads_to }
-  - { from: avoidance, to: missed-deadlines, relation: leads_to }
-
-  # ---------------------------------------------------------------- triggers
-  - { from: poor-sleep, to: rumination, relation: worsens }
-  - { from: stress, to: rumination, relation: worsens }
-  - { from: open-ended-tasks, to: anticipatory-anxiety, relation: worsens }
-  - { from: open-ended-tasks, to: decision-paralysis, relation: worsens }
-  - { from: unclear-instructions, to: anticipatory-anxiety, relation: worsens }
-
-  # ---------------------------------------------------------------- the rumination loop
-  - { from: dreaded-task, to: rumination, relation: feeds }
-  - { from: rumination, to: anticipatory-anxiety, relation: feeds }
-  - { from: anticipatory-anxiety, to: avoidance, relation: feeds }
-  - { id: avoidance-dreaded-task, from: avoidance, to: dreaded-task, relation: feeds }
-  - { from: rumination, to: energy-drain, relation: feeds }
-  - { from: energy-drain, to: burnout, relation: feeds }
-
-  # ---------------------------------------------------------------- situations
-  - { from: chaotic-home, to: disorganisation, relation: involves }
-  - { from: chaotic-home, to: task-initiation, relation: involves }
-  - { from: chaotic-home, to: out-of-sight, relation: involves }
-  - { from: chaotic-home, to: decision-paralysis, relation: involves }
-  - { from: chaotic-home, to: time-blindness, relation: involves }
-  - { from: chaotic-home, to: boredom-intolerance, relation: involves }
-  - { from: chaotic-home, to: low-self-esteem, relation: leads_to }
-  - { from: chaotic-home, to: relationship-strain, relation: leads_to }
-  - { from: dreaded-task, to: task-initiation, relation: involves }
-  - { from: dreaded-task, to: procrastination, relation: involves }
-  - { from: dreaded-task, to: avoidance, relation: involves }
-  - { from: dreaded-task, to: anticipatory-anxiety, relation: involves }
-  - { from: dreaded-task, to: rumination, relation: involves }
-  - { from: money-admin, to: forgetfulness, relation: involves }
-  - { from: money-admin, to: avoidance, relation: involves }
-  - { from: money-admin, to: decision-paralysis, relation: involves }
-  - { from: money-admin, to: impulsivity, relation: involves }
-  - { from: money-admin, to: out-of-sight, relation: involves }
-  - { from: money-admin, to: financial-trouble, relation: leads_to }
-
-  # ---------------------------------------------------------------- anxiety and depression
-  - { from: exercise, to: anxiety-depression, relation: helps_with }
-  - { from: sleep-routine, to: anxiety-depression, relation: helps_with }
-  - { from: psychotherapy, to: anxiety-depression, relation: helps_with }
-  - { from: psychotherapy, to: rejection-sensitivity, relation: helps_with }
-  - { from: psychotherapy, to: low-self-esteem, relation: helps_with }
-  - { from: psychotherapy, to: rumination, relation: helps_with }
-  - { from: crisis-help, to: anxiety-depression, relation: helps_with }
-  - { from: behavioural-activation, to: anxiety-depression, relation: helps_with }
+  - { from: exercise, to: anxiety, relation: helps_with }
+  - { from: exercise, to: depression, relation: helps_with }
+  - { from: sleep-routine, to: anxiety, relation: helps_with }
+  - { from: sleep-routine, to: depression, relation: helps_with }
+  - { from: behavioural-activation, to: depression, relation: helps_with }
   - { from: behavioural-activation, to: avoidance, relation: helps_with }
   - { from: morning-daylight, to: sleep-problems, relation: helps_with }
-  - { from: morning-daylight, to: anxiety-depression, relation: helps_with }
-  - { from: social-contact, to: anxiety-depression, relation: helps_with }
+  - { from: morning-daylight, to: depression, relation: helps_with }
+  - { from: social-contact, to: depression, relation: helps_with }
   - { from: social-contact, to: low-self-esteem, relation: helps_with }
   - { from: worry-window, to: rumination, relation: helps_with }
   - { from: worry-window, to: anticipatory-anxiety, relation: helps_with }
   - { from: less-alcohol, to: sleep-problems, relation: helps_with }
-  - { from: less-alcohol, to: anxiety-depression, relation: helps_with }
+  - { from: less-alcohol, to: anxiety, relation: helps_with }
+  - { from: less-alcohol, to: depression, relation: helps_with }
   - { from: less-alcohol, to: impulsivity, relation: helps_with }
-
-  # ---------------------------------------------------------------- chaotic home
   - { from: nightly-reset, to: chaotic-home, relation: helps_with }
   - { from: nightly-reset, to: disorganisation, relation: helps_with }
   - { from: one-surface, to: chaotic-home, relation: helps_with }
@@ -572,10 +718,6 @@ edges:
   - { from: task-breakdown, to: chaotic-home, relation: helps_with }
   - { from: body-doubling, to: chaotic-home, relation: helps_with }
   - { from: routines, to: chaotic-home, relation: helps_with }
-  - { from: professional-organiser, to: chaotic-home, relation: helps_with }
-  - { from: professional-organiser, to: disorganisation, relation: helps_with }
-
-  # ---------------------------------------------------------------- exits from the loop
   - { from: define-done, to: dreaded-task, relation: helps_with }
   - { from: define-done, to: anticipatory-anxiety, relation: helps_with }
   - { from: define-done, to: open-ended-tasks, relation: reduces }
@@ -589,76 +731,15 @@ edges:
   - { from: self-compassion, to: rumination, relation: helps_with }
   - { from: movement-breaks, to: energy-drain, relation: helps_with }
   - { from: recovery-time, to: energy-drain, relation: helps_with }
-
-  # ---------------------------------------------------------------- money admin
   - { from: automatic-payments, to: money-admin, relation: helps_with }
   - { from: subscription-audit, to: money-admin, relation: helps_with }
   - { from: body-doubling, to: money-admin, relation: helps_with }
   - { from: time-boxing, to: money-admin, relation: helps_with }
-
-  # ---------------------------------------------------------------- how exercise works
   - { id: exercise-dopamine-boost, from: exercise, to: dopamine-boost, relation: produces }
   - { from: exercise, to: deeper-sleep, relation: produces }
   - { from: exercise, to: stress-hormones-drop, relation: produces }
   - { from: exercise, to: energy-discharged, relation: produces }
   - { from: exercise, to: mood-lift, relation: produces }
-  - { from: medication, to: dopamine-boost, relation: produces }
-  - { from: dopamine-boost, to: sustained-attention, relation: helps_with }
-  - { from: dopamine-boost, to: task-initiation, relation: helps_with }
-  - { from: dopamine-boost, to: distractibility, relation: helps_with }
-  - { from: deeper-sleep, to: sleep-problems, relation: helps_with }
-  - { from: deeper-sleep, to: working-memory, relation: helps_with }
-  - { from: deeper-sleep, to: emotional-dysregulation, relation: helps_with }
-  - { from: stress-hormones-drop, to: rumination, relation: helps_with }
-  - { from: stress-hormones-drop, to: anticipatory-anxiety, relation: helps_with }
-  - { from: stress-hormones-drop, to: anxiety-depression, relation: helps_with }
-  - { from: energy-discharged, to: restlessness, relation: helps_with }
-  - { from: energy-discharged, to: fidgeting, relation: helps_with }
-  - { from: energy-discharged, to: impatience, relation: helps_with }
-  - { from: mood-lift, to: anxiety-depression, relation: helps_with }
-  - { from: mood-lift, to: low-self-esteem, relation: helps_with }
-  - { from: mood-lift, to: frustration-tolerance, relation: helps_with }
-
-  # ---------------------------------------------------------------- thinking traps
-  - { from: adhd, to: thinking-traps, relation: includes }
-  - { from: thinking-traps, to: catastrophising, relation: includes }
-  - { from: thinking-traps, to: all-or-nothing, relation: includes }
-  - { from: thinking-traps, to: mind-reading, relation: includes }
-  - { from: thinking-traps, to: overgeneralisation, relation: includes }
-  - { from: thinking-traps, to: should-statements, relation: includes }
-  - { from: thinking-traps, to: personalisation, relation: includes }
-  - { from: emotional, to: safety-behaviours, relation: includes }
-  - { from: catastrophising, to: anticipatory-anxiety, relation: leads_to }
-  - { from: catastrophising, to: anxiety-depression, relation: leads_to }
-  - { from: catastrophising, to: rumination, relation: related_to }
-  - { from: all-or-nothing, to: procrastination, relation: leads_to }
-  - { from: all-or-nothing, to: frustration-tolerance, relation: related_to }
-  - { from: mind-reading, to: rejection-sensitivity, relation: related_to }
-  - { from: mind-reading, to: relationship-strain, relation: leads_to }
-  - { from: overgeneralisation, to: low-self-esteem, relation: leads_to }
-  - { from: overgeneralisation, to: anxiety-depression, relation: leads_to }
-  - { from: should-statements, to: low-self-esteem, relation: leads_to }
-  - { from: should-statements, to: frustration-tolerance, relation: related_to }
-  - { from: personalisation, to: low-self-esteem, relation: leads_to }
-  - { from: personalisation, to: rejection-sensitivity, relation: related_to }
-  - { from: safety-behaviours, to: avoidance, relation: related_to }
-  - { id: safety-behaviours-anticipatory-anxiety, from: safety-behaviours, to: anticipatory-anxiety, relation: leads_to }
-  - { from: poor-sleep, to: catastrophising, relation: worsens }
-  - { from: stress, to: all-or-nothing, relation: worsens }
-
-  # ---------------------------------------------------------------- the cbt toolkit
-  - { from: cbt, to: thought-record, relation: includes }
-  - { from: cbt, to: decatastrophising, relation: includes }
-  - { from: cbt, to: behavioural-experiments, relation: includes }
-  - { from: cbt, to: graded-exposure, relation: includes }
-  - { from: cbt, to: structured-problem-solving, relation: includes }
-  - { from: cbt, to: mood-diary, relation: includes }
-  - { from: cbt, to: relaxation-breathing, relation: includes }
-  - { from: cbt, to: relapse-plan, relation: includes }
-  - { from: cbt, to: psychoeducation, relation: includes }
-  - { from: cbt, to: behavioural-activation, relation: includes }
-  - { from: cbt, to: worry-window, relation: includes }
-  - { from: psychotherapy, to: cbt, relation: related_to }
   - { from: thought-record, to: catastrophising, relation: helps_with }
   - { from: thought-record, to: mind-reading, relation: helps_with }
   - { from: thought-record, to: overgeneralisation, relation: helps_with }
@@ -666,7 +747,8 @@ edges:
   - { from: thought-record, to: personalisation, relation: helps_with }
   - { id: thought-record-rumination, from: thought-record, to: rumination, relation: helps_with }
   - { from: thought-record, to: rejection-sensitivity, relation: helps_with }
-  - { from: thought-record, to: anxiety-depression, relation: helps_with }
+  - { from: thought-record, to: anxiety, relation: helps_with }
+  - { from: thought-record, to: depression, relation: helps_with }
   - { from: decatastrophising, to: catastrophising, relation: helps_with }
   - { from: decatastrophising, to: anticipatory-anxiety, relation: helps_with }
   - { from: behavioural-experiments, to: mind-reading, relation: helps_with }
@@ -682,50 +764,22 @@ edges:
   - { from: structured-problem-solving, to: decision-paralysis, relation: helps_with }
   - { from: structured-problem-solving, to: dreaded-task, relation: helps_with }
   - { from: structured-problem-solving, to: prioritising, relation: helps_with }
-  - { from: mood-diary, to: anxiety-depression, relation: helps_with }
+  - { from: mood-diary, to: depression, relation: helps_with }
   - { from: mood-diary, to: emotional-dysregulation, relation: helps_with }
   - { from: mood-diary, to: behavioural-activation, relation: related_to }
   - { from: relaxation-breathing, to: anticipatory-anxiety, relation: helps_with }
   - { from: relaxation-breathing, to: emotional-dysregulation, relation: helps_with }
   - { from: relaxation-breathing, to: sleep-problems, relation: helps_with }
   - { from: relaxation-breathing, to: distress-tolerance, relation: related_to }
-  - { from: relapse-plan, to: anxiety-depression, relation: helps_with }
+  - { from: relapse-plan, to: depression, relation: helps_with }
   - { from: relapse-plan, to: burnout, relation: helps_with }
   - { from: psychoeducation, to: anticipatory-anxiety, relation: helps_with }
   - { from: psychoeducation, to: safety-behaviours, relation: helps_with }
-  - { from: psychoeducation, to: anxiety-depression, relation: helps_with }
+  - { from: psychoeducation, to: anxiety, relation: helps_with }
   - { from: done-not-perfect, to: all-or-nothing, relation: helps_with }
   - { from: ask-instead-of-assume, to: mind-reading, relation: helps_with }
   - { from: self-compassion, to: overgeneralisation, relation: helps_with }
   - { from: self-compassion, to: should-statements, relation: helps_with }
-
-  # ---------------------------------------------------------------- sensory sensitivity
-  - { from: adhd, to: sensory-sensitivity, relation: includes }
-  - { from: sensory-sensitivity, to: misophonia, relation: includes }
-  - { from: adhd, to: loud-evening-out, relation: includes }
-  - { from: sensory-sensitivity, to: distractibility, relation: related_to }
-  - { from: sensory-sensitivity, to: emotional-dysregulation, relation: related_to }
-  - { from: misophonia, to: frustration-tolerance, relation: related_to }
-  - { id: sensory-sensitivity-sensory-overload, from: sensory-sensitivity, to: sensory-overload, relation: leads_to }
-  - { from: misophonia, to: relationship-strain, relation: leads_to }
-  - { from: sensory-overload, to: energy-drain, relation: leads_to }
-  - { from: sensory-overload, to: emotional-dysregulation, relation: leads_to }
-  - { from: sensory-overload, to: avoidance, relation: leads_to }
-  - { from: noisy-environment, to: sensory-sensitivity, relation: worsens }
-  - { from: strong-smells, to: sensory-sensitivity, relation: worsens }
-  - { from: crowded-places, to: sensory-sensitivity, relation: worsens }
-  - { from: crowded-places, to: distractibility, relation: worsens }
-  - { from: harsh-light, to: sensory-sensitivity, relation: worsens }
-  - { from: harsh-light, to: sustained-attention, relation: worsens }
-  - { from: textures, to: sensory-sensitivity, relation: worsens }
-  - { from: textures, to: restlessness, relation: worsens }
-  - { from: poor-sleep, to: sensory-sensitivity, relation: worsens }
-  - { from: stress, to: sensory-sensitivity, relation: worsens }
-  - { from: loud-evening-out, to: sensory-sensitivity, relation: involves }
-  - { from: loud-evening-out, to: misophonia, relation: involves }
-  - { from: loud-evening-out, to: distractibility, relation: involves }
-  - { from: loud-evening-out, to: impatience, relation: involves }
-  - { from: loud-evening-out, to: sensory-overload, relation: leads_to }
   - { from: earplugs, to: sensory-sensitivity, relation: helps_with }
   - { from: earplugs, to: misophonia, relation: helps_with }
   - { from: earplugs, to: loud-evening-out, relation: helps_with }
@@ -750,7 +804,265 @@ edges:
   - { id: explain-your-adhd-sensory-sensitivity, from: explain-your-adhd, to: sensory-sensitivity, relation: helps_with }
   - { from: explain-your-adhd, to: misophonia, relation: helps_with }
   - { from: explain-your-adhd, to: loud-evening-out, relation: helps_with }
+  - { from: self-compassion, to: sensory-sensitivity, relation: helps_with }
+  - { from: task-breakdown, to: follow-through, relation: helps_with }
+  - { from: checklists, to: follow-through, relation: helps_with }
+  - { from: deadline-check-ins, to: follow-through, relation: helps_with }
+  - { from: define-done, to: follow-through, relation: helps_with }
+  - { from: repeat-back, to: losing-conversation-thread, relation: helps_with }
+  - { from: written-instructions, to: losing-conversation-thread, relation: helps_with }
+  - { from: noise-control, to: losing-conversation-thread, relation: helps_with }
+  - { from: mindfulness, to: mind-wandering, relation: helps_with }
+  - { from: externalise-memory, to: mind-wandering, relation: helps_with }
+  - { from: single-tasking, to: mind-wandering, relation: helps_with }
+  - { from: task-breakdown, to: planning-sequencing, relation: helps_with }
+  - { from: structured-problem-solving, to: planning-sequencing, relation: helps_with }
+  - { from: checklists, to: planning-sequencing, relation: helps_with }
+  - { from: time-boxing, to: planning-sequencing, relation: helps_with }
+  - { from: decision-reduction, to: competing-demands, relation: reduces }
+  - { from: time-boxing, to: competing-demands, relation: reduces }
+  - { from: less-alcohol, to: substance-use, relation: helps_with }
+  - { from: launch-pad, to: getting-out-the-door, relation: helps_with }
+  - { from: prepare-night-before, to: getting-out-the-door, relation: helps_with }
+  - { from: visual-timers, to: getting-out-the-door, relation: helps_with }
+  - { from: buffer-time, to: getting-out-the-door, relation: helps_with }
+  - { from: checklists, to: getting-out-the-door, relation: helps_with }
+  - { from: fidget-tools, to: meetings-and-lectures, relation: helps_with }
+  - { from: movement-breaks, to: meetings-and-lectures, relation: helps_with }
+  - { from: repeat-back, to: meetings-and-lectures, relation: helps_with }
+  - { from: externalise-memory, to: meetings-and-lectures, relation: helps_with }
+  - { from: time-boxing, to: messages-and-inbox, relation: helps_with }
+  - { from: five-minute-rule, to: messages-and-inbox, relation: helps_with }
+  - { from: structured-problem-solving, to: messages-and-inbox, relation: helps_with }
+  - { from: external-reminders, to: messages-and-inbox, relation: helps_with }
+  - { from: body-doubling, to: messages-and-inbox, relation: helps_with }
+  - { from: sleep-routine, to: bedtime-and-waking, relation: helps_with }
+  - { from: hyperfocus-exit, to: bedtime-and-waking, relation: helps_with }
+  - { from: morning-daylight, to: bedtime-and-waking, relation: helps_with }
+  - { from: visual-timers, to: bedtime-and-waking, relation: helps_with }
+  - { from: prepare-night-before, to: bedtime-and-waking, relation: helps_with }
+  - { from: external-reminders, to: health-admin, relation: helps_with }
+  - { from: shared-calendar, to: health-admin, relation: helps_with }
+  - { from: checklists, to: health-admin, relation: helps_with }
+  - { from: routines, to: health-admin, relation: helps_with }
+  - { from: body-doubling, to: health-admin, relation: helps_with }
+  - { from: planning-time-to-plan, to: prioritising, relation: helps_with }
+  - { from: planning-time-to-plan, to: time-blindness, relation: helps_with }
+  - { from: planning-time-to-plan, to: disorganisation, relation: helps_with }
+  - { from: planning-time-to-plan, to: time-boxing, relation: related_to }
+  - { from: master-list, to: working-memory, relation: helps_with }
+  - { from: master-list, to: forgetfulness, relation: helps_with }
+  - { from: master-list, to: prioritising, relation: helps_with }
+  - { from: master-list, to: externalise-memory, relation: related_to }
+  - { from: daily-shortlist, to: prioritising, relation: helps_with }
+  - { from: daily-shortlist, to: decision-paralysis, relation: helps_with }
+  - { from: daily-shortlist, to: task-initiation, relation: helps_with }
+  - { from: daily-shortlist, to: master-list, relation: related_to }
+  - { from: underschedule, to: time-blindness, relation: helps_with }
+  - { from: underschedule, to: frustration-tolerance, relation: helps_with }
+  - { from: underschedule, to: missed-deadlines, relation: helps_with }
+  - { from: underschedule, to: buffer-time, relation: related_to }
+  - { from: if-then-plans, to: distractibility, relation: helps_with }
+  - { from: if-then-plans, to: follow-through, relation: helps_with }
+  - { from: if-then-plans, to: task-switching, relation: helps_with }
+  - { from: if-then-plans, to: avoidance, relation: helps_with }
+  - { from: if-then-plans, to: notifications, relation: reduces }
+  - { id: smallest-step-task-initiation, from: smallest-step, to: task-initiation, relation: helps_with }
+  - { from: smallest-step, to: procrastination, relation: helps_with }
+  - { from: smallest-step, to: dreaded-task, relation: helps_with }
+  - { from: smallest-step, to: task-breakdown, relation: related_to }
+  - { id: escape-behaviours-procrastination, from: escape-behaviours, to: procrastination, relation: helps_with }
+  - { from: escape-behaviours, to: avoidance, relation: helps_with }
+  - { from: escape-behaviours, to: safety-behaviours, relation: related_to }
+  - { id: anticipation-ratio-procrastination, from: anticipation-ratio, to: procrastination, relation: helps_with }
+  - { from: anticipation-ratio, to: anticipatory-anxiety, relation: helps_with }
+  - { from: anticipation-ratio, to: catastrophising, relation: helps_with }
+  - { from: anticipation-ratio, to: dreaded-task, relation: helps_with }
+  - { from: accept-discomfort, to: avoidance, relation: helps_with }
+  - { from: accept-discomfort, to: frustration-tolerance, relation: helps_with }
+  - { from: accept-discomfort, to: boredom-intolerance, relation: helps_with }
+  - { id: behavioural-scripts-procrastination, from: behavioural-scripts, to: procrastination, relation: helps_with }
+  - { from: behavioural-scripts, to: avoidance, relation: helps_with }
+  - { from: behavioural-scripts, to: routines, relation: related_to }
+  - { from: reframe-time, to: time-blindness, relation: helps_with }
+  - { from: reframe-time, to: procrastination, relation: helps_with }
+  - { from: reframe-time, to: all-or-nothing, relation: helps_with }
+  - { from: manage-energy, to: sustained-attention, relation: helps_with }
+  - { from: manage-energy, to: energy-drain, relation: helps_with }
+  - { from: manage-energy, to: prioritising, relation: helps_with }
+  - { id: earned-rewards-procrastination, from: earned-rewards, to: procrastination, relation: helps_with }
+  - { from: earned-rewards, to: boredom-intolerance, relation: helps_with }
+  - { from: earned-rewards, to: dopamine-menu, relation: related_to }
+  - { id: defense-attorney-catastrophising, from: defense-attorney, to: catastrophising, relation: helps_with }
+  - { from: defense-attorney, to: mind-reading, relation: helps_with }
+  - { from: defense-attorney, to: overgeneralisation, relation: helps_with }
+  - { from: defense-attorney, to: low-self-esteem, relation: helps_with }
+  - { from: defense-attorney, to: thought-record, relation: related_to }
+  - { id: method-acting-task-initiation, from: method-acting, to: task-initiation, relation: helps_with }
+  - { from: method-acting, to: avoidance, relation: helps_with }
+  - { from: method-acting, to: low-self-esteem, relation: helps_with }
+  - { from: values-commitment, to: procrastination, relation: helps_with }
+  - { from: values-commitment, to: boredom-intolerance, relation: helps_with }
+  - { from: values-commitment, to: inconsistent-performance, relation: helps_with }
+  - { from: problem-template, to: decision-paralysis, relation: helps_with }
+  - { from: problem-template, to: prioritising, relation: helps_with }
+  - { from: problem-template, to: rumination, relation: helps_with }
+  - { from: problem-template, to: structured-problem-solving, relation: related_to }
+  - { id: face-uncertainty-decision-paralysis, from: face-uncertainty, to: decision-paralysis, relation: helps_with }
+  - { from: face-uncertainty, to: avoidance, relation: helps_with }
+  - { from: face-uncertainty, to: anticipatory-anxiety, relation: helps_with }
+  - { from: planned-distraction, to: sleep-problems, relation: helps_with }
+  - { from: planned-distraction, to: procrastination, relation: helps_with }
+  - { from: planned-distraction, to: notifications, relation: reduces }
+  - { from: planned-distraction, to: bedtime-and-waking, relation: helps_with }
+  - { id: coping-drift-inconsistent-performance, from: coping-drift, to: inconsistent-performance, relation: helps_with }
+  - { from: coping-drift, to: disorganisation, relation: helps_with }
+  - { from: coping-drift, to: relapse-plan, relation: related_to }
+
+  # ---------------------------------------------------------------- from treatment
+  - { from: assessment, to: medication, relation: leads_to }
+  - { from: assessment, to: workplace-accommodations, relation: leads_to }
+  - { from: assessment, to: low-self-esteem, relation: helps_with }
+  - { from: medication, to: sustained-attention, relation: helps_with }
+  - { from: medication, to: distractibility, relation: helps_with }
+  - { from: medication, to: impulsivity, relation: helps_with }
+  - { from: medication, to: restlessness, relation: helps_with }
+  - { from: medication, to: emotional-dysregulation, relation: helps_with }
+  - { from: medication, to: task-initiation, relation: helps_with }
+  - { from: cbt, to: procrastination, relation: helps_with }
+  - { from: cbt, to: emotional-dysregulation, relation: helps_with }
+  - { from: cbt, to: low-self-esteem, relation: helps_with }
+  - { from: cbt, to: anxiety, relation: helps_with }
+  - { from: cbt, to: depression, relation: helps_with }
+  - { from: coaching, to: disorganisation, relation: helps_with }
+  - { from: coaching, to: time-blindness, relation: helps_with }
+  - { from: coaching, to: prioritising, relation: helps_with }
+  - { from: workplace-accommodations, to: noisy-environment, relation: reduces }
+  - { from: workplace-accommodations, to: unclear-instructions, relation: reduces }
+  - { from: workplace-accommodations, to: long-meetings, relation: reduces }
+  - { from: workplace-accommodations, to: missed-deadlines, relation: reduces }
+  - { from: psychotherapy, to: anxiety, relation: helps_with }
+  - { from: psychotherapy, to: depression, relation: helps_with }
+  - { from: psychotherapy, to: rejection-sensitivity, relation: helps_with }
+  - { from: psychotherapy, to: low-self-esteem, relation: helps_with }
+  - { from: psychotherapy, to: rumination, relation: helps_with }
+  - { from: crisis-help, to: depression, relation: helps_with }
+  - { from: professional-organiser, to: chaotic-home, relation: helps_with }
+  - { from: professional-organiser, to: disorganisation, relation: helps_with }
+  - { id: medication-dopamine-boost, from: medication, to: dopamine-boost, relation: produces }
+  - { from: cbt, to: thought-record, relation: includes }
+  - { from: cbt, to: decatastrophising, relation: includes }
+  - { from: cbt, to: behavioural-experiments, relation: includes }
+  - { from: cbt, to: graded-exposure, relation: includes }
+  - { from: cbt, to: structured-problem-solving, relation: includes }
+  - { from: cbt, to: mood-diary, relation: includes }
+  - { from: cbt, to: relaxation-breathing, relation: includes }
+  - { from: cbt, to: relapse-plan, relation: includes }
+  - { from: cbt, to: psychoeducation, relation: includes }
+  - { from: cbt, to: behavioural-activation, relation: includes }
+  - { from: cbt, to: worry-window, relation: includes }
+  - { from: psychotherapy, to: cbt, relation: related_to }
   - { from: workplace-accommodations, to: sensory-sensitivity, relation: helps_with }
   - { from: workplace-accommodations, to: harsh-light, relation: reduces }
-  - { from: self-compassion, to: sensory-sensitivity, relation: helps_with }
-  - { id: assessment-sensory-sensitivity, from: assessment, to: sensory-sensitivity, relation: helps_with }
+  - { id: assessment-sensory-sensitivity, from: assessment, to: sensory-sensitivity, relation: related_to }
+  - { from: coaching, to: planning-sequencing, relation: helps_with }
+  - { from: workplace-accommodations, to: unexpected-interruptions, relation: reduces }
+  - { from: medication, to: driving-risk, relation: helps_with }
+  - { from: assessment, to: substance-use, relation: related_to }
+  - { from: psychotherapy, to: substance-use, relation: helps_with }
+  - { from: workplace-accommodations, to: meetings-and-lectures, relation: helps_with }
+  - { from: cbt, to: if-then-plans, relation: includes }
+  - { from: cbt, to: defense-attorney, relation: includes }
+  - { from: cbt, to: anticipation-ratio, relation: includes }
+  - { from: cbt, to: accept-discomfort, relation: includes }
+  - { from: cbt, to: values-commitment, relation: includes }
+  - { from: cbt, to: problem-template, relation: includes }
+
+  # ---------------------------------------------------------------- from impact
+  - { from: missed-deadlines, to: low-self-esteem, relation: leads_to }
+  - { from: missed-deadlines, to: inconsistent-performance, relation: leads_to }
+  - { from: low-self-esteem, to: depression, relation: related_to }
+  - { from: burnout, to: anxiety, relation: related_to }
+  - { from: burnout, to: depression, relation: related_to }
+  - { from: energy-drain, to: burnout, relation: feeds }
+  - { from: sensory-overload, to: energy-drain, relation: leads_to }
+  - { from: sensory-overload, to: emotional-dysregulation, relation: leads_to }
+  - { from: sensory-overload, to: avoidance, relation: leads_to }
+
+  # ---------------------------------------------------------------- from condition
+  - { from: anxiety, to: substance-use, relation: associated_with, sources: [hartman-2023] }
+  - { from: depression, to: substance-use, relation: associated_with, sources: [hartman-2023] }
+  - { id: anxiety-depression-overlap, from: anxiety, to: depression, relation: associated_with, sources: [hartman-2023] }
+
+  # ---------------------------------------------------------------- from situation
+  - { from: dreaded-task, to: rumination, relation: feeds }
+  - { from: chaotic-home, to: disorganisation, relation: involves }
+  - { from: chaotic-home, to: task-initiation, relation: involves }
+  - { from: chaotic-home, to: out-of-sight, relation: involves }
+  - { from: chaotic-home, to: decision-paralysis, relation: involves }
+  - { from: chaotic-home, to: time-blindness, relation: involves }
+  - { from: chaotic-home, to: boredom-intolerance, relation: involves }
+  - { from: chaotic-home, to: low-self-esteem, relation: leads_to }
+  - { from: chaotic-home, to: relationship-strain, relation: leads_to }
+  - { from: dreaded-task, to: task-initiation, relation: involves }
+  - { from: dreaded-task, to: procrastination, relation: involves }
+  - { from: dreaded-task, to: avoidance, relation: involves }
+  - { from: dreaded-task, to: anticipatory-anxiety, relation: involves }
+  - { from: dreaded-task, to: rumination, relation: involves }
+  - { from: money-admin, to: forgetfulness, relation: involves }
+  - { from: money-admin, to: avoidance, relation: involves }
+  - { from: money-admin, to: decision-paralysis, relation: involves }
+  - { from: money-admin, to: impulsivity, relation: involves }
+  - { from: money-admin, to: out-of-sight, relation: involves }
+  - { from: money-admin, to: financial-trouble, relation: leads_to }
+  - { from: loud-evening-out, to: sensory-sensitivity, relation: involves }
+  - { from: loud-evening-out, to: misophonia, relation: involves }
+  - { from: loud-evening-out, to: distractibility, relation: involves }
+  - { from: loud-evening-out, to: impatience, relation: involves }
+  - { from: loud-evening-out, to: sensory-overload, relation: leads_to }
+  - { from: getting-out-the-door, to: time-blindness, relation: involves }
+  - { from: getting-out-the-door, to: losing-things, relation: involves }
+  - { from: getting-out-the-door, to: working-memory, relation: involves }
+  - { from: getting-out-the-door, to: task-switching, relation: involves }
+  - { from: getting-out-the-door, to: distractibility, relation: involves }
+  - { from: getting-out-the-door, to: relationship-strain, relation: leads_to }
+  - { from: meetings-and-lectures, to: sustained-attention, relation: involves }
+  - { from: meetings-and-lectures, to: restlessness, relation: involves }
+  - { from: meetings-and-lectures, to: fidgeting, relation: involves }
+  - { from: meetings-and-lectures, to: losing-conversation-thread, relation: involves }
+  - { from: meetings-and-lectures, to: interrupting, relation: involves }
+  - { from: meetings-and-lectures, to: impatience, relation: involves }
+  - { from: messages-and-inbox, to: avoidance, relation: involves }
+  - { from: messages-and-inbox, to: out-of-sight, relation: involves }
+  - { from: messages-and-inbox, to: decision-paralysis, relation: involves }
+  - { from: messages-and-inbox, to: anticipatory-anxiety, relation: involves }
+  - { from: messages-and-inbox, to: rejection-sensitivity, relation: involves }
+  - { from: messages-and-inbox, to: working-memory, relation: involves }
+  - { from: messages-and-inbox, to: relationship-strain, relation: leads_to }
+  - { from: bedtime-and-waking, to: sleep-problems, relation: involves }
+  - { from: bedtime-and-waking, to: time-blindness, relation: involves }
+  - { from: bedtime-and-waking, to: hyperfocus, relation: involves }
+  - { from: bedtime-and-waking, to: task-switching, relation: involves }
+  - { from: bedtime-and-waking, to: poor-sleep, relation: leads_to }
+  - { from: health-admin, to: forgetfulness, relation: involves }
+  - { from: health-admin, to: avoidance, relation: involves }
+  - { from: health-admin, to: working-memory, relation: involves }
+  - { from: health-admin, to: follow-through, relation: involves }
+  - { from: health-admin, to: time-blindness, relation: involves }
+
+  # ---------------------------------------------------------------- from mechanism
+  - { from: dopamine-boost, to: sustained-attention, relation: helps_with }
+  - { from: dopamine-boost, to: task-initiation, relation: helps_with }
+  - { from: dopamine-boost, to: distractibility, relation: helps_with }
+  - { from: deeper-sleep, to: sleep-problems, relation: helps_with }
+  - { from: deeper-sleep, to: working-memory, relation: helps_with }
+  - { from: deeper-sleep, to: emotional-dysregulation, relation: helps_with }
+  - { from: stress-hormones-drop, to: rumination, relation: helps_with }
+  - { from: stress-hormones-drop, to: anticipatory-anxiety, relation: helps_with }
+  - { from: stress-hormones-drop, to: anxiety, relation: helps_with }
+  - { from: energy-discharged, to: restlessness, relation: helps_with }
+  - { from: energy-discharged, to: fidgeting, relation: helps_with }
+  - { from: energy-discharged, to: impatience, relation: helps_with }
+  - { from: mood-lift, to: depression, relation: helps_with }
+  - { from: mood-lift, to: low-self-esteem, relation: helps_with }
+  - { from: mood-lift, to: frustration-tolerance, relation: helps_with }

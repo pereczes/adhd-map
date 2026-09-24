@@ -1,4 +1,4 @@
-# Magyar szövegek a data/adhd-map.yaml fájlhoz. A kulcsok az ottani azonosítók.
+# Text for data/adhd-map.yaml. Keys are the ids from that file.
 
 language: hu
 name: Magyar
@@ -12,9 +12,9 @@ ui:
   expand_all: Összes kibontása
   reset: Alaphelyzet
   intro: "Kattints egy csomópontra a megnyitásához: itt megjelennek a részletei, a térképen pedig kibomlanak a szomszédai. Egy nyitott csomópontra újra kattintva összecsukódik, amit felfedett."
-  intro_hint: Húzással mozgathatod, görgetéssel nagyíthatod a térképet, a keresővel pedig bármelyik csomópontra ugorhatsz.
+  intro_hint: "Húzással mozgathatod, görgetéssel nagyíthatod a térképet, a keresővel pedig bármelyik csomópontra ugorhatsz."
   counts: "{nodes} csomópont, {links} kapcsolat."
-  hidden_one: "1 kapcsolódó csomópont még nem látszik. Kattints újra a csomópontra a felfedéséhez."
+  hidden_one: 1 kapcsolódó csomópont még nem látszik. Kattints újra a csomópontra a felfedéséhez.
   hidden_many: "{count} kapcsolódó csomópont még nem látszik. Kattints újra a csomópontra a felfedésükhöz."
   fold_one: Minden kapcsolat a térképen van. Kattints újra a csomópontra a felfedett csomópont összecsukásához.
   fold_many: "Minden kapcsolat a térképen van. Kattints újra a csomópontra a felfedett {count} csomópont összecsukásához."
@@ -33,6 +33,24 @@ ui:
   option_auto_frame: A megnyitott csomópont maradjon képben
   option_relation_labels: Kapcsolatnevek a kiemelt vonalakon
   option_reach: Stratégia hatókörének kiemelése
+  option_popup: Felugró ablak rámutatáskor
+  option_translation: A felugró ablak nyelve
+  translation_same: Mint a térkép
+  evidence_note: "Az, hogy egy megközelítés mennyire megalapozott, attól függ, mire használják. Ez tájékoztatás, nem bizonyíték."
+  sources: Források
+  sources_title: Források és módszer
+  sources_intro: "Ez a térkép ismeretterjesztő célú, nem diagnosztikai eszköz. Nem tudja megmondani senkiről, hogy ADHD-s-e, és nem helyettesíti a képzett szakember által végzett kivizsgálást vagy kezelést."
+  sources_scope_heading: Mit tartalmaz a térkép
+  sources_scope: "A csomópontokon jelölve van, hogyan viszonyulnak a diagnózishoz: az ADHD alaptünete, gyakran együtt jár de nem diagnosztikai, nem kifejezetten ADHD-s mintázat, vagy gyakran társuló állapot. Egyetlen csomópont sem alapoz meg ADHD-t."
+  sources_evidence_heading: Mennyire megalapozott
+  sources_evidence: "A stratégiák és kezelések durva jelölést kapnak: szakmai irányelvek ajánlják, van némi kutatási alap, vagy sokan beszámolnak róla kevés kutatás mellett. Ez a megközelítést általánosságban írja le, nem minden felhasználását, és tájékoztatás, nem bizonyíték."
+  sources_list_heading: Fő források
+  sources_reviewed: "A tartalom utolsó áttekintése: 2026. szeptember."
+  sources_back: Vissza a térképhez
+  facts_heading: Tények és számok
+  fact_source: Forrás
+  described_in: Leírva itt
+  used_on: A térképen
 
 kinds:
   hub: Áttekintés
@@ -42,19 +60,33 @@ kinds:
   strategy: Megküzdési stratégia
   treatment: Kezelés és támogatás
   impact: Következmény
+  condition: Társuló állapot
   situation: Élethelyzet
   mechanism: Így hat
 
+scopes:
+  core: Az ADHD alaptünete
+  associated: "Gyakran együtt jár, de nem diagnosztikai"
+  transdiagnostic: Nem kifejezetten ADHD-s
+  co-occurring: Gyakran ADHD mellett fordul elő
+  unspecified: Még nincs besorolva
+
+evidence:
+  guideline: Szakmai irányelvek ajánlják
+  research: Van némi kutatási alap
+  reported: "Sokan beszámolnak róla, kevés kutatás"
+
 relations:
-  includes:   { label: ezeket tartalmazza, inverse: ennek része }
-  related_to: { label: kapcsolódik, inverse: kapcsolódik }
-  worsens:    { label: ezeket rontja, inverse: ezek rontják }
-  helps_with: { label: ezeken segít, inverse: ezek segítenek }
-  reduces:    { label: ezeket csökkenti, inverse: ezek csökkentik }
-  leads_to:   { label: ehhez vezet, inverse: ebből következik }
-  involves:   { label: ezeket érinti, inverse: ebben jelenik meg }
-  feeds:      { label: ezt táplálja, inverse: ezek táplálják }
-  produces:   { label: ezt váltja ki, inverse: ezek váltják ki }
+  includes:        { label: ezeket tartalmazza, inverse: ennek része }
+  related_to:      { label: kapcsolódik, inverse: kapcsolódik }
+  associated_with: { label: együtt jár ezzel, inverse: együtt jár ezzel }
+  worsens:         { label: ezeket rontja, inverse: ezek rontják }
+  helps_with:      { label: ezeken segít, inverse: ezek segítenek }
+  reduces:         { label: ezeket csökkenti, inverse: ezek csökkentik }
+  leads_to:        { label: ehhez vezethet, inverse: ebből következhet }
+  involves:        { label: ezeket érinti, inverse: ebben jelenik meg }
+  feeds:           { label: ezt táplálja, inverse: ezek táplálják }
+  produces:        { label: ezt váltja ki, inverse: ezek váltják ki }
 
 nodes:
   # ---------------------------------------------------------------- hub
@@ -65,14 +97,48 @@ nodes:
       állapot, amely a figyelem szabályozását, az aktivitási szintet, az
       impulzuskontrollt és a végrehajtó funkciókat érinti. Kattints egy
       csoportra a tünetek felfedezéséhez, majd kövesd a kapcsolatokat a
-      kiváltó tényezőkhöz, stratégiákhoz és következményekhez.
+      kiváltó tényezőkhöz, stratégiákhoz és következményekhez. Ez a térkép
+      ismeretterjesztő célú, nem diagnosztikai eszköz. Diagnosztikai
+      tüneteket, gyakran együtt járó tapasztalatokat, társuló problémákat és
+      gyakorlati stratégiákat tartalmaz. Egyetlen csomópont sem alapoz meg
+      ADHD-t. A diagnózis mérlegeli a gyermekkori kezdetet, a tartósságot, a
+      több élethelyzetben jelentkező nehézséget és a lehetséges egyéb
+      magyarázatokat.
+    facts:
+      - text: >-
+          Világszerte 175 vizsgálat összesítése alapján a gyerekek és serdülők
+          nagyjából 7%-a felel meg az ADHD kritériumainak.
+        source: thomas-2015
+      - text: >-
+          Egy 2001 és 2003 között készült amerikai felmérésben a 18 és 44 év
+          közötti felnőttek 4,4%-a felelt meg az aktuális ADHD kritériumainak.
+        source: kessler-2006
+      - text: >-
+          Egy 2001 és 2004 között készült amerikai serdülőfelmérésben a fiúk
+          13%-ának és a lányok 4,2%-ának volt élete során valamikor ADHD-ja.
+        source: nimh-adhd-stats
+      - text: >-
+          Az ugyanabban az időszakban készült felnőttfelmérésben a férfiak
+          5,4%-ánál és a nők 3,2%-ánál találtak aktuális ADHD-t. Az
+          élettartamra és a jelenre vonatkozó számok különböző felmérésekből
+          és különböző mérőszámokból származnak, ezért közvetlenül nem
+          hasonlíthatók össze.
+        source: nimh-adhd-stats
+      - text: >-
+          2023-ban az Egyesült Államokban becsült 15,5 millió felnőtt,
+          körülbelül 6%, számolt be aktuális ADHD-diagnózisról. Nagyjából a
+          felük csak 18 évesen vagy később kapta meg.
+        source: cdc-adult-adhd
+      - text: >-
+          Ikervizsgálatok szerint az ADHD örökölhetősége körülbelül 74%.
+        source: faraone-2019
 
   # ---------------------------------------------------------------- cluster
   inattention:
     label: Figyelmetlenség
     description: >-
-      Nehéz a figyelmet oda irányítani és ott tartani, ahol szükség van rá,
-      és néha az ellenkezője a gond: nem lehet elengedni.
+      Nehéz a figyelmet oda irányítani és ott tartani, ahol szükség van rá, és
+      néha az ellenkezője a gond: nem lehet elengedni.
   hyperactivity:
     label: Hiperaktivitás és impulzivitás
     description: >-
@@ -82,16 +148,14 @@ nodes:
   executive:
     label: Végrehajtó funkciók
     description: >-
-      Az agy irányító rétege: elkezdeni, tervezni, sorrendbe rakni,
-      fontossági sorrendet felállítani, követni az időt és észben tartani
-      dolgokat.
+      Az agy irányító rétege: elkezdeni, tervezni, sorrendbe rakni, fontossági
+      sorrendet felállítani, követni az időt és észben tartani dolgokat.
   emotional:
     label: Érzelemszabályozás
     description: >-
       Érzelmek, amelyek gyorsan jönnek, erősen ütnek, és tovább tart, míg
       lecsillapodnak. Nem része a hivatalos diagnosztikai kritériumoknak, de
       sok felnőtt számára az egyik legmegterhelőbb terület.
-
   thinking-traps:
     label: Gondolkodási csapdák
     description: >-
@@ -117,6 +181,7 @@ nodes:
       Intenzív, nehezen megszakítható elmerülés egy érdekes feladatban,
       gyakran minden más rovására, beleértve az evést, az alvást és a többi
       embert.
+    aliases: [alagútlátás]
   forgetfulness:
     label: Feledékenység
     description: >-
@@ -133,6 +198,7 @@ nodes:
     description: >-
       Munkában vagy papírmunkában részletek maradnak ki, pedig az anyag jól
       ismert.
+    aliases: [elnézett részletek]
   restlessness:
     label: Nyugtalanság
     description: >-
@@ -156,13 +222,14 @@ nodes:
   impatience:
     label: Türelmetlenség
     description: >-
-      A sorban állás, a dugó vagy egy lassú válasz kivárása fizikailag
-      nehezen elviselhető.
+      A sorban állás, a dugó vagy egy lassú válasz kivárása fizikailag nehezen
+      elviselhető.
   task-initiation:
     label: Nehéz elkezdeni a feladatokat
     description: >-
-      Pontosan tudni, mit kell tenni, és mégsem tudni elkezdeni. Néha
-      ADHD-bénultságnak nevezik.
+      Pontosan tudni, mit kell tenni, és mégsem tudni elkezdeni. Néha ADHD-
+      bénultságnak nevezik.
+    aliases: [ADHD-bénultság, végrehajtó diszfunkció]
   procrastination:
     label: Halogatás
     description: >-
@@ -171,8 +238,9 @@ nodes:
   time-blindness:
     label: Idővakság
     description: >-
-      Gyenge érzék arra, mennyi idő telt el és mennyi ideig tartanak a
-      dolgok. Krónikus késés és túlvállalás a következménye.
+      Gyenge érzék arra, mennyi idő telt el és mennyi ideig tartanak a dolgok.
+      Krónikus késés és túlvállalás a következménye.
+    aliases: [időbeosztás, mindig késés]
   disorganisation:
     label: Szervezetlenség
     description: >-
@@ -182,6 +250,7 @@ nodes:
     description: >-
       Nehéz több dolgot egyszerre észben tartani: többlépéses utasításokat,
       fejszámolást, vagy hogy miért is jöttél be a szobába.
+    aliases: [rövid távú memória]
   prioritising:
     label: Nehéz fontossági sorrendet felállítani
     description: >-
@@ -197,11 +266,16 @@ nodes:
     description: >-
       Az érzelmek gyorsan és erősen érkeznek, és tovább tart, míg
       lecsillapodnak, mint amit a helyzet indokolna.
+    aliases: [hangulatingadozás]
   rejection-sensitivity:
     label: Elutasításra való érzékenység
     description: >-
-      A vélt kritika vagy elutasítás intenzív érzelmi fájdalmat vált ki. Nem
-      hivatalos diagnosztikai fogalom, de nagyon sokan számolnak be róla.
+      A vélt kritika, kirekesztés vagy elutasítás heves fájdalmat válthat ki.
+      Ez nem ADHD-diagnosztikai kritérium, és nem csak ADHD mellett fordul
+      elő, de együtt hathat az érzelmi diszregulációval és a korábbi kritikai
+      tapasztalatokkal. Az ennél erősebb elutasítás-érzékenységi diszfória
+      fogalomnak kevés kutatási alapja van.
+    aliases: [RSD, elutasítás-érzékenységi diszfória]
   frustration-tolerance:
     label: Alacsony frusztrációtűrés
     description: >-
@@ -217,7 +291,6 @@ nodes:
     description: >-
       Nehéz elaludni, eltolódott belső óra, és késő estig fennmaradás, hogy
       visszaszerezd az időt, amit a nap nem adott meg.
-
   rumination:
     label: Rágódás
     description: >-
@@ -244,7 +317,6 @@ nodes:
     description: >-
       Szorongás, amely jóval a feladat előtt érkezik, és gyakran többe kerül,
       mint maga a feladat.
-
   catastrophising:
     label: Katasztrofizálás
     description: >-
@@ -281,18 +353,53 @@ nodes:
       Apró dolgok, amelyektől félelmetes helyzetekben biztonságosabbnak érzed
       magad: minden mondat elpróbálása, a kamera kikapcsolva, mindig van kiút.
       Megkönnyebbülést hoznak, és életben tartják a félelmet.
-
   sensory-sensitivity:
     label: Ingerérzékenység
     description: >-
-      A hangok, szagok, anyagok és fények hangosabban érkeznek, mint másoknak,
-      és folyton elvonják a figyelmet. Nem ADHD-kritérium, de a legtöbb ADHD-s
-      felnőttnél megtalálható.
+      A hangok, szagok, anyagok vagy fények szokatlanul erősnek tűnhetnek,
+      vagy folyton elvonhatják a figyelmet. Az érzékelési eltérésekről ADHD-s
+      emberek gyakrabban számolnak be, de nem részei a diagnosztikai
+      kritériumoknak, és más állapotokban is előfordulnak.
+    aliases: [túlérzékenység]
+    facts:
+      - text: >-
+          Egy ADHD-s felnőttekkel végzett vizsgálatban a nők 43%-a és a
+          férfiak 22%-a számolt be érzékelési alul- vagy túlérzékenységről.
+        source: bijlenga-2017
   misophonia:
     label: Mizofónia
     description: >-
       Heves düh vagy undor bizonyos hangokra, mint a rágás, a kopogás vagy a
-      szipogás. ADHD mellett sokkal gyakrabban számolnak be róla.
+      szipogás. Előfordulhat ADHD mellett, de a kettő kapcsolatát még
+      kutatják.
+    facts:
+      - text: >-
+          575 mizofóniás ember mintájában 5% számolt be ADHD-ról.
+        source: jager-2020
+  follow-through:
+    label: Nehéz végigvinni a dolgokat
+    description: >-
+      Elkezdeni egy feladatot vagy az első utasítást, aztán elveszíteni a
+      fonalat, mielőtt minden lépés elkészülne. A szándék valódi volt, a fonál
+      nem tartott ki.
+  losing-conversation-thread:
+    label: Elveszíteni a fonalat beszélgetés közben
+    description: >-
+      A figyelem elcsúszik, miközben valaki beszél, így az elhangzottak egy
+      része soha nem érkezik meg. Úgy néz ki, mintha nem figyelnél, pedig
+      nagyon igyekszel követni.
+  mind-wandering:
+    label: Fokozott gondolati elkalandozás
+    description: >-
+      Rövid, össze nem függő gondolatok árama húzza el a figyelmet a
+      feladattól. A rágódással ellentétben az elme témák között ugrál, nem egy
+      aggodalom körül kering.
+    aliases: [álmodozás]
+  planning-sequencing:
+    label: Nehéz tervezni és sorrendbe rakni
+    description: >-
+      Ismerni a célt, de nehezen választani sorrendet, átlátni, mi mitől függ,
+      és ebből működőképes lépéssort csinálni.
 
   # ---------------------------------------------------------------- trigger
   boring-tasks:
@@ -303,7 +410,7 @@ nodes:
   poor-sleep:
     label: Alváshiány
     description: >-
-      Szinte minden ADHD-tünet rosszabb egy rossz éjszaka után.
+      Sok ADHD-tünet rosszabb lehet egy rossz éjszaka után.
   noisy-environment:
     label: Zajos környezet
     description: >-
@@ -335,7 +442,6 @@ nodes:
     label: Éhség és kihagyott étkezések
     description: >-
       Elfelejteni enni, aztán összeomlani.
-
   strong-smells:
     label: Erős szagok
     description: >-
@@ -355,6 +461,16 @@ nodes:
     description: >-
       Kapargó szövetek, ruhacímkék, zoknivarrások, egy nedves ujj. Apró,
       állandó, lehetetlen figyelmen kívül hagyni.
+  competing-demands:
+    label: Túl sok egyszerre érkező elvárás
+    description: >-
+      Több kérés, döntés és befejezetlen feladat kér egyszerre figyelmet, és
+      ettől nehéz kiválasztani és megtartani a következő lépést.
+  unexpected-interruptions:
+    label: Váratlan megszakítások
+    description: >-
+      Egy kérdés, egy hívás vagy egy sürgős kérés kettétöri a feladatot, és a
+      visszatalálás többe kerül, mint maga a megszakítás.
 
   # ---------------------------------------------------------------- strategy
   body-doubling:
@@ -362,6 +478,7 @@ nodes:
     description: >-
       Munka egy másik ember mellett, egy szobában vagy videóhíváson, akinek a
       jelenléte megkönnyíti az elkezdést és a kitartást.
+    aliases: [közös munka]
   pomodoro:
     label: Pomodoro-időzítő
     description: >-
@@ -394,8 +511,8 @@ nodes:
   exercise:
     label: Rendszeres testmozgás
     description: >-
-      Az aerob mozgás órákra javítja a figyelmet és a hangulatot, és segíti
-      az alvást.
+      Az aerob mozgás néhány órára javíthatja a figyelmet és a hangulatot, és
+      segítheti az alvást.
   sleep-routine:
     label: Állandó alvási rutin
     description: >-
@@ -456,15 +573,15 @@ nodes:
       Egy fül, egy feladat, egy dolog az asztalon. Csökkentsd a
       figyelemelterelés támadási felületét.
   done-not-perfect:
-    label: A kész jobb, mint a tökéletes
+    label: "A kész jobb, mint a tökéletes"
     description: >-
       Tudatosan alacsonyabbra tenni a lécet. A perfekcionizmus a halogatás
       gyakori hajtóereje.
   pause-before-acting:
     label: Szünet cselekvés előtt
     description: >-
-      Beépített késleltetés: 24 óra egy vásárlás előtt, egy lassú lélegzet
-      egy válasz előtt.
+      Beépített késleltetés: 24 óra egy vásárlás előtt, egy lassú lélegzet egy
+      válasz előtt.
   self-compassion:
     label: Önegyüttérzés
     description: >-
@@ -475,7 +592,6 @@ nodes:
     description: >-
       Kevesebb döntést kelljen hozni: állandó étkezések, kis ruhatár,
       alapértelmezett válaszok.
-
   movement-breaks:
     label: Mozgásszünetek
     description: >-
@@ -598,8 +714,8 @@ nodes:
     label: Párosítsd az unalmast valami élvezetessel
     description: >-
       A kedvenc podcast csak házimunka közben, a papírmunka csak a jó
-      kávézóban. Az élvezetes fél adja az ingert, ami a feladatból hiányzik.
-
+      kávézóban. Az élvezetes fél pótolhatja az ingerek egy részét, ami a
+      feladatból hiányzik.
   behavioural-activation:
     label: Viselkedésaktiválás
     description: >-
@@ -626,8 +742,8 @@ nodes:
   less-alcohol:
     label: Kevesebb alkohol
     description: >-
-      Az alkohol napokra rontja az alvást, az impulzivitást és a hangulatot. A
-      visszafogás az egyik legolcsóbb elérhető javulás.
+      Az alkohol napokra ronthatja az alvást, az impulzivitást és a
+      hangulatot. A visszafogás az egyik legolcsóbb elérhető javulás.
   nightly-reset:
     label: Tízperces esti visszaállítás
     description: >-
@@ -643,6 +759,7 @@ nodes:
     description: >-
       Egy doboz a döntésre váró dolgok kupacának. A felület most tiszta, a
       döntések megvárnak egy nyugodtabb pillanatot.
+    aliases: [kacatdoboz]
   own-less:
     label: Kevesebb tárgy
     description: >-
@@ -673,7 +790,6 @@ nodes:
     description: >-
       Vállalj csak öt percet a rettegett dologból. Öt perc után abbahagyni
       szabad. Legtöbbször nem fogod.
-
   thought-record:
     label: Gondolatnapló
     description: >-
@@ -686,11 +802,14 @@ nodes:
       Három kérdés: mi a legrosszabb, ami történhet, mennyire valószínű
       valójában, és hogyan birkóznék meg vele, ha megtörténne?
   behavioural-experiments:
-    label: Viselkedéskísérletek
+    label: "Teszteld, amitől félsz"
     description: >-
-      Kezeld a félelmetes jóslatot hipotézisként, és teszteld: küldd el az
-      üzenetet anélkül, hogy tízszer újraolvasnád, és nézd meg, mi történik
-      valójában.
+      A KVT-ben viselkedéskísérletnek hívják. Írd le pontosan, mi szerinted
+      fog rosszul elsülni, és mennyire vagy biztos benne, egy tízes skálán.
+      Aztán csináld meg egyszer, a szokásos óvintézkedések nélkül. Utána írd
+      le, mi történt valójában. A jóslat és az eredmény közötti különbség
+      változtatja meg a meggyőződést. Az, hogy mondják, ne aggódj, nem
+      változtatja meg.
   graded-exposure:
     label: Fokozatos expozíció
     description: >-
@@ -726,7 +845,6 @@ nodes:
       Ha érted az üss-vagy-fuss reakciót, hogy az elkerülés miért táplálja a
       félelmet, és hogy a szorongás mindig tetőzik, majd lecseng, az sokat
       elvesz az erejéből.
-
   earplugs:
     label: Hétköznapi füldugók
     description: >-
@@ -755,6 +873,122 @@ nodes:
       Előre megbeszélve magaddal és a társasággal, hogy egy hangos helyről
       korán eljönni rendben van. Ha tudod, hogy van kiút, már az elején kisebb
       a teher.
+  planning-time-to-plan:
+    label: Tervezz időt a tervezésre
+    description: >-
+      Vedd be magát a tervezést a naptárba, rövid napi sávként. Nélküle a nap
+      reagálással kezdődik, és a tervezés az a lépés, amely elsőként kimarad.
+  master-list:
+    label: Egyetlen gyűjtőlista mindenre
+    description: >-
+      Egyetlen lista, amely minden vállalást tartalmaz, nagyot és kicsit
+      egyaránt. Nem ebből dolgozol, hanem ez az, amit nem kell többé a
+      fejedben cipelned.
+  daily-shortlist:
+    label: Rövid lista a mai napra
+    description: >-
+      Minden nap másolj át néhány pontot a gyűjtőlistáról. Egy rövid lista
+      befejezhető, és csak a befejezett lista építi a bizalmat a rendszerben.
+  underschedule:
+    label: Szándékosan tervezz kevesebbet
+    description: >-
+      Tervezz kevesebb feladatot, mint amennyi szerinted belefér, és hagyj
+      több helyet köztük, mint amennyi szükségesnek tűnik. Az időbecslés a
+      gyenge pont, tehát a tervnek kell elnyelnie a hibát.
+  if-then-plans:
+    label: Ha-akkor tervek
+    description: >-
+      Döntsd el előre, mit teszel egy adott megszakításkor: ha üzenet érkezik,
+      akkor megvárja ennek a blokknak a végét. A döntés egyszer születik meg,
+      nyugodt fejjel, nem minden alkalommal újra.
+  smallest-step:
+    label: Nevezd meg a legkisebb első mozdulatot
+    description: >-
+      Nem a feladatot, még csak nem is az első lépést, hanem a legkisebb
+      fizikai mozdulatot, amely pozícióba hoz: a fájl nyitva a képernyőn, a
+      cipő az ajtónál.
+  escape-behaviours:
+    label: Ismerd a menekülőutaidat
+    description: >-
+      Mindenkinek van egy rövid listája arról, amit ehelyett megbízhatóan
+      csinál: a postafiók, a hűtő, egy gyors ügyintézés. Ha megnevezed őket, a
+      késztetésből jelzés lesz, hogy épp kerülsz valamit.
+  anticipation-ratio:
+    label: Hozd egyensúlyba az elvárásaidat
+    description: >-
+      Egy rettegett feladat előtt a legtöbben csak azt számolják, ami
+      kellemetlen lesz. Vedd hozzá azt is, ami a másik oldalon igaz: időben
+      korlátozott, szabad rosszul megcsinálni, és készen lenni jobb érzés,
+      mint tovább cipelni.
+  accept-discomfort:
+    label: "Kezdd el anélkül, hogy készen éreznéd magad"
+    description: >-
+      A kellemetlenség általában nem a kezdés előtt múlik el, hanem röviddel
+      utána. A megfelelő hangulatra várni az, ami egy feladatból egy hetet
+      csinál.
+  behavioural-scripts:
+    label: Szedd szét a saját forgatókönyveidet
+    description: >-
+      Egyes sorozatok maguktól futnak: hazaérkezés, kanapé, telefon, oda az
+      este. Ha leírod a sorozatot, kiderül, hol van valójában a döntési pont.
+  reframe-time:
+    label: Tegyél valódi számot az időre
+    description: >-
+      Kérdezd meg, meddig tart a feladat valójában, ne azt, meddig érződik.
+      Egy napi lista legtöbb pontja egy óránál kevesebbet kíván, és a határ
+      nélküli feladat az, amely soha nem kezdődik el.
+  manage-energy:
+    label: Tudatosan oszd be a legjobb óráidat
+    description: >-
+      A figyelem nem egyformán elérhető a nap során. Tedd az igényes munkát
+      azokra az órákra, amikor tényleg megvan, a gépieset pedig a többire.
+  earned-rewards:
+    label: A menekülésből legyen megszolgált jutalom
+    description: >-
+      Amibe menekülni szoktál, áttehető a feladat túloldalára. Ugyanaz a fél
+      óra a neten egészen mást jelent előtte és utána.
+  defense-attorney:
+    label: Képviseld a másik oldalt
+    description: >-
+      Egy kemény gondolat azért meggyőző, mert csak az egyik felet hallgattad
+      meg. Szándékosan mondd el az ellenérveket, ahogy egy védőügyvéd tenné,
+      mielőtt elfogadod az ítéletet.
+  method-acting:
+    label: "Viselkedj úgy, mint aki megcsinálja"
+    description: >-
+      Viselkedj úgy, mint aki már vezet naptárat vagy megírja azt az e-mailt,
+      még mielőtt természetesnek éreznéd. Az ismétlés teszi természetessé, nem
+      fordítva.
+  values-commitment:
+    label: "Kösd a feladatot ahhoz, ami fontos neked"
+    description: >-
+      Egy unalmas feladatot, amely valami számodra fontosat szolgál, könnyebb
+      elkezdeni, mint azt, amit csak szükségesként védesz. Nevezd meg, mit
+      szolgál.
+  problem-template:
+    label: Írott sablon a problémákhoz
+    description: >-
+      Fogalmazd meg a problémát egy mondatban, sorold fel a lehetőségeket
+      ítélkezés nélkül, válassz, tervezd meg az első lépést, utána értékelj. A
+      sablon elvégzi azt a gondolkodást, amire az adott pillanat nem képes.
+  face-uncertainty:
+    label: "Dönts, mielőtt a dolog eldönti magát"
+    description: >-
+      Egy döntés kiülése is döntés, méghozzá általában a legrosszabb, mert a
+      lehetőségek csendben lejárnak. Bizonytalanságban cselekedni jobb, mint
+      túl későn.
+  planned-distraction:
+    label: Tervezd be a figyelemelterelést
+    description: >-
+      Adj a játékoknak, a hírfolyamoknak és a képernyőknek valódi helyet a
+      napban, ahelyett hogy a réseket foglalnák el. A betervezett szabadidő
+      már nem versenyez minden mással.
+  coping-drift:
+    label: "Számíts rá, hogy a rendszer megcsúszik"
+    description: >-
+      Minden rendszer megcsúszik néhány jó hét után. Kezeld ezt normálisként,
+      és tervezd meg előre az újraindítást, ahelyett hogy annak
+      bizonyítékaként olvasnád, hogy semmit nem tudsz fenntartani.
 
   # ---------------------------------------------------------------- treatment
   assessment:
@@ -762,16 +996,30 @@ nodes:
     description: >-
       Egy képzett szakember hivatalos kivizsgálása a kapu a kezeléshez és az
       alkalmazkodásokhoz.
+    aliases: [diagnózis, kivizsgálás]
+    facts:
+      - text: >-
+          Az aktuális ADHD-diagnózissal élő amerikai felnőttek körülbelül fele
+          18 évesen vagy később kapta meg a diagnózist.
+        source: cdc-adult-adhd
   medication:
     label: Gyógyszeres kezelés
     description: >-
       Stimuláns és nem stimuláns gyógyszerek, orvos által felírva és követve.
       Sok felnőtt számára elsőként választandó kezelés.
+    aliases: [stimulánsok, metilfenidát]
+    facts:
+      - text: >-
+          Az ADHD-s amerikai felnőttek nagyjából harmada szedett stimuláns
+          gyógyszert az előző évben. Közülük 71,5%-nak okozott nehézséget a
+          recept kiváltása, mert a gyógyszer nem volt elérhető.
+        source: cdc-adult-adhd
   cbt:
     label: ADHD-specifikus KVT
     description: >-
       ADHD-hoz igazított kognitív viselkedésterápia: készségek a tervezéshez,
       a halogatáshoz és a nem segítő gondolkodási mintákhoz.
+    aliases: [KVT, kognitív viselkedésterápia]
   coaching:
     label: ADHD-coaching
     description: >-
@@ -780,9 +1028,8 @@ nodes:
   workplace-accommodations:
     label: Munkahelyi alkalmazkodások
     description: >-
-      Rugalmas munkaidő, írásos utasítások, csendes munkahely,
-      határidő-egyeztetések.
-
+      Rugalmas munkaidő, írásos utasítások, csendes munkahely, határidő-
+      egyeztetések.
   psychotherapy:
     label: Pszichoterápia
     description: >-
@@ -809,8 +1056,8 @@ nodes:
   relationship-strain:
     label: Megterhelt kapcsolatok
     description: >-
-      Az elfelejtett ígéretek, a közbevágások és az érzelmi kitörések
-      felőrlik a párkapcsolatot, a barátságokat és a munkatársi viszonyokat.
+      Az elfelejtett ígéretek, a közbevágások és az érzelmi kitörések felőrlik
+      a párkapcsolatot, a barátságokat és a munkatársi viszonyokat.
   low-self-esteem:
     label: Alacsony önértékelés
     description: >-
@@ -824,26 +1071,104 @@ nodes:
     label: Pénzügyi gondok
     description: >-
       Késedelmi díjak, elfelejtett előfizetések, impulzusvásárlások.
-  underachievement:
-    label: Képességek alatti teljesítmény
+  inconsistent-performance:
+    label: Egyenetlen teljesítmény munkában vagy tanulásban
     description: >-
-      A képességek alatti teljesítmény az iskolában vagy a munkában.
-  anxiety-depression:
-    label: Szorongás és depresszió
-    description: >-
-      Gyakran együtt járó állapotok, amelyeket sokszor a térkép többi
-      következménye táplál.
+      Eredmények, amelyek a kiválótól a késveig vagy a semmiig ingadoznak,
+      gyakran ugyanolyan feladatnál. A különbség aközött van, ami egy jó napon
+      lehetséges, és aközött, ami egy átlagos napon történik, nem a szándék és
+      a képesség között.
+    aliases: [alulteljesítés]
   energy-drain:
     label: Energiaveszteség
     description: >-
       Az aggódással, maszkolással és kompenzálással töltött órák kimerültsége,
       amiért cserébe nincs semmi felmutatható.
-
   sensory-overload:
     label: Ingertúlterhelés
     description: >-
       Túl sok inger egyszerre: ingerlékenység, leblokkolás, késztetés a szoba
       elhagyására. Órákkal később is emészti az energiát.
+  driving-risk:
+    label: Vezetés és baleseti kockázat
+    description: >-
+      Népességszinten az ADHD magasabb baleseti kockázattal jár együtt. Az
+      elterelhetőség, az impulzivitás és az alváshiány a volán mögött vagy
+      gépek körül többet nyom a latban. Ez csoportszintű megállapítás, és
+      semmit nem mond egyetlen vezetőről sem.
+    facts:
+      - text: >-
+          Egy svéd népességvizsgálatban a gyógyszeres időszakok 58%-kal
+          alacsonyabb súlyos közlekedési baleseti aránnyal jártak együtt az
+          ADHD-s férfiaknál. A szerzők becslése szerint e balesetek 41-49%-a
+          elkerülhető lett volna kezeléssel.
+        source: chang-2014
+
+  # ---------------------------------------------------------------- condition
+  anxiety:
+    label: Szorongás
+    description: >-
+      A szorongásos zavarok az ADHD mellett gyakrabban fordulnak elő, mint az
+      átlagnépességben. Az aggodalom, a testi feszültség és az elkerülés
+      hasonlíthat az ADHD tüneteire, és azok fel is erősíthetik. A
+      szorongásnak saját kivizsgálás és kezelés jár.
+    facts:
+      - text: >-
+          A világ népességének nagyjából 5,8%-a, körülbelül 470 millió ember
+          élt szorongásos zavarral 2023-ban.
+        source: who-anxiety
+      - text: >-
+          A szorongásos zavarral élők közül, akiknek kezelésre lenne
+          szükségük, csak körülbelül minden negyedik kap bármilyen ellátást:
+          27,6%.
+        source: who-anxiety
+      - text: >-
+          A lányok és a nők gyakrabban élnek át szorongásos zavart, mint a
+          fiúk és a férfiak.
+        source: who-anxiety
+      - text: >-
+          Vizsgálatok összesítése alapján az ADHD-s felnőttek körében
+          nagyjából ötszörös volt a szorongásos zavar esélye az ADHD nélküli
+          felnőttekhez képest.
+        source: hartman-2023
+  depression:
+    label: Depresszió
+    description: >-
+      A depresszió az ADHD mellett gyakrabban fordul elő, mint az
+      átlagnépességben. A lehangoltság, az érdeklődés elvesztése és a
+      kimerültség nem egyszerűen egy nehéz hét következménye. A depressziónak
+      saját kivizsgálás és kezelés jár. Ha a gondolataid afelé fordulnak, hogy
+      nem akarsz itt lenni, kérj segítséget még ma.
+    facts:
+      - text: >-
+          A felnőttek nagyjából 5,2%-a élt depresszív zavarral világszerte
+          2023-ban: a férfiak 4,1%-a és a nők 6,2%-a.
+        source: who-depression
+      - text: >-
+          Ez körülbelül 322 millió ember.
+        source: who-depression
+      - text: >-
+          A depresszió körülbelül 1,5-szer gyakoribb a nők körében, mint a
+          férfiaknál.
+        source: who-depression
+      - text: >-
+          Vizsgálatok összesítése alapján az ADHD-s felnőttek körében
+          nagyjából négy és félszeres volt a depresszió esélye az ADHD nélküli
+          felnőttekhez képest.
+        source: hartman-2023
+  substance-use:
+    label: Szerhasználati problémák
+    description: >-
+      A szerhasználati zavarok az ADHD mellett gyakrabban fordulnak elő. A
+      szereket néha a nyugtalanság, az alvás, a hangulat vagy a feszültség
+      kezelésére használják, de rontják a működést, és saját kivizsgálás és
+      kezelés jár nekik.
+    facts:
+      - text: >-
+          Vizsgálatok összesítése alapján az ADHD-s felnőttek körében
+          nagyjából négy és félszeres volt a szerhasználati zavar esélye az
+          ADHD nélküli felnőttekhez képest.
+        source: hartman-2023
 
   # ---------------------------------------------------------------- situation
   chaotic-home:
@@ -862,40 +1187,82 @@ nodes:
     description: >-
       Számlák, előfizetések, adók, a fiók, amit hónapok óta nem nyitottál meg.
       A feledékenység, az elkerülés és az impulzivitás itt találkozik.
-
   loud-evening-out:
     label: Hangos étterem vagy buli
     description: >-
       Mindenki egyszerre beszél, szól a zene, melletted valaki rág. A
       beszélgetés követése többe kerül, mint amennyit ad.
+  getting-out-the-door:
+    label: Időben kijutni az ajtón
+    description: >-
+      Az indulás előtti utolsó húsz perc, amikor több apró gond torlódik
+      egyszerre: a kulcs, az idő, a dolog, amit vinni akartál.
+  meetings-and-lectures:
+    label: "Megbeszélés, óra vagy előadás"
+    description: >-
+      Egy óra ülés és hallgatás, mozgás nélkül, a kéznek is alig valamivel,
+      miközben a beszélgetés fonala folyton elcsúszik.
+  messages-and-inbox:
+    label: Üzenetek és a túlcsorduló postafiók
+    description: >-
+      A megválaszolatlan üzenetek gyűlnek. Mindegyik döntést kíván, némelyikre
+      kockázatos válaszolni, és ami nincs szem előtt, az gyorsan feledésbe
+      merül.
+  bedtime-and-waking:
+    label: Lefekvés és felkelés
+    description: >-
+      Az este nyúlik, az érdekeset nehéz letenni, és a reggel előbb jön, mint
+      hogy az éjszaka késznek érződne.
+  health-admin:
+    label: "Időpontok, receptek és egészségügyi ügyintézés"
+    description: >-
+      Időpontfoglalás, átfoglalás, űrlapok, ismételt receptek és
+      visszahívások. Az egészség körüli ügyintézés épp azokat a készségeket
+      kívánja, amelyeket az ADHD drágává tesz.
 
   # ---------------------------------------------------------------- mechanism
   dopamine-boost:
     label: Dopamin- és noradrenalinszint emelkedik
     description: >-
-      Az aerob mozgás néhány órára ugyanazokat a hírvivő anyagokat emeli,
-      amelyeket az ADHD-gyógyszerek céloznak.
+      Egy lehetséges hatásmechanizmus. Az aerob mozgás néhány órára
+      megemelheti ugyanazokat a hírvivő anyagokat, amelyekre az ADHD-
+      gyógyszerek hatnak. Ez a magyarázat egy része, nem az egésze.
   deeper-sleep:
     label: Mélyebb alvás
     description: >-
-      A fizikai fáradtság megkönnyíti az elalvást és mélyíti az alvást, ami
-      másnap szinte mindent javít.
+      A fizikai fáradtság megkönnyítheti az elalvást és mélyítheti az alvást,
+      ami másnap szinte mindent javít.
   stress-hormones-drop:
     label: Csökkennek a stresszhormonok
     description: >-
-      A mozgás levezeti a stresszreakciót, így a test nem jelez többé veszélyt
-      az elmének.
+      A mozgás levezetheti a stresszreakciót, így a test nem jelez többé
+      veszélyt az elmének.
   energy-discharged:
     label: Levezetett nyugtalanság
     description: >-
-      A belső motor kap egy szelepet, és utána a nyugodt ülés kevesebbe kerül.
+      A belső motor kap egy szelepet, és utána a nyugodt ülés kevesebbe
+      kerülhet.
   mood-lift:
     label: Hangulatjavulás
     description: >-
-      Megbízható, bár átmeneti hangulatemelkedés, amely összeadódik, ha a
-      legtöbb napon megtörténik.
+      Gyakran átmeneti hangulatjavulás, amely összeadódik, ha a legtöbb napon
+      megtörténik.
 
 edges:
+  substance-use-adhd:
+    note: >-
+      Népességek között talált összefüggés. A kivizsgálás oka, nem elvárás
+      bárkivel szemben.
+  adhd-anxiety:
+    note: >-
+      ADHD mellett gyakoribb, mint az átlagnépességben. A szorongás
+      figyelmetlenségnek is látszhat, ezért a kivizsgálás mindkettőt
+      mérlegeli.
+  adhd-depression:
+    note: >-
+      ADHD mellett gyakoribb, mint az átlagnépességben. A hosszú éveken át
+      tartó nehézségek kockázati tényezők, de a depresszió önálló betegség, és
+      saját kezelés jár neki.
   hyperfocus-time-blindness:
     note: >-
       A hiperfókuszban órák tűnnek el.
@@ -903,17 +1270,35 @@ edges:
     note: >-
       A lefekvés egyre későbbre csúszik, mert az este rövidebbnek tűnik, mint
       amilyen.
+  avoidance-dreaded-task:
+    note: >-
+      Semmi nem készült el, a határidő közelebb van, és a feladat nagyobbnak
+      látszik, mint korábban.
+  safety-behaviours-anticipatory-anxiety:
+    note: >-
+      A megkönnyebbülés, amit hoznak, arra tanítja az agyat, hogy a helyzet
+      tényleg veszélyes volt.
+  sensory-sensitivity-sensory-overload:
+    note: >-
+      Minden hang és szag egy kevés figyelembe kerül. Estére elfogy a keret.
+  mind-wandering-rumination:
+    note: >-
+      Mindkettő befelé húzza a figyelmet, de az elkalandozás témák között
+      ugrál, a rágódás pedig egy körül kering.
+  driving-risk-distractibility:
+    note: >-
+      Népességszintű összefüggés, nem állítás egyetlen vezetőről sem.
   body-doubling-task-initiation:
     note: >-
-      A másik ember jelenléte adja meg az indítójelet, amit az agy magától
-      nem termel meg.
+      A másik ember jelenléte adja meg az indítójelet, amit az agy magától nem
+      termel meg.
   pomodoro-task-initiation:
     note: >-
       Ha csak 25 percre kötelezed el magad, kisebb az elkezdés ára.
   pomodoro-hyperfocus:
     note: >-
-      A szünetjelzés külső megszakítás egy olyan munkamenethez, amely
-      különben órákig tartana.
+      A szünetjelzés külső megszakítás egy olyan munkamenethez, amely különben
+      órákig tartana.
   fidget-tools-fidgeting:
     note: >-
       Mederbe tereli a mozgást ahelyett, hogy elnyomná.
@@ -922,8 +1307,8 @@ edges:
       Egy rögzített átállási rituálé kiszámíthatóvá teszi a váltást.
   pause-before-acting-rejection-sensitivity:
     note: >-
-      Ha vársz, mielőtt egy vélt sértésre válaszolsz, az első
-      érzelemhullámnak van ideje elvonulni.
+      Ha vársz, mielőtt egy vélt sértésre válaszolsz, az első érzelemhullámnak
+      van ideje elvonulni.
   write-it-down-instead-interrupting:
     note: >-
       A közbevágás kényszere gyakran a gondolat elvesztésétől való félelem. Ha
@@ -939,21 +1324,13 @@ edges:
     note: >-
       A maszkolás több energiába kerül, mint amennyit a körülötted lévők
       látnak.
-  avoidance-dreaded-task:
-    note: >-
-      Semmi nem készült el, a határidő közelebb van, és a feladat nagyobbnak
-      látszik, mint korábban.
   five-minute-rule-avoidance:
     note: >-
       Öt perc elég kicsi az elkezdéshez, és az elkezdés az egész probléma.
   exercise-dopamine-boost:
     note: >-
-      Ezért érződhet egy futás egy unalmas feladat előtt úgy, mint egy adag
-      gyógyszer.
-  safety-behaviours-anticipatory-anxiety:
-    note: >-
-      A megkönnyebbülés, amit hoznak, arra tanítja az agyat, hogy a helyzet
-      tényleg veszélyes volt.
+      Néhányan utána egy-két órán át könnyebb összpontosítást tapasztalnak. A
+      mozgás kiegészíti a kezelést, nem helyettesíti.
   thought-record-rumination:
     note: >-
       A rágódás körbe-körbe jár; a gondolatnapló előrehalad, mert egy
@@ -962,15 +1339,53 @@ edges:
     note: >-
       Minden lépés legyen elég kicsi ahhoz, hogy tényleg megtedd, és ismételd,
       amíg unalmassá nem válik.
-  sensory-sensitivity-sensory-overload:
-    note: >-
-      Minden hang és szag egy kevés figyelembe kerül. Estére elfogy a keret.
   explain-your-adhd-sensory-sensitivity:
     note: >-
       Aki melletted rág, nem hallja, amit te hallasz. Ha előre elmondod, a
       veszekedésből ülésrend lesz.
+  smallest-step-task-initiation:
+    note: >-
+      Olyan kicsi, hogy képtelenség lenne megtagadni. A kezdés a drága rész.
+  escape-behaviours-procrastination:
+    note: >-
+      Nem tudsz megszakítani egy szokást, amit észre sem vettél.
+  anticipation-ratio-procrastination:
+    note: >-
+      Általában nem a feladatot kerülöd, hanem a jóslatot.
+  behavioural-scripts-procrastination:
+    note: >-
+      A forgatókönyv azelőtt lefut, hogy döntés születne, tehát a döntést
+      előbbre kell hozni.
+  earned-rewards-procrastination:
+    note: >-
+      Ugyanaz a tevékenység jutalommá válik menekülés helyett, pusztán az
+      áthelyezéstől.
+  defense-attorney-catastrophising:
+    note: >-
+      Kérdezd meg, milyen bizonyíték kellene az elítéléshez, aztán nézd meg,
+      megvan-e.
+  method-acting-task-initiation:
+    note: >-
+      A szerep eljátszása jön először; az érzés utána következik, néha jóval
+      később.
+  face-uncertainty-decision-paralysis:
+    note: >-
+      A meg nem hozott döntés magától lejár, és a lejárt változat ritkán az,
+      amit szerettél volna.
+  coping-drift-inconsistent-performance:
+    note: >-
+      Ha a visszatérés előre meg van tervezve, a megcsúszás napokba kerül, nem
+      hónapokba.
+  medication-dopamine-boost:
+    note: >-
+      Ez a hatásmechanizmus a stimuláns gyógyszerekre vonatkozik. A nem
+      stimuláns szerek másképp hatnak.
   assessment-sensory-sensitivity:
     note: >-
       Az erős, egész életen át tartó érzékenységet érdemes a kivizsgáláson
       szóba hozni. Átfed az autizmussal, és ez megváltoztatja, milyen
       alkalmazkodások segítenek.
+  anxiety-depression-overlap:
+    note: >-
+      A kettő gyakran együtt jár, és mindegyik megnehezítheti a másik
+      felismerését és kezelését.

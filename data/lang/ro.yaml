@@ -1,4 +1,4 @@
-# Text în română pentru data/adhd-map.yaml. Cheile sunt id-urile din acel fișier.
+# Text for data/adhd-map.yaml. Keys are the ids from that file.
 
 language: ro
 name: Română
@@ -12,9 +12,9 @@ ui:
   expand_all: Extinde tot
   reset: Resetează
   intro: "Apasă pe un nod pentru a-l deschide: detaliile lui apar aici, iar vecinii se desfășoară pe hartă. Apasă din nou pe un nod deschis pentru a strânge ce a dezvăluit."
-  intro_hint: Trage pentru a muta harta, derulează pentru a mări sau folosește căutarea pentru a sări la orice nod.
+  intro_hint: "Trage pentru a muta harta, derulează pentru a mări sau folosește căutarea pentru a sări la orice nod."
   counts: "{nodes} noduri, {links} legături."
-  hidden_one: "1 nod conectat nu este încă afișat. Apasă din nou pe nod pentru a-l dezvălui."
+  hidden_one: 1 nod conectat nu este încă afișat. Apasă din nou pe nod pentru a-l dezvălui.
   hidden_many: "{count} noduri conectate nu sunt încă afișate. Apasă din nou pe nod pentru a le dezvălui."
   fold_one: Toate legăturile sunt pe hartă. Apasă din nou pe nod pentru a strânge nodul dezvăluit.
   fold_many: "Toate legăturile sunt pe hartă. Apasă din nou pe nod pentru a strânge cele {count} noduri dezvăluite."
@@ -33,6 +33,24 @@ ui:
   option_auto_frame: Păstrează nodul deschis în vedere
   option_relation_labels: Numele relațiilor pe legăturile evidențiate
   option_reach: Evidențiază ce influențează o strategie
+  option_popup: Fereastră la trecerea cu mausul
+  option_translation: Limba ferestrei
+  translation_same: La fel ca harta
+  evidence_note: "Cât de bine este susținută o abordare depinde de scopul folosirii. Este context, nu dovadă."
+  sources: Surse
+  sources_title: Surse și metodă
+  sources_intro: "Această hartă are scop educativ, nu diagnostic. Nu poate spune nimănui dacă are ADHD și nu înlocuiește evaluarea sau tratamentul făcut de un clinician calificat."
+  sources_scope_heading: Ce conține harta
+  sources_scope: "Nodurile sunt marcate după relația lor cu un diagnostic: simptom central al ADHD, ceva asociat frecvent dar nu diagnostic, un tipar care nu este specific ADHD, sau o afecțiune care apare adesea împreună cu el. Niciun nod nu stabilește singur un diagnostic."
+  sources_evidence_heading: Cât de bine susținut
+  sources_evidence: "Strategiile și tratamentele poartă o etichetă aproximativă: recomandat în ghiduri clinice, oarecare sprijin în cercetare, sau raportat pe scară largă cu cercetare limitată. Descrie abordarea în general, nu fiecare utilizare a ei, și este context, nu dovadă."
+  sources_list_heading: Surse principale
+  sources_reviewed: "Conținut revizuit ultima dată: septembrie 2026."
+  sources_back: Înapoi la hartă
+  facts_heading: Fapte și cifre
+  fact_source: Sursă
+  described_in: Descris în
+  used_on: Pe hartă
 
 kinds:
   hub: Prezentare generală
@@ -42,19 +60,33 @@ kinds:
   strategy: Strategie de adaptare
   treatment: Tratament și sprijin
   impact: Consecință
+  condition: Afecțiune asociată
   situation: Situație
   mechanism: Cum funcționează
 
+scopes:
+  core: Simptom central al ADHD
+  associated: "Asociat frecvent, nu diagnostic"
+  transdiagnostic: Nu este specific ADHD
+  co-occurring: Apare adesea împreună cu ADHD
+  unspecified: Neclasificat încă
+
+evidence:
+  guideline: Recomandat în ghiduri clinice
+  research: Oarecare sprijin în cercetare
+  reported: "Raportat pe scară largă, cercetare limitată"
+
 relations:
-  includes:   { label: include, inverse: parte din }
-  related_to: { label: legat de, inverse: legat de }
-  worsens:    { label: agravează, inverse: agravat de }
-  helps_with: { label: ajută la, inverse: ajutat de }
-  reduces:    { label: reduce, inverse: redus de }
-  leads_to:   { label: duce la, inverse: rezultă din }
-  involves:   { label: implică, inverse: apare în }
-  feeds:      { label: alimentează, inverse: alimentat de }
-  produces:   { label: produce, inverse: produs de }
+  includes:        { label: include, inverse: parte din }
+  related_to:      { label: legat de, inverse: legat de }
+  associated_with: { label: asociat cu, inverse: asociat cu }
+  worsens:         { label: agravează, inverse: agravat de }
+  helps_with:      { label: ajută la, inverse: ajutat de }
+  reduces:         { label: reduce, inverse: redus de }
+  leads_to:        { label: poate duce la, inverse: poate rezulta din }
+  involves:        { label: implică, inverse: apare în }
+  feeds:           { label: alimentează, inverse: alimentat de }
+  produces:        { label: produce, inverse: produs de }
 
 nodes:
   # ---------------------------------------------------------------- hub
@@ -62,10 +94,45 @@ nodes:
     label: ADHD
     description: >-
       Tulburarea de deficit de atenție și hiperactivitate este o condiție de
-      neurodezvoltare care afectează reglarea atenției, nivelul de
-      activitate, controlul impulsurilor și funcțiile executive. Apasă pe un
-      grup pentru a-i explora simptomele, apoi urmărește legăturile către
-      factorii declanșatori, strategii și consecințe.
+      neurodezvoltare care afectează reglarea atenției, nivelul de activitate,
+      controlul impulsurilor și funcțiile executive. Apasă pe un grup pentru
+      a-i explora simptomele, apoi urmărește legăturile către factorii
+      declanșatori, strategii și consecințe. Această hartă are scop educativ,
+      nu diagnostic. Conține simptome diagnostice, experiențe asociate
+      frecvent, probleme care apar împreună cu ADHD și strategii practice.
+      Niciun nod nu stabilește singur un diagnostic. Diagnosticul cântărește
+      debutul în copilărie, persistența, dificultățile în mai multe contexte
+      și alte explicații posibile.
+    facts:
+      - text: >-
+          Însumând 175 de studii din întreaga lume, aproximativ 7% dintre
+          copii și adolescenți îndeplinesc criteriile pentru ADHD.
+        source: thomas-2015
+      - text: >-
+          Într-un studiu american realizat între 2001 și 2003, 4,4% dintre
+          adulții între 18 și 44 de ani îndeplineau criteriile pentru ADHD
+          curent.
+        source: kessler-2006
+      - text: >-
+          Într-un studiu american pe adolescenți realizat între 2001 și 2004,
+          13% dintre băieți și 4,2% dintre fete au avut ADHD la un moment dat
+          în viață.
+        source: nimh-adhd-stats
+      - text: >-
+          În studiul pe adulți din aceeași perioadă, ADHD curent a fost găsit
+          la 5,4% dintre bărbați și 3,2% dintre femei. Cifrele pe durata
+          vieții și cele curente provin din studii diferite și din măsuri
+          diferite, deci nu pot fi comparate direct.
+        source: nimh-adhd-stats
+      - text: >-
+          În 2023, în Statele Unite, un număr estimat de 15,5 milioane de
+          adulți, aproximativ 6%, au raportat un diagnostic curent de ADHD.
+          Aproape jumătate au fost diagnosticați abia la 18 ani sau mai
+          târziu.
+        source: cdc-adult-adhd
+      - text: >-
+          Studiile pe gemeni estimează ereditatea ADHD la aproximativ 74%.
+        source: faraone-2019
 
   # ---------------------------------------------------------------- cluster
   inattention:
@@ -87,10 +154,9 @@ nodes:
   emotional:
     label: Reglarea emoțiilor
     description: >-
-      Emoții care vin repede, lovesc puternic și se liniștesc mai greu. Nu
-      fac parte din criteriile formale de diagnostic, dar pentru mulți adulți
-      sunt unul dintre cele mai apăsătoare aspecte.
-
+      Emoții care vin repede, lovesc puternic și se liniștesc mai greu. Nu fac
+      parte din criteriile formale de diagnostic, dar pentru mulți adulți sunt
+      unul dintre cele mai apăsătoare aspecte.
   thinking-traps:
     label: Capcane de gândire
     description: >-
@@ -102,25 +168,26 @@ nodes:
   distractibility:
     label: Distractibilitate
     description: >-
-      Atenția este trasă de stimuli exteriori sau de gânduri interioare,
-      chiar în mijlocul sarcinilor care contează.
+      Atenția este trasă de stimuli exteriori sau de gânduri interioare, chiar
+      în mijlocul sarcinilor care contează.
   sustained-attention:
     label: Dificultate de a menține atenția
     description: >-
       Sarcinile lungi și puțin stimulante, precum cititul, formularele sau
-      ședințele, sunt greu de dus până la capăt. Atenția nu lipsește, ci
-      este disponibilă inegal.
+      ședințele, sunt greu de dus până la capăt. Atenția nu lipsește, ci este
+      disponibilă inegal.
   hyperfocus:
     label: Hiperfocalizare
     description: >-
-      Absorbție intensă, greu de întrerupt, într-o sarcină interesantă,
-      adesea în detrimentul a orice altceva, inclusiv mâncarea, somnul și
-      ceilalți oameni.
+      Absorbție intensă, greu de întrerupt, într-o sarcină interesantă, adesea
+      în detrimentul a orice altceva, inclusiv mâncarea, somnul și ceilalți
+      oameni.
+    aliases: [vedere în tunel]
   forgetfulness:
     label: Uitare
     description: >-
-      Programările, promisiunile și sarcinile de rutină se pierd. De obicei
-      nu din nepăsare, ci pentru că memento-ul nu vine niciodată la momentul
+      Programările, promisiunile și sarcinile de rutină se pierd. De obicei nu
+      din nepăsare, ci pentru că memento-ul nu vine niciodată la momentul
       potrivit.
   losing-things:
     label: Pierderea lucrurilor
@@ -132,6 +199,7 @@ nodes:
     description: >-
       Detalii sunt sărite în muncă sau în acte, deși materialul este bine
       cunoscut.
+    aliases: [detalii scăpate]
   restlessness:
     label: Neliniște
     description: >-
@@ -162,16 +230,18 @@ nodes:
     description: >-
       A ști exact ce ai de făcut și a nu putea să începi. Numită uneori
       paralizie ADHD.
+    aliases: [paralizie ADHD, disfuncție executivă]
   procrastination:
     label: Amânare
     description: >-
-      Amânarea sarcinilor până când presiunea termenului oferă destulă
-      urgență pentru a acționa.
+      Amânarea sarcinilor până când presiunea termenului oferă destulă urgență
+      pentru a acționa.
   time-blindness:
     label: Percepție slabă a timpului
     description: >-
       Un simț slab al timpului scurs și al duratei lucrurilor. Urmează
       întârzieri cronice și angajamente prea multe.
+    aliases: [gestionarea timpului, mereu târziu]
   disorganisation:
     label: Dezorganizare
     description: >-
@@ -179,9 +249,10 @@ nodes:
   working-memory:
     label: Probleme de memorie de lucru
     description: >-
-      Este greu să ții mai multe lucruri în minte deodată: instrucțiuni în
-      mai mulți pași, calcule mintale, motivul pentru care ai intrat într-o
+      Este greu să ții mai multe lucruri în minte deodată: instrucțiuni în mai
+      mulți pași, calcule mintale, motivul pentru care ai intrat într-o
       cameră.
+    aliases: [memorie de scurtă durată]
   prioritising:
     label: Dificultate de a stabili priorități
     description: >-
@@ -197,12 +268,16 @@ nodes:
     description: >-
       Emoțiile vin repede și puternic și se liniștesc mai greu decât pare să
       justifice situația.
+    aliases: [schimbări de dispoziție]
   rejection-sensitivity:
     label: Sensibilitate la respingere
     description: >-
-      Critica sau respingerea percepută declanșează o durere emoțională
-      intensă. Nu este un termen formal de diagnostic, dar este raportată
-      foarte des.
+      Critica, excluderea sau respingerea percepute pot declanșa o suferință
+      intensă. Nu este un criteriu de diagnostic pentru ADHD și nu apare doar
+      în ADHD, dar poate interacționa cu dereglarea emoțională și cu
+      experiențele anterioare de critică. Conceptul mai puternic de disforie
+      de sensibilitate la respingere are sprijin limitat în cercetare.
+    aliases: [RSD, disforie de sensibilitate la respingere]
   frustration-tolerance:
     label: Toleranță scăzută la frustrare
     description: >-
@@ -218,7 +293,6 @@ nodes:
     description: >-
       Dificultăți de a adormi, un ceas intern decalat și statul târziu pentru
       a recupera timpul pe care ziua nu l-a oferit.
-
   rumination:
     label: Ruminație
     description: >-
@@ -244,7 +318,6 @@ nodes:
     description: >-
       Anxietate care sosește cu mult înaintea sarcinii și costă adesea mai
       mult decât sarcina însăși.
-
   catastrophising:
     label: Catastrofizare
     description: >-
@@ -280,29 +353,64 @@ nodes:
       Lucruri mărunte făcute pentru a te simți mai în siguranță în situații
       temute: repetarea fiecărei propoziții, camera oprită, întotdeauna o
       ieșire la îndemână. Aduc ușurare și țin frica în viață.
-
   sensory-sensitivity:
     label: Sensibilitate senzorială
     description: >-
-      Sunetele, mirosurile, texturile și lumina se înregistrează mai tare
-      decât la alți oameni și trag mereu de atenție. Nu face parte din
-      criteriile ADHD, dar apare la majoritatea adulților cu ADHD.
+      Sunetele, mirosurile, texturile sau lumina pot părea neobișnuit de
+      intense sau pot trage mereu de atenție. Diferențele senzoriale sunt
+      raportate mai des de persoanele cu ADHD, dar nu fac parte din criteriile
+      de diagnostic și pot apărea și în alte condiții.
+    aliases: [suprastimulare]
+    facts:
+      - text: >-
+          Într-un studiu pe adulți cu ADHD, 43% dintre femei și 22% dintre
+          bărbați au raportat hipo- sau hipersensibilitate senzorială.
+        source: bijlenga-2017
   misophonia:
     label: Misofonie
     description: >-
       Furie sau dezgust intens la sunete specifice precum mestecatul, bătutul
-      cu degetele sau trasul nasului. Raportată mult mai des în ADHD.
+      cu degetele sau trasul nasului. Poate apărea împreună cu ADHD, dar felul
+      în care se leagă cele două este încă studiat.
+    facts:
+      - text: >-
+          Într-un eșantion de 575 de persoane cu misofonie, 5% au raportat
+          ADHD.
+        source: jager-2020
+  follow-through:
+    label: Dificultate de a duce lucrurile la capăt
+    description: >-
+      Începi o sarcină sau prima instrucțiune, apoi pierzi firul înainte ca
+      toți pașii să fie gata. Intenția a fost reală, firul nu a rezistat.
+  losing-conversation-thread:
+    label: Pierderea firului în conversație
+    description: >-
+      Atenția alunecă în timp ce cineva vorbește, așa că o parte din ce s-a
+      spus nu ajunge niciodată. Pare că nu asculți, deși persoana se
+      străduiește să urmărească.
+  mind-wandering:
+    label: Rătăcire accentuată a gândurilor
+    description: >-
+      Un șir de gânduri scurte și fără legătură trage atenția de la sarcină.
+      Spre deosebire de ruminație, mintea sare între subiecte în loc să se
+      învârtă în jurul unei griji.
+    aliases: [visare cu ochii deschiși]
+  planning-sequencing:
+    label: Dificultate de a planifica și de a ordona
+    description: >-
+      Știi obiectivul, dar îți este greu să alegi o ordine, să vezi ce depinde
+      de ce și să transformi totul într-o succesiune de pași fezabilă.
 
   # ---------------------------------------------------------------- trigger
   boring-tasks:
     label: Sarcini plictisitoare sau repetitive
     description: >-
-      Sarcinile puțin interesante oferă prea puțină stimulare pentru a
-      menține atenția.
+      Sarcinile puțin interesante oferă prea puțină stimulare pentru a menține
+      atenția.
   poor-sleep:
     label: Lipsa somnului
     description: >-
-      Aproape orice simptom ADHD se agravează după o noapte proastă.
+      Multe simptome ADHD se pot agrava după o noapte proastă.
   noisy-environment:
     label: Mediu zgomotos
     description: >-
@@ -333,7 +441,6 @@ nodes:
     label: Foame și mese sărite
     description: >-
       Uiți să mănânci, apoi te prăbușești.
-
   strong-smells:
     label: Mirosuri puternice
     description: >-
@@ -354,6 +461,17 @@ nodes:
     description: >-
       Materiale aspre, etichete de haine, cusături la șosete, o mânecă udă.
       Mici, constante, imposibil de ignorat.
+  competing-demands:
+    label: Prea multe cereri în același timp
+    description: >-
+      Mai multe solicitări, decizii și sarcini neterminate cer atenție
+      deodată, ceea ce face greu de ales și de păstrat următoarea acțiune.
+  unexpected-interruptions:
+    label: Întreruperi neașteptate
+    description: >-
+      O întrebare, un apel sau o cerere urgentă rupe sarcina curentă, iar
+      reconstruirea locului unde erai costă mai mult decât întreruperea în
+      sine.
 
   # ---------------------------------------------------------------- strategy
   body-doubling:
@@ -361,16 +479,17 @@ nodes:
     description: >-
       A lucra alături de o altă persoană, în aceeași cameră sau pe video, a
       cărei prezență face mai ușor să începi și să rămâi la sarcină.
+    aliases: [lucru în paralel]
   pomodoro:
     label: Cronometru Pomodoro
     description: >-
-      Lucru în sprinturi scurte, cronometrate, cu pauze între ele.
-      Cronometrul oferă structură și, mai ales, un punct final.
+      Lucru în sprinturi scurte, cronometrate, cu pauze între ele. Cronometrul
+      oferă structură și, mai ales, un punct final.
   visual-timers:
     label: Cronometre vizuale
     description: >-
-      Cronometrele care arată timpul ca un disc sau o bară care se
-      micșorează fac trecerea timpului vizibilă.
+      Cronometrele care arată timpul ca un disc sau o bară care se micșorează
+      fac trecerea timpului vizibilă.
   external-reminders:
     label: Alarme și memento-uri externe
     description: >-
@@ -393,8 +512,8 @@ nodes:
   exercise:
     label: Mișcare regulată
     description: >-
-      Activitatea aerobică îmbunătățește atenția și dispoziția ore întregi
-      după aceea și ajută somnul.
+      Activitatea aerobică poate îmbunătăți atenția și dispoziția pentru
+      câteva ore și poate ajuta somnul.
   sleep-routine:
     label: Rutină de somn constantă
     description: >-
@@ -425,8 +544,8 @@ nodes:
   routines:
     label: Rutine și înlănțuirea obiceiurilor
     description: >-
-      Leagă obiceiurile noi de ancore existente (după cafea, ia medicația),
-      ca să fie nevoie de mai puține decizii.
+      Leagă obiceiurile noi de ancore existente (după cafea, ia medicația), ca
+      să fie nevoie de mai puține decizii.
   prepare-night-before:
     label: Pregătirea din seara precedentă
     description: >-
@@ -470,9 +589,8 @@ nodes:
   decision-reduction:
     label: Mai puține decizii
     description: >-
-      Mai puține alegeri de făcut: mese standard, o garderobă mică,
-      răspunsuri implicite.
-
+      Mai puține alegeri de făcut: mese standard, o garderobă mică, răspunsuri
+      implicite.
   movement-breaks:
     label: Pauze de mișcare
     description: >-
@@ -600,9 +718,8 @@ nodes:
     label: Împerechează plictisitorul cu ceva plăcut
     description: >-
       Podcastul preferat doar în timpul treburilor casnice, actele doar în
-      cafeneaua bună. Jumătatea plăcută oferă stimularea care lipsește
-      sarcinii.
-
+      cafeneaua bună. Jumătatea plăcută poate oferi o parte din stimularea
+      care lipsește sarcinii.
   behavioural-activation:
     label: Activare comportamentală
     description: >-
@@ -628,8 +745,9 @@ nodes:
   less-alcohol:
     label: Mai puțin alcool
     description: >-
-      Alcoolul înrăutățește somnul, impulsivitatea și dispoziția zile întregi.
-      Reducerea lui este una dintre cele mai ieftine îmbunătățiri disponibile.
+      Alcoolul poate înrăutăți somnul, impulsivitatea și dispoziția zile la
+      rând. Reducerea lui este una dintre cele mai ieftine îmbunătățiri
+      disponibile.
   nightly-reset:
     label: Resetarea de zece minute de seară
     description: >-
@@ -646,6 +764,7 @@ nodes:
     description: >-
       O cutie pentru grămada de lucruri care au nevoie de o decizie. Suprafața
       este liberă acum, deciziile așteaptă un moment mai calm.
+    aliases: [cutia cu de toate]
   own-less:
     label: Deține mai puțin
     description: >-
@@ -676,7 +795,6 @@ nodes:
     description: >-
       Angajează-te doar la cinci minute din lucrul de care te temi. Oprirea
       după cinci minute este permisă. De cele mai multe ori nu te vei opri.
-
   thought-record:
     label: Jurnal de gânduri
     description: >-
@@ -689,10 +807,13 @@ nodes:
       cât de probabil este cu adevărat, și cum m-aș descurca dacă s-ar
       întâmpla?
   behavioural-experiments:
-    label: Experimente comportamentale
+    label: Testează ceea ce te sperie
     description: >-
-      Tratează o predicție temută ca pe o ipoteză și testeaz-o: trimite
-      mesajul fără să îl recitești de zece ori și vezi ce se întâmplă de fapt.
+      În TCC se numește experiment comportamental. Scrie exact ce crezi că va
+      merge prost și cât de sigur ești, pe o scară până la zece. Apoi fă
+      lucrul respectiv o dată, fără precauțiile obișnuite. După aceea scrie ce
+      s-a întâmplat de fapt. Diferența dintre predicție și rezultat este cea
+      care schimbă convingerea. Sfatul de a nu-ți face griji nu o schimbă.
   graded-exposure:
     label: Expunere gradată
     description: >-
@@ -727,7 +848,6 @@ nodes:
       Înțelegerea răspunsului luptă-sau-fugi, a motivului pentru care evitarea
       hrănește frica și a faptului că anxietatea atinge mereu un vârf și apoi
       scade îi ia mult din putere.
-
   earplugs:
     label: Dopuri de urechi pentru zi de zi
     description: >-
@@ -755,6 +875,124 @@ nodes:
       Convine dinainte, cu tine și cu cei care te însoțesc, că este în regulă
       să pleci devreme dintr-un loc zgomotos. Să știi că există o ieșire scade
       povara de la început.
+  planning-time-to-plan:
+    label: Programează un timp pentru planificare
+    description: >-
+      Pune planificarea însăși în calendar, ca un interval scurt zilnic. Fără
+      el ziua începe în reacție, iar planificarea este pasul care sare primul.
+  master-list:
+    label: O singură listă cu tot
+    description: >-
+      O listă unică ce cuprinde fiecare angajament, mare sau mic, într-un
+      singur loc. Nu este lista din care lucrezi, ci lista pe care nu o mai
+      cari în minte.
+  daily-shortlist:
+    label: O listă scurtă pentru azi
+    description: >-
+      În fiecare zi, copiază câteva lucruri din lista mare. O listă scurtă
+      poate fi terminată, iar doar o listă terminată construiește încredere în
+      sistem.
+  underschedule:
+    label: Programează intenționat mai puțin
+    description: >-
+      Planifică mai puține sarcini decât crezi că încap și lasă între ele mai
+      mult spațiu decât pare necesar. Estimarea timpului este punctul slab,
+      deci planul trebuie să absoarbă eroarea.
+  if-then-plans:
+    label: Planuri dacă-atunci
+    description: >-
+      Decide dinainte ce faci la o anumită întrerupere: dacă vine un mesaj,
+      atunci așteaptă până la finalul acestui interval. Decizia se ia o dată,
+      la rece, nu de fiecare dată.
+  smallest-step:
+    label: Numește cea mai mică primă mișcare
+    description: >-
+      Nu sarcina, nici măcar primul pas, ci cea mai mică acțiune fizică ce te
+      pune în poziție: fișierul deschis pe ecran, pantofii lângă ușă.
+  escape-behaviours:
+    label: Cunoaște-ți ieșirile de urgență
+    description: >-
+      Fiecare are o listă scurtă de lucruri pe care le face în loc: căsuța de
+      e-mail, frigiderul, o comisioană rapidă. Numindu-le, impulsul devine un
+      semnal că eviți ceva.
+  anticipation-ratio:
+    label: Reechilibrează ce aștepți
+    description: >-
+      Înaintea unei sarcini temute, majoritatea numără doar ce va fi neplăcut.
+      Adaugă ce este adevărat pe cealaltă parte: este limitată în timp, poate
+      fi făcută prost, iar a o termina se simte mai bine decât a o purta mai
+      departe.
+  accept-discomfort:
+    label: Începe fără să aștepți să te simți pregătit
+    description: >-
+      Disconfortul de obicei nu dispare înainte de a începe, ci la scurt timp
+      după. Așteptarea dispoziției potrivite transformă o sarcină într-o
+      săptămână.
+  behavioural-scripts:
+    label: Demontează-ți rutinele
+    description: >-
+      Unele secvențe se derulează singure: ajungi acasă, canapeaua, telefonul,
+      seara dusă. Scrierea secvenței arată unde este de fapt punctul de
+      decizie.
+  reframe-time:
+    label: Pune un număr real pe timp
+    description: >-
+      Întreabă cât durează cu adevărat sarcina, nu cât pare. Majoritatea
+      punctelor de pe o listă zilnică cer sub o oră, iar sarcina fără limită
+      este cea care nu începe niciodată.
+  manage-energy:
+    label: Folosește-ți deliberat orele bune
+    description: >-
+      Atenția nu este disponibilă uniform de-a lungul zilei. Pune munca
+      solicitantă în orele în care o ai cu adevărat și pe cea mecanică în
+      celelalte.
+  earned-rewards:
+    label: Transformă evadările în recompense meritate
+    description: >-
+      Lucrurile în care evadezi pot fi mutate de cealaltă parte a sarcinii.
+      Aceeași jumătate de oră online înseamnă cu totul altceva înainte și
+      după.
+  defense-attorney:
+    label: Susține și cealaltă parte
+    description: >-
+      Un gând dur convinge pentru că s-a auzit o singură parte. Construiește
+      intenționat pledoaria contrară, așa cum ar face un avocat al apărării,
+      înainte să accepți verdictul.
+  method-acting:
+    label: Poartă-te ca cel care o face
+    description: >-
+      Comportă-te ca cineva care ține deja o agendă sau trimite acel e-mail,
+      înainte să pară natural. Repetiția îl face natural, nu invers.
+  values-commitment:
+    label: Leagă sarcina de ceea ce prețuiești
+    description: >-
+      O sarcină plictisitoare care servește ceva ce contează pentru tine este
+      mai ușor de început decât una apărată ca fiind doar necesară. Numește ce
+      anume servește.
+  problem-template:
+    label: Un șablon scris pentru probleme
+    description: >-
+      Definește problema într-o propoziție, enumeră opțiunile fără să le
+      judeci, alege, planifică primul pas și evaluează după. Șablonul face
+      gândirea pe care momentul nu o poate face.
+  face-uncertainty:
+    label: Decide înainte ca lucrurile să decidă singure
+    description: >-
+      A amâna o decizie este tot o decizie, de obicei cea mai proastă, pentru
+      că opțiunile expiră în tăcere. A acționa în incertitudine bate a acționa
+      prea târziu.
+  planned-distraction:
+    label: Programează distragerea
+    description: >-
+      Dă jocurilor, fluxurilor și ecranelor un loc real în zi, în loc să le
+      lași să ocupe golurile. Timpul liber programat nu mai concurează cu tot
+      restul.
+  coping-drift:
+    label: Așteaptă-te ca sistemul să alunece
+    description: >-
+      Orice sistem alunecă după câteva săptămâni bune. Tratează alunecarea ca
+      pe ceva normal și planifică dinainte repornirea, în loc să o citești ca
+      dovadă că nu poți ține nimic.
 
   # ---------------------------------------------------------------- treatment
   assessment:
@@ -762,16 +1000,32 @@ nodes:
     description: >-
       O evaluare formală făcută de un clinician calificat este poarta către
       tratament și adaptări.
+    aliases: [diagnostic, evaluare]
+    facts:
+      - text: >-
+          Aproximativ jumătate dintre adulții din Statele Unite cu un
+          diagnostic curent de ADHD au fost diagnosticați abia la 18 ani sau
+          mai târziu.
+        source: cdc-adult-adhd
   medication:
     label: Medicație
     description: >-
       Medicație stimulantă și nestimulantă, prescrisă și monitorizată de un
       clinician. Un tratament de primă linie pentru mulți adulți.
+    aliases: [stimulante, metilfenidat]
+    facts:
+      - text: >-
+          Aproximativ o treime dintre adulții cu ADHD din Statele Unite au
+          luat un medicament stimulant în anul anterior. Dintre aceștia, 71,5%
+          au avut dificultăți în a-și ridica rețeta pentru că medicamentul nu
+          era disponibil.
+        source: cdc-adult-adhd
   cbt:
     label: TCC pentru ADHD
     description: >-
       Terapie cognitiv-comportamentală adaptată pentru ADHD: abilități pentru
       planificare, amânare și tipare de gândire nefolositoare.
+    aliases: [TCC, terapie cognitiv-comportamentală]
   coaching:
     label: Coaching pentru ADHD
     description: >-
@@ -782,7 +1036,6 @@ nodes:
     description: >-
       Program flexibil, instrucțiuni scrise, un spațiu de lucru liniștit,
       verificări intermediare ale termenelor.
-
   psychotherapy:
     label: Psihoterapie
     description: >-
@@ -815,8 +1068,7 @@ nodes:
   low-self-esteem:
     label: Stimă de sine scăzută
     description: >-
-      Ani de „străduiește-te mai mult” lasă senzația de a fi leneș sau
-      defect.
+      Ani de „străduiește-te mai mult” lasă senzația de a fi leneș sau defect.
   burnout:
     label: Epuizare (burnout)
     description: >-
@@ -825,26 +1077,103 @@ nodes:
     label: Probleme financiare
     description: >-
       Penalizări de întârziere, abonamente uitate, cumpărături impulsive.
-  underachievement:
-    label: Rezultate sub potențial
+  inconsistent-performance:
+    label: Performanță inconstantă la muncă sau la studiu
     description: >-
-      Rezultate sub capacități la școală sau la muncă.
-  anxiety-depression:
-    label: Anxietate și depresie
-    description: >-
-      Condiții care apar frecvent împreună cu ADHD, adesea alimentate de
-      celelalte consecințe de pe această hartă.
+      Rezultate care oscilează între excelent și întârziat sau lipsă, adesea
+      la același tip de sarcină. Diferența este între ce este posibil într-o
+      zi bună și ce se întâmplă într-o zi obișnuită, nu între efort și
+      capacitate.
+    aliases: [subperformanță]
   energy-drain:
     label: Epuizarea energiei
     description: >-
       Oboseala orelor petrecute cu griji, mascare și compensare, fără nimic de
       arătat în schimb.
-
   sensory-overload:
     label: Suprasolicitare senzorială
     description: >-
       Prea mulți stimuli deodată: iritabilitate, blocaj, nevoia de a părăsi
       camera. Consumă energie ore întregi după aceea.
+  driving-risk:
+    label: Condusul și riscul de accident
+    description: >-
+      La nivel de populație, ADHD este asociat cu un risc mai mare de
+      accident. Distractibilitatea, impulsivitatea și lipsa somnului cântăresc
+      mai greu la volan sau în preajma utilajelor. Este o constatare de grup
+      și nu spune nimic despre un anumit șofer.
+    facts:
+      - text: >-
+          Într-un studiu populațional suedez, perioadele cu medicație au fost
+          asociate cu o rată cu 58% mai mică de accidente grave de circulație
+          la bărbații cu ADHD. Autorii au estimat că 41% până la 49% dintre
+          aceste accidente ar fi putut fi evitate cu tratament.
+        source: chang-2014
+
+  # ---------------------------------------------------------------- condition
+  anxiety:
+    label: Anxietate
+    description: >-
+      Tulburările de anxietate apar mai des alături de ADHD decât în populația
+      generală. Grija, tensiunea fizică și evitarea pot semăna cu simptomele
+      ADHD și pot fi agravate de ele. Anxietatea are nevoie de evaluare și
+      tratament proprii.
+    facts:
+      - text: >-
+          Aproximativ 5,8% din populația lumii, în jur de 470 de milioane de
+          oameni, aveau o tulburare de anxietate în 2023.
+        source: who-anxiety
+      - text: >-
+          Doar aproximativ una din patru persoane care au nevoie de tratament
+          pentru o tulburare de anxietate primește vreunul: 27,6%.
+        source: who-anxiety
+      - text: >-
+          Fetele și femeile au mai des o tulburare de anxietate decât băieții
+          și bărbații.
+        source: who-anxiety
+      - text: >-
+          Însumând studiile, adulții cu ADHD aveau de aproximativ cinci ori
+          mai mari șanse de a avea o tulburare de anxietate față de adulții
+          fără ADHD.
+        source: hartman-2023
+  depression:
+    label: Depresie
+    description: >-
+      Depresia apare mai des alături de ADHD decât în populația generală.
+      Dispoziția scăzută, pierderea interesului și epuizarea nu sunt doar
+      urmarea unei săptămâni grele. Depresia are nevoie de evaluare și
+      tratament proprii. Dacă gândurile se îndreaptă spre a nu mai vrea să fii
+      aici, cere ajutor astăzi.
+    facts:
+      - text: >-
+          Aproximativ 5,2% dintre adulții din întreaga lume aveau o tulburare
+          depresivă în 2023: 4,1% dintre bărbați și 6,2% dintre femei.
+        source: who-depression
+      - text: >-
+          Este vorba despre aproximativ 322 de milioane de oameni.
+        source: who-depression
+      - text: >-
+          Depresia este de aproximativ 1,5 ori mai frecventă la femei decât la
+          bărbați.
+        source: who-depression
+      - text: >-
+          Însumând studiile, adulții cu ADHD aveau de aproximativ patru ori și
+          jumătate mai mari șanse de a avea depresie majoră față de adulții
+          fără ADHD.
+        source: hartman-2023
+  substance-use:
+    label: Probleme legate de consumul de substanțe
+    description: >-
+      Tulburările legate de consumul de substanțe apar mai des alături de
+      ADHD. Substanțele sunt uneori folosite pentru neliniște, somn,
+      dispoziție sau tensiune, dar înrăutățesc funcționarea și au nevoie de
+      evaluare și tratament proprii.
+    facts:
+      - text: >-
+          Însumând studiile, adulții cu ADHD aveau de aproximativ patru ori și
+          jumătate mai mari șanse de a avea o tulburare legată de consumul de
+          substanțe față de adulții fără ADHD.
+        source: hartman-2023
 
   # ---------------------------------------------------------------- situation
   chaotic-home:
@@ -864,41 +1193,81 @@ nodes:
     description: >-
       Facturi, abonamente, taxe, contul pe care nu l-ai deschis de luni de
       zile. Uitarea, evitarea și impulsivitatea se întâlnesc toate aici.
-
   loud-evening-out:
     label: Un restaurant zgomotos sau o petrecere
     description: >-
       Toți vorbesc deodată, muzica e tare, cineva mestecă lângă tine.
       Urmărirea conversației costă mai mult decât oferă.
+  getting-out-the-door:
+    label: Să ieși pe ușă la timp
+    description: >-
+      Ultimele douăzeci de minute înainte de plecare, când se adună deodată
+      mai multe probleme mici: cheile, timpul, lucrul pe care voiai să îl iei.
+  meetings-and-lectures:
+    label: "O ședință, un curs sau o prelegere"
+    description: >-
+      O oră de stat locului și ascultat, fără posibilitatea de a te mișca și
+      cu puțin de făcut cu mâinile, în timp ce firul discuției alunecă mereu.
+  messages-and-inbox:
+    label: Mesaje și o căsuță de e-mail plină
+    description: >-
+      Mesajele fără răspuns se adună. Fiecare cere o decizie, unele par
+      riscante de răspuns, iar ce nu se vede ajunge repede uitat.
+  bedtime-and-waking:
+    label: Culcarea și trezirea
+    description: >-
+      Seara se lungește, lucrul interesant este greu de lăsat din mână, iar
+      dimineața sosește înainte ca noaptea să pară încheiată.
+  health-admin:
+    label: "Programări, rețete și administrație medicală"
+    description: >-
+      Programări, reprogramări, formulare, rețete repetate și apeluri de
+      urmărire. Administrația din jurul sănătății cere exact abilitățile pe
+      care ADHD le face costisitoare.
 
   # ---------------------------------------------------------------- mechanism
   dopamine-boost:
     label: Cresc dopamina și noradrenalina
     description: >-
-      Exercițiul aerobic ridică, pentru câteva ore, aceiași mesageri pe care
-      îi vizează medicația pentru ADHD.
+      O cale posibilă. Exercițiul aerobic poate ridica, pentru câteva ore,
+      aceiași mesageri asupra cărora acționează medicația pentru ADHD. Este o
+      parte a explicației, nu toată.
   deeper-sleep:
     label: Somn mai profund
     description: >-
-      Oboseala fizică face adormirea mai ușoară și somnul mai profund, ceea ce
-      îmbunătățește aproape totul a doua zi.
+      Oboseala fizică poate face adormirea mai ușoară și somnul mai profund,
+      ceea ce îmbunătățește aproape totul a doua zi.
   stress-hormones-drop:
     label: Scad hormonii de stres
     description: >-
-      Mișcarea consumă răspunsul la stres, astfel încât corpul încetează să
-      semnaleze pericol minții.
+      Mișcarea poate consuma răspunsul la stres, astfel încât corpul încetează
+      să semnaleze pericol minții.
   energy-discharged:
     label: Energia neliniștită descărcată
     description: >-
-      Motorul interior primește o supapă, iar statul locului costă apoi mai
-      puțin.
+      Motorul interior primește o supapă, iar statul locului poate costa mai
+      puțin după aceea.
   mood-lift:
     label: Ridicarea dispoziției
     description: >-
-      O ridicare de dispoziție de încredere, chiar dacă temporară, care se
-      adună atunci când se întâmplă în majoritatea zilelor.
+      O ridicare de dispoziție adesea temporară, care se adună atunci când se
+      întâmplă în majoritatea zilelor.
 
 edges:
+  substance-use-adhd:
+    note: >-
+      O asociere găsită la nivel de populații. Un motiv de evaluare, nu o
+      așteptare față de o persoană anume.
+  adhd-anxiety:
+    note: >-
+      Mai frecventă alături de ADHD decât în populația generală. Anxietatea
+      poate semăna și cu neatenția, motiv pentru care o evaluare le cântărește
+      pe amândouă.
+  adhd-depression:
+    note: >-
+      Mai frecventă alături de ADHD decât în populația generală. Anii de
+      dificultăți sunt un factor de risc, dar depresia este o afecțiune de
+      sine stătătoare și are nevoie de tratament propriu.
   hyperfocus-time-blindness:
     note: >-
       Într-o sesiune de hiperfocalizare dispar ore întregi.
@@ -906,6 +1275,25 @@ edges:
     note: >-
       Ora de culcare alunecă tot mai târziu pentru că seara nu pare atât de
       lungă pe cât este.
+  avoidance-dreaded-task:
+    note: >-
+      Nimic nu s-a făcut, termenul este mai aproape, iar sarcina pare mai mare
+      decât înainte.
+  safety-behaviours-anticipatory-anxiety:
+    note: >-
+      Ușurarea pe care o aduc învață creierul că situația chiar a fost
+      periculoasă.
+  sensory-sensitivity-sensory-overload:
+    note: >-
+      Fiecare sunet sau miros costă puțină atenție. Până seara bugetul s-a
+      terminat.
+  mind-wandering-rumination:
+    note: >-
+      Ambele trag atenția înăuntru, dar rătăcirea sare între subiecte, în timp
+      ce ruminația se învârte în jurul uneia.
+  driving-risk-distractibility:
+    note: >-
+      O asociere la nivel de populație, nu o afirmație despre un anumit șofer.
   body-doubling-task-initiation:
     note: >-
       Prezența altei persoane oferă semnalul de start pe care creierul nu îl
@@ -942,22 +1330,15 @@ edges:
   reduce-masking-burnout:
     note: >-
       Mascarea costă mai multă energie decât pot vedea cei din jurul tău.
-  avoidance-dreaded-task:
-    note: >-
-      Nimic nu s-a făcut, termenul este mai aproape, iar sarcina pare mai mare
-      decât înainte.
   five-minute-rule-avoidance:
     note: >-
       Cinci minute sunt destul de puțin ca să începi, iar începutul este toată
       problema.
   exercise-dopamine-boost:
     note: >-
-      De aceea o alergare înainte de o sarcină plictisitoare poate părea o
-      doză de medicament.
-  safety-behaviours-anticipatory-anxiety:
-    note: >-
-      Ușurarea pe care o aduc învață creierul că situația chiar a fost
-      periculoasă.
+      Unii observă o fereastră de concentrare mai ușoară timp de o oră sau
+      două după aceea. Mișcarea este o completare a tratamentului, nu un
+      înlocuitor.
   thought-record-rumination:
     note: >-
       Ruminația se învârte în cerc; un jurnal de gânduri merge înainte, pentru
@@ -966,15 +1347,52 @@ edges:
     note: >-
       Fiecare pas trebuie să fie destul de mic ca să îl faci cu adevărat și
       repetat până devine plictisitor.
-  sensory-sensitivity-sensory-overload:
-    note: >-
-      Fiecare sunet sau miros costă puțină atenție. Până seara bugetul s-a
-      terminat.
   explain-your-adhd-sensory-sensitivity:
     note: >-
       Persoana care mestecă lângă tine nu aude ce auzi tu. Spus dinainte,
       transformă o ceartă într-un plan de așezare la masă.
+  smallest-step-task-initiation:
+    note: >-
+      Atât de mică încât ar fi absurd să refuzi. Începutul este partea
+      costisitoare.
+  escape-behaviours-procrastination:
+    note: >-
+      Nu poți întrerupe un obicei pe care nu l-ai observat.
+  anticipation-ratio-procrastination:
+    note: >-
+      De obicei predicția este cea evitată, nu sarcina.
+  behavioural-scripts-procrastination:
+    note: >-
+      Scenariul se derulează înainte de orice decizie, deci decizia trebuie
+      mutată mai devreme.
+  earned-rewards-procrastination:
+    note: >-
+      Aceeași activitate devine recompensă în loc de evadare, doar prin
+      mutare.
+  defense-attorney-catastrophising:
+    note: >-
+      Întreabă ce dovezi ar fi necesare pentru o condamnare, apoi verifică
+      dacă le ai.
+  method-acting-task-initiation:
+    note: >-
+      Jucarea rolului vine prima; sentimentul urmează, uneori mult mai târziu.
+  face-uncertainty-decision-paralysis:
+    note: >-
+      O decizie neluată expiră singură, iar varianta expirată rareori este cea
+      dorită.
+  coping-drift-inconsistent-performance:
+    note: >-
+      Dacă revenirea este planificată dinainte, alunecarea costă zile, nu
+      luni.
+  medication-dopamine-boost:
+    note: >-
+      Această cale descrie medicația stimulantă. Medicația nestimulantă
+      acționează diferit.
   assessment-sensory-sensitivity:
     note: >-
       Sensibilitatea puternică, de o viață, merită adusă în discuție la
       evaluare. Se suprapune cu autismul, iar asta schimbă ce adaptări ajută.
+  anxiety-depression-overlap:
+    note: >-
+      Cele două apar frecvent împreună, iar fiecare o poate face pe cealaltă
+      mai greu de recunoscut și de tratat.

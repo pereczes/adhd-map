@@ -13,6 +13,8 @@
   const SPAWN_RADIUS = 40;
   const LAYOUT_ANIMATION_MS = 650;
   const SPACING_RELAYOUT_DELAY_MS = 350;
+  const POPUP_DELAY_MS = 280;
+  const POPUP_OFFSET = 16;
 
   /* User-adjustable settings, shown in the options box and kept in the browser. */
   const OPTION_DEFINITIONS = [
@@ -24,7 +26,23 @@
     { key: 'autoFrame', type: 'checkbox', labelKey: 'option_auto_frame', defaultValue: true },
     { key: 'relationLabels', type: 'checkbox', labelKey: 'option_relation_labels', defaultValue: false },
     { key: 'reach', type: 'checkbox', labelKey: 'option_reach', defaultValue: true },
+    { key: 'popup', type: 'checkbox', labelKey: 'option_popup', defaultValue: true },
   ];
+
+  /* Appended once the language list is known: which language the hover popup
+   * speaks. 'same' follows the language chosen in the toolbar. */
+  function translationOption(languageIndex) {
+    return {
+      key: 'translation',
+      type: 'select',
+      labelKey: 'option_translation',
+      defaultValue: 'same',
+      choices: (ui) =>
+        [{ value: 'same', label: ui.translation_same || 'Same as map' }].concat(
+          languageIndex.languages.map((language) => ({ value: language.code, label: language.name })),
+        ),
+    };
+  }
   const VIEW_ANIMATION_MS = 450;
 
   async function main() {
@@ -32,6 +50,7 @@
 
     const languageIndex = await AdhdMapI18n.loadIndex(LANGUAGES_URL);
     const initialCode = AdhdMapI18n.pickLanguage(languageIndex);
+    let currentCode = initialCode;
     const graph = await AdhdMapData.loadGraph(DATA_URL, languageFileUrl(languageIndex, initialCode));
     AdhdMapI18n.applyUiStrings(graph.ui, initialCode);
     const explorer = AdhdMapExplorer.createExplorer(graph);
@@ -39,7 +58,13 @@
     let selectedId = null;
     let activeLayout = null;
     let spacingTimer = null;
-    const options = AdhdMapOptions.createOptions(OPTION_DEFINITIONS, 'adhd-map-options');
+    let popupTimer = null;
+    let translation = null;
+    let touchInput = false;
+    const options = AdhdMapOptions.createOptions(
+      OPTION_DEFINITIONS.concat(translationOption(languageIndex)),
+      'adhd-map-options',
+    );
 
     const cy = cytoscape({
       container: graphElement,
@@ -295,14 +320,120 @@
     AdhdMapI18n.fillLanguageSelect(languageSelect, languageIndex, initialCode);
     languageSelect.addEventListener('change', async () => {
       const code = languageSelect.value;
+      currentCode = code;
       await graph.loadLanguage(languageFileUrl(languageIndex, code));
       AdhdMapI18n.remember(code);
       AdhdMapI18n.applyUiStrings(graph.ui, code);
       cy.nodes().forEach((node) => node.data('label', graph.node(node.id()).label));
       cy.edges().forEach((edge) => edge.data('relationLabel', graph.relations[edge.data('relation')].label));
       options.render(optionsElement, graph.ui);
+      await applyTranslationOption();
       panel.refresh();
     });
+
+    /* Hover popup: the same node in a second language. */
+    const popupElement = document.getElementById('popup');
+
+    function hidePopup() {
+      clearTimeout(popupTimer);
+      popupElement.hidden = true;
+    }
+
+    /* The popup speaks either the chosen second language or, by default, the
+     * same language as the map. */
+    function popupTextFor(id) {
+      const node = graph.node(id);
+      if (translation) {
+        const text = translation.node(id);
+        return text
+          ? {
+              language: translation.name,
+              label: text.label,
+              kind: translation.kind(node.kind),
+              scope: translation.scope(node.scope),
+              description: text.description,
+            }
+          : null;
+      }
+      const current = languageIndex.languages.find((language) => language.code === currentCode);
+      return {
+        language: current ? current.name : '',
+        label: node.label,
+        kind: graph.kindOf(node).label,
+        scope: graph.scopeLabel(node),
+        description: node.description,
+      };
+    }
+
+    function showPopup(id, renderedPosition) {
+      if (touchInput || !options.get('popup')) {
+        return;
+      }
+      const text = popupTextFor(id);
+      if (!text) {
+        return;
+      }
+      popupElement.replaceChildren();
+
+      const language = document.createElement('div');
+      language.className = 'popup-language';
+      language.textContent = text.language;
+      const label = document.createElement('div');
+      label.className = 'popup-label';
+      label.textContent = text.label;
+      const kind = document.createElement('div');
+      kind.className = 'popup-kind';
+      kind.textContent = text.scope ? `${text.kind} · ${text.scope}` : text.kind;
+      const description = document.createElement('div');
+      description.className = 'popup-description';
+      description.textContent = text.description || '';
+      popupElement.append(language, label, kind, description);
+
+      popupElement.hidden = false;
+      const width = popupElement.offsetWidth;
+      const height = popupElement.offsetHeight;
+      const overflowsRight = renderedPosition.x + POPUP_OFFSET + width > graphElement.clientWidth;
+      const overflowsBottom = renderedPosition.y + POPUP_OFFSET + height > graphElement.clientHeight;
+      popupElement.style.left = `${Math.max(4, renderedPosition.x + (overflowsRight ? -width - POPUP_OFFSET : POPUP_OFFSET))}px`;
+      popupElement.style.top = `${Math.max(4, renderedPosition.y + (overflowsBottom ? -height - POPUP_OFFSET : POPUP_OFFSET))}px`;
+    }
+
+    async function applyTranslationOption() {
+      let code = options.get('translation');
+      hidePopup();
+      /* A value stored by an older version of the options box may name a
+       * language that no longer exists. Fall back rather than fetch nothing. */
+      if (code !== 'same' && !languageIndex.languages.some((language) => language.code === code)) {
+        code = 'same';
+        options.set('translation', code);
+        return;
+      }
+      if (code === 'same' || code === currentCode) {
+        translation = null;
+        return;
+      }
+      translation = await AdhdMapI18n.loadTranslation(languageFileUrl(languageIndex, code));
+    }
+
+    /* On touch input a tap already opens the panel, and browsers fire a
+     * synthetic mouseover that would leave the popup stuck on screen. Watch
+     * for real touches rather than asking the media query, so hybrid laptops
+     * keep working with the mouse. */
+    graphElement.addEventListener(
+      'touchstart',
+      () => {
+        touchInput = true;
+        hidePopup();
+      },
+      { passive: true },
+    );
+    cy.on('mouseover', 'node', (event) => {
+      const id = event.target.id();
+      clearTimeout(popupTimer);
+      popupTimer = setTimeout(() => showPopup(id, event.target.renderedPosition()), POPUP_DELAY_MS);
+    });
+    cy.on('mouseout', 'node', hidePopup);
+    cy.on('tap grab pan zoom', hidePopup);
 
     /* Options box. */
     const optionsElement = document.getElementById('options');
@@ -312,6 +443,12 @@
     });
     options.render(optionsElement, graph.ui);
     options.onChange((key) => {
+      if (key === 'translation' || key === null) {
+        applyTranslationOption();
+      }
+      if (key === 'translation') {
+        return;
+      }
       if (key === 'spacing') {
         clearTimeout(spacingTimer);
         spacingTimer = setTimeout(() => runLayout({ fixedId: selectedId }), SPACING_RELAYOUT_DELAY_MS);
@@ -350,7 +487,14 @@
       },
     };
 
+    await applyTranslationOption();
     await reset();
+
+    /* A ?node= link, such as one from the sources page, opens the map there. */
+    const requested = new URLSearchParams(window.location.search).get('node');
+    if (requested && graph.node(requested)) {
+      focusNode(requested);
+    }
   }
 
   function languageFileUrl(index, code) {

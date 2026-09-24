@@ -1,4 +1,4 @@
-# Deutscher Text für data/adhd-map.yaml. Die Schlüssel sind die Ids aus dieser Datei.
+# Text for data/adhd-map.yaml. Keys are the ids from that file.
 
 language: de
 name: Deutsch
@@ -12,11 +12,11 @@ ui:
   expand_all: Alles aufklappen
   reset: Zurücksetzen
   intro: "Klicke auf einen Knoten, um ihn zu öffnen: Seine Details erscheinen hier, und seine Nachbarn entfalten sich auf der Karte. Ein erneuter Klick auf einen geöffneten Knoten klappt zusammen, was er aufgedeckt hat."
-  intro_hint: Ziehen zum Verschieben, Scrollen zum Zoomen, oder über das Suchfeld direkt zu einem Knoten springen.
+  intro_hint: "Ziehen zum Verschieben, Scrollen zum Zoomen, oder über das Suchfeld direkt zu einem Knoten springen."
   counts: "{nodes} Knoten, {links} Verbindungen."
   hidden_one: "1 verbundener Knoten ist noch nicht sichtbar. Klicke erneut auf den Knoten, um ihn aufzudecken."
   hidden_many: "{count} verbundene Knoten sind noch nicht sichtbar. Klicke erneut auf den Knoten, um sie aufzudecken."
-  fold_one: Alle Verbindungen sind auf der Karte. Klicke erneut auf den Knoten, um den aufgedeckten Knoten wieder einzuklappen.
+  fold_one: "Alle Verbindungen sind auf der Karte. Klicke erneut auf den Knoten, um den aufgedeckten Knoten wieder einzuklappen."
   fold_many: "Alle Verbindungen sind auf der Karte. Klicke erneut auf den Knoten, um die {count} aufgedeckten Knoten wieder einzuklappen."
   all_shown: Alle Verbindungen sind auf der Karte.
   reveal_chip: Noch nicht auf der Karte. Klicken zum Aufdecken.
@@ -33,6 +33,24 @@ ui:
   option_auto_frame: Geöffneten Knoten im Blick halten
   option_relation_labels: Beziehungsnamen an hervorgehobenen Verbindungen
   option_reach: Reichweite einer Strategie hervorheben
+  option_popup: Popup beim Überfahren
+  option_translation: Sprache des Popups
+  translation_same: Wie die Karte
+  evidence_note: "Wie gut ein Ansatz belegt ist, hängt vom Einsatzzweck ab. Das hier ist Einordnung, kein Beweis."
+  sources: Quellen
+  sources_title: Quellen und Vorgehen
+  sources_intro: "Diese Landkarte ist ein Bildungsangebot, keine Diagnose. Sie kann niemandem sagen, ob ADHS vorliegt, und ersetzt keine Abklärung oder Behandlung durch eine qualifizierte Fachperson."
+  sources_scope_heading: Was die Landkarte enthält
+  sources_scope: "Knoten sind damit gekennzeichnet, wie sie zu einer Diagnose stehen: Kernsymptom von ADHS, häufig begleitend aber nicht diagnostisch, ein nicht ADHS-spezifisches Muster, oder eine häufig gemeinsam auftretende Erkrankung. Kein einzelner Knoten begründet ADHS."
+  sources_evidence_heading: Wie gut belegt
+  sources_evidence: "Strategien und Behandlungen tragen eine grobe Kennzeichnung: in Leitlinien empfohlen, etwas Forschungsgrundlage, oder viel berichtet und wenig erforscht. Sie beschreibt den Ansatz im Allgemeinen, nicht jede Anwendung, und ist Einordnung statt Beweis."
+  sources_list_heading: Wichtigste Quellen
+  sources_reviewed: "Inhalt zuletzt geprüft: September 2026."
+  sources_back: Zurück zur Landkarte
+  facts_heading: Zahlen und Fakten
+  fact_source: Quelle
+  described_in: Beschrieben in
+  used_on: Auf der Landkarte
 
 kinds:
   hub: Überblick
@@ -40,32 +58,80 @@ kinds:
   symptom: Symptom
   trigger: Auslöser
   strategy: Bewältigungsstrategie
-  treatment: Behandlung & Unterstützung
+  treatment: "Behandlung & Unterstützung"
   impact: Auswirkung
+  condition: Begleiterkrankung
   situation: Situation
   mechanism: So wirkt es
 
+scopes:
+  core: Kernsymptom von ADHS
+  associated: "Häufig begleitend, nicht diagnostisch"
+  transdiagnostic: Nicht spezifisch für ADHS
+  co-occurring: Tritt häufig gemeinsam mit ADHS auf
+  unspecified: Noch nicht eingeordnet
+
+evidence:
+  guideline: In Leitlinien empfohlen
+  research: Etwas Forschungsgrundlage
+  reported: "Viel berichtet, wenig erforscht"
+
 relations:
-  includes:   { label: umfasst, inverse: gehört zu }
-  related_to: { label: verwandt mit, inverse: verwandt mit }
-  worsens:    { label: verschlimmert, inverse: verschlimmert durch }
-  helps_with: { label: hilft bei, inverse: unterstützt durch }
-  reduces:    { label: verringert, inverse: verringert durch }
-  leads_to:   { label: führt zu, inverse: folgt aus }
-  involves:   { label: betrifft, inverse: zeigt sich in }
-  feeds:      { label: nährt, inverse: genährt von }
-  produces:   { label: bewirkt, inverse: bewirkt durch }
+  includes:        { label: umfasst, inverse: gehört zu }
+  related_to:      { label: verwandt mit, inverse: verwandt mit }
+  associated_with: { label: verbunden mit, inverse: verbunden mit }
+  worsens:         { label: verschlimmert, inverse: verschlimmert durch }
+  helps_with:      { label: hilft bei, inverse: unterstützt durch }
+  reduces:         { label: verringert, inverse: verringert durch }
+  leads_to:        { label: kann führen zu, inverse: kann folgen aus }
+  involves:        { label: betrifft, inverse: zeigt sich in }
+  feeds:           { label: nährt, inverse: genährt von }
+  produces:        { label: bewirkt, inverse: bewirkt durch }
 
 nodes:
   # ---------------------------------------------------------------- hub
   adhd:
     label: ADHS
     description: >-
-      Die Aufmerksamkeitsdefizit-Hyperaktivitätsstörung ist eine
-      neurologische Entwicklungsbesonderheit, die Aufmerksamkeitssteuerung,
+      Die Aufmerksamkeitsdefizit-Hyperaktivitätsstörung ist eine neurologische
+      Entwicklungsbesonderheit, die Aufmerksamkeitssteuerung,
       Aktivitätsniveau, Impulskontrolle und exekutive Funktionen betrifft.
-      Klicke auf eine Gruppe, um ihre Symptome zu erkunden, und folge dann
-      den Verbindungen zu Auslösern, Strategien und Auswirkungen.
+      Klicke auf eine Gruppe, um ihre Symptome zu erkunden, und folge dann den
+      Verbindungen zu Auslösern, Strategien und Auswirkungen. Diese Landkarte
+      ist ein Bildungsangebot, keine Diagnose. Sie enthält diagnostische
+      Symptome, häufig begleitende Erfahrungen, gleichzeitig auftretende
+      Probleme und praktische Strategien. Kein einzelner Knoten begründet
+      ADHS. Eine Diagnose wägt den Beginn in der Kindheit, die
+      Dauerhaftigkeit, Schwierigkeiten in mehr als einem Lebensbereich und
+      andere mögliche Erklärungen ab.
+    facts:
+      - text: >-
+          Über 175 Studien weltweit zusammengefasst erfüllen etwa 7% der
+          Kinder und Jugendlichen die Kriterien für ADHS.
+        source: thomas-2015
+      - text: >-
+          In einer US-Erhebung von 2001 bis 2003 erfüllten 4,4% der
+          Erwachsenen zwischen 18 und 44 Jahren die Kriterien für eine
+          aktuelle ADHS.
+        source: kessler-2006
+      - text: >-
+          In einer US-Erhebung unter Jugendlichen von 2001 bis 2004 hatten 13%
+          der Jungen und 4,2% der Mädchen irgendwann in ihrem Leben ADHS.
+        source: nimh-adhd-stats
+      - text: >-
+          In der Erwachsenenerhebung desselben Zeitraums fand sich eine
+          aktuelle ADHS bei 5,4% der Männer und 3,2% der Frauen. Lebenszeit-
+          und Aktuellzahlen stammen aus verschiedenen Erhebungen mit
+          verschiedenen Maßen und lassen sich nicht direkt vergleichen.
+        source: nimh-adhd-stats
+      - text: >-
+          2023 berichteten in den Vereinigten Staaten geschätzt 15,5 Millionen
+          Erwachsene, etwa 6%, eine aktuelle ADHS-Diagnose. Rund die Hälfte
+          erhielt sie erst mit 18 Jahren oder später.
+        source: cdc-adult-adhd
+      - text: >-
+          Zwillingsstudien beziffern die Erblichkeit von ADHS auf etwa 74%.
+        source: faraone-2019
 
   # ---------------------------------------------------------------- cluster
   inattention:
@@ -75,7 +141,7 @@ nodes:
       wo sie gebraucht wird, und manchmal das Gegenteil: nicht mehr loslassen
       zu können.
   hyperactivity:
-    label: Hyperaktivität & Impulsivität
+    label: "Hyperaktivität & Impulsivität"
     description: >-
       Ein innerer Motor, der ständig läuft, und Handlungen, die vor dem
       Gedanken kommen, der ihnen hätte vorausgehen sollen. Bei Erwachsenen
@@ -89,9 +155,8 @@ nodes:
     label: Emotionsregulation
     description: >-
       Gefühle, die schnell kommen, heftig treffen und länger brauchen, um sich
-      zu legen. Kein Teil der formalen Diagnosekriterien, für viele
-      Erwachsene aber einer der belastendsten Aspekte.
-
+      zu legen. Kein Teil der formalen Diagnosekriterien, für viele Erwachsene
+      aber einer der belastendsten Aspekte.
   thinking-traps:
     label: Denkfallen
     description: >-
@@ -106,7 +171,7 @@ nodes:
       Die Aufmerksamkeit wird von äußeren Reizen oder eigenen Gedanken
       weggezogen, selbst mitten in Aufgaben, die wichtig sind.
   sustained-attention:
-    label: Schwierigkeit, die Aufmerksamkeit zu halten
+    label: "Schwierigkeit, die Aufmerksamkeit zu halten"
     description: >-
       Lange Aufgaben mit wenig Reiz wie Lesen, Formulare oder Besprechungen
       sind schwer durchzuhalten. Die Aufmerksamkeit fehlt nicht, sie ist nur
@@ -117,22 +182,24 @@ nodes:
       Intensives, kaum zu unterbrechendes Aufgehen in einer interessanten
       Tätigkeit, oft auf Kosten von allem anderen, auch Essen, Schlaf und
       anderen Menschen.
+    aliases: [Tunnelblick]
   forgetfulness:
     label: Vergesslichkeit
     description: >-
-      Termine, Versprechen und Routineaufgaben gehen verloren. Meist nicht
-      aus Gleichgültigkeit, sondern weil die Erinnerung nie im richtigen
-      Moment kommt.
+      Termine, Versprechen und Routineaufgaben gehen verloren. Meist nicht aus
+      Gleichgültigkeit, sondern weil die Erinnerung nie im richtigen Moment
+      kommt.
   losing-things:
     label: Dinge verlieren
     description: >-
-      Schlüssel, Handy, Geldbeutel, Unterlagen. Dinge, die „nur kurz“
-      abgelegt wurden, verschwinden.
+      Schlüssel, Handy, Geldbeutel, Unterlagen. Dinge, die „nur kurz“ abgelegt
+      wurden, verschwinden.
   careless-mistakes:
     label: Flüchtigkeitsfehler
     description: >-
       Details werden in Arbeit oder Papierkram übersehen, obwohl der Stoff
       eigentlich gut bekannt ist.
+    aliases: [übersehene Details]
   restlessness:
     label: Innere Unruhe
     description: >-
@@ -149,20 +216,21 @@ nodes:
       Handeln vor dem Denken: Dinge herausplatzen, Spontankäufe, schnelle
       Entschlüsse und riskante Entscheidungen.
   interrupting:
-    label: Unterbrechen & viel reden
+    label: "Unterbrechen & viel reden"
     description: >-
-      Die Sätze anderer beenden, in Gespräche hineinplatzen, Monologe über
-      ein Lieblingsthema halten.
+      Die Sätze anderer beenden, in Gespräche hineinplatzen, Monologe über ein
+      Lieblingsthema halten.
   impatience:
     label: Ungeduld
     description: >-
       Warten in Schlangen, im Stau oder auf eine langsame Antwort fühlt sich
       körperlich schwer erträglich an.
   task-initiation:
-    label: Schwierigkeit, anzufangen
+    label: "Schwierigkeit, anzufangen"
     description: >-
       Genau wissen, was zu tun ist, und trotzdem nicht anfangen können.
       Manchmal als ADHS-Lähmung bezeichnet.
+    aliases: [ADHS-Lähmung, exekutive Dysfunktion]
   procrastination:
     label: Aufschieben
     description: >-
@@ -173,6 +241,7 @@ nodes:
     description: >-
       Ein schwaches Gespür dafür, wie viel Zeit vergangen ist und wie lange
       Dinge dauern. Chronische Verspätung und Überplanung sind die Folge.
+    aliases: [Zeitmanagement, immer zu spät]
   disorganisation:
     label: Unordnung
     description: >-
@@ -183,8 +252,9 @@ nodes:
       Mehrere Dinge gleichzeitig im Kopf zu behalten ist schwer: mehrstufige
       Anweisungen, Kopfrechnen, sich erinnern, warum man in einen Raum
       gegangen ist.
+    aliases: [Kurzzeitgedächtnis]
   prioritising:
-    label: Schwierigkeit, Prioritäten zu setzen
+    label: "Schwierigkeit, Prioritäten zu setzen"
     description: >-
       Alles fühlt sich gleich dringend an, oder die unwichtigste Aufgabe wird
       zuerst erledigt, weil sie die interessanteste ist.
@@ -196,13 +266,18 @@ nodes:
   emotional-dysregulation:
     label: Emotionale Dysregulation
     description: >-
-      Gefühle kommen schnell und heftig und brauchen länger, um sich zu
-      legen, als die Situation es zu rechtfertigen scheint.
+      Gefühle kommen schnell und heftig und brauchen länger, um sich zu legen,
+      als die Situation es zu rechtfertigen scheint.
+    aliases: [Stimmungsschwankungen]
   rejection-sensitivity:
     label: Empfindlichkeit gegenüber Ablehnung
     description: >-
-      Wahrgenommene Kritik oder Ablehnung löst intensiven emotionalen Schmerz
-      aus. Kein formaler Diagnosebegriff, aber sehr häufig berichtet.
+      Wahrgenommene Kritik, Ausgrenzung oder Ablehnung kann starkes Leid
+      auslösen. Das ist kein diagnostisches ADHS-Kriterium und nicht auf ADHS
+      beschränkt, kann aber mit emotionaler Dysregulation und früheren
+      Erfahrungen von Kritik zusammenwirken. Das weitergehende Konzept einer
+      Ablehnungsempfindlichkeits-Dysphorie hat wenig Forschungsgrundlage.
+    aliases: [RSD, Rejection Sensitive Dysphoria]
   frustration-tolerance:
     label: Geringe Frustrationstoleranz
     description: >-
@@ -218,7 +293,6 @@ nodes:
     description: >-
       Schwer einschlafen, eine verschobene innere Uhr, und lange aufbleiben,
       um Zeit zurückzuholen, die der Tag nicht geboten hat.
-
   rumination:
     label: Grübeln
     description: >-
@@ -246,7 +320,6 @@ nodes:
     description: >-
       Angst, die lange vor der Aufgabe kommt und oft mehr kostet als die
       Aufgabe selbst.
-
   catastrophising:
     label: Katastrophisieren
     description: >-
@@ -283,18 +356,56 @@ nodes:
       Kleine Dinge, um sich in gefürchteten Situationen sicherer zu fühlen:
       jeden Satz proben, die Kamera auslassen, immer einen Ausweg haben. Sie
       bringen Erleichterung und halten die Angst am Leben.
-
   sensory-sensitivity:
     label: Reizempfindlichkeit
     description: >-
-      Geräusche, Gerüche, Stoffe und Licht kommen lauter an als bei anderen
-      und ziehen ständig Aufmerksamkeit ab. Kein ADHS-Kriterium, aber bei den
-      meisten Erwachsenen mit ADHS zu finden.
+      Geräusche, Gerüche, Stoffe oder Licht können ungewöhnlich intensiv
+      wirken oder ständig Aufmerksamkeit abziehen. Sensorische Besonderheiten
+      werden von Menschen mit ADHS häufiger berichtet, sie gehören aber nicht
+      zu den diagnostischen Kriterien und kommen auch bei anderen Erkrankungen
+      vor.
+    aliases: [Überempfindlichkeit]
+    facts:
+      - text: >-
+          In einer Studie mit Erwachsenen mit ADHS berichteten 43% der Frauen
+          und 22% der Männer von sensorischer Unter- oder Überempfindlichkeit.
+        source: bijlenga-2017
   misophonia:
     label: Misophonie
     description: >-
       Heftige Wut oder Ekel bei bestimmten Geräuschen wie Kauen, Tippen oder
-      Schniefen. Bei ADHS deutlich häufiger berichtet.
+      Schniefen. Sie kann zusammen mit ADHS auftreten, wie beide
+      zusammenhängen, wird aber noch untersucht.
+    facts:
+      - text: >-
+          In einer Stichprobe von 575 Personen mit Misophonie berichteten 5%
+          von ADHS.
+        source: jager-2020
+  follow-through:
+    label: "Schwierigkeit, Dinge zu Ende zu bringen"
+    description: >-
+      Eine Aufgabe oder die erste Anweisung beginnen und dann den Faden
+      verlieren, bevor alle Schritte erledigt sind. Die Absicht war echt, der
+      Faden hat nicht gehalten.
+  losing-conversation-thread:
+    label: Den Faden im Gespräch verlieren
+    description: >-
+      Die Aufmerksamkeit rutscht weg, während jemand spricht, und ein Teil des
+      Gesagten kommt nie an. Das wirkt wie Nichtzuhören, obwohl die Person
+      sich sehr bemüht zu folgen.
+  mind-wandering:
+    label: Ausgeprägtes Gedankenwandern
+    description: >-
+      Ein Strom kurzer, unzusammenhängender Gedanken zieht die Aufmerksamkeit
+      von der Aufgabe weg. Anders als beim Grübeln springt der Kopf zwischen
+      Themen, statt um eine Sorge zu kreisen.
+    aliases: [Tagträumen]
+  planning-sequencing:
+    label: Schwierigkeit beim Planen und Ordnen
+    description: >-
+      Das Ziel kennen, aber sich schwertun, eine Reihenfolge zu wählen,
+      Abhängigkeiten zu sehen und daraus eine machbare Abfolge von Schritten
+      zu machen.
 
   # ---------------------------------------------------------------- trigger
   boring-tasks:
@@ -305,7 +416,8 @@ nodes:
   poor-sleep:
     label: Schlafmangel
     description: >-
-      Fast jedes ADHS-Symptom wird nach einer schlechten Nacht schlimmer.
+      Viele ADHS-Symptome können sich nach einer schlechten Nacht
+      verschlechtern.
   noisy-environment:
     label: Laute Umgebung
     description: >-
@@ -316,11 +428,11 @@ nodes:
       Vage oder nur mündliche Aufgaben bieten nichts, woran man sich
       festhalten kann.
   notifications:
-    label: Benachrichtigungen & Handy
+    label: "Benachrichtigungen & Handy"
     description: >-
       Jedes Vibrieren ist eine Einladung, die Aufgabe zu verlassen.
   stress:
-    label: Stress & Überlastung
+    label: "Stress & Überlastung"
     description: >-
       Zu viele Anforderungen auf einmal schrumpfen die ohnehin begrenzte
       exekutive Kapazität.
@@ -333,10 +445,9 @@ nodes:
     description: >-
       Kein klarer Anfang, kein klares Ende, keine Definition von „fertig“.
   hunger:
-    label: Hunger & ausgelassene Mahlzeiten
+    label: "Hunger & ausgelassene Mahlzeiten"
     description: >-
       Vergessen zu essen, dann der Einbruch.
-
   strong-smells:
     label: Starke Gerüche
     description: >-
@@ -357,6 +468,18 @@ nodes:
     description: >-
       Kratzige Stoffe, Kleideretiketten, Nähte in Socken, ein nasser Ärmel.
       Klein, ständig, unmöglich zu ignorieren.
+  competing-demands:
+    label: Zu viele gleichzeitige Anforderungen
+    description: >-
+      Mehrere Anfragen, Entscheidungen und unfertige Aufgaben wollen
+      gleichzeitig Aufmerksamkeit, und das macht es schwer, die nächste
+      Handlung zu wählen und zu halten.
+  unexpected-interruptions:
+    label: Unerwartete Unterbrechungen
+    description: >-
+      Eine Frage, ein Anruf oder eine dringende Bitte reißt die Aufgabe
+      auseinander, und der Wiederaufbau kostet mehr als die Unterbrechung
+      selbst.
 
   # ---------------------------------------------------------------- strategy
   body-doubling:
@@ -364,6 +487,7 @@ nodes:
     description: >-
       Neben einer anderen Person arbeiten, im selben Raum oder per Video,
       deren Anwesenheit das Anfangen und Dranbleiben erleichtert.
+    aliases: [gemeinsames Arbeiten]
   pomodoro:
     label: Pomodoro-Timer
     description: >-
@@ -375,7 +499,7 @@ nodes:
       Timer, die die Zeit als schrumpfende Scheibe oder Balken zeigen, machen
       das Vergehen der Zeit sichtbar.
   external-reminders:
-    label: Wecker & externe Erinnerungen
+    label: "Wecker & externe Erinnerungen"
     description: >-
       Das Gedächtnis aus dem Kopf holen: Handywecker,
       Kalenderbenachrichtigungen, Haftnotizen genau dort, wo gehandelt werden
@@ -388,8 +512,8 @@ nodes:
   checklists:
     label: Schriftliche Checklisten
     description: >-
-      Den Plan zu Papier bringen, damit das Arbeitsgedächtnis ihn nicht
-      halten muss.
+      Den Plan zu Papier bringen, damit das Arbeitsgedächtnis ihn nicht halten
+      muss.
   home-for-things:
     label: Ein fester Platz für alles
     description: >-
@@ -398,8 +522,8 @@ nodes:
   exercise:
     label: Regelmäßige Bewegung
     description: >-
-      Ausdauerbewegung verbessert Aufmerksamkeit und Stimmung für Stunden und
-      hilft beim Schlafen.
+      Ausdauerbewegung kann Aufmerksamkeit und Stimmung für einige Stunden
+      verbessern und beim Schlafen helfen.
   sleep-routine:
     label: Feste Schlafroutine
     description: >-
@@ -416,7 +540,7 @@ nodes:
       Dem Körper etwas zu tun geben kann Aufmerksamkeit freisetzen, statt sie
       zu verbrauchen.
   noise-control:
-    label: Kopfhörer & weißes Rauschen
+    label: "Kopfhörer & weißes Rauschen"
     description: >-
       Kopfhörer mit Geräuschunterdrückung oder ein gleichmäßiges
       Hintergrundgeräusch verringern akustische Ablenkung.
@@ -431,15 +555,15 @@ nodes:
       Jemandem sagen, was man bis wann erledigt, und anschließend Bericht
       erstatten.
   routines:
-    label: Routinen & Gewohnheiten koppeln
+    label: "Routinen & Gewohnheiten koppeln"
     description: >-
       Neue Gewohnheiten an bestehende Anker koppeln (nach dem Kaffee die
       Medikamente nehmen), damit weniger Entscheidungen nötig sind.
   prepare-night-before:
     label: Am Abend vorher vorbereiten
     description: >-
-      Kleidung, Tasche, Essen und Schlüssel bereitlegen. Der Morgen läuft
-      dann auf Autopilot.
+      Kleidung, Tasche, Essen und Schlüssel bereitlegen. Der Morgen läuft dann
+      auf Autopilot.
   externalise-memory:
     label: Arbeitsgedächtnis auslagern
     description: >-
@@ -453,8 +577,8 @@ nodes:
   gamification:
     label: Aufgaben spielerisch gestalten
     description: >-
-      Punkte, Serien, Wettläufe gegen die Uhr. Neuheit und Wettbewerb
-      schaffen die Dringlichkeit, die langweiligen Aufgaben fehlt.
+      Punkte, Serien, Wettläufe gegen die Uhr. Neuheit und Wettbewerb schaffen
+      die Dringlichkeit, die langweiligen Aufgaben fehlt.
   single-tasking:
     label: Eine Sache auf einmal
     description: >-
@@ -480,7 +604,6 @@ nodes:
     description: >-
       Weniger Entscheidungen treffen müssen: Standardmahlzeiten, eine kleine
       Garderobe, Standardantworten.
-
   movement-breaks:
     label: Bewegungspausen
     description: >-
@@ -610,8 +733,8 @@ nodes:
     label: Langweiliges mit Angenehmem koppeln
     description: >-
       Der Lieblingspodcast nur beim Hausputz, Papierkram nur im guten Café.
-      Die angenehme Hälfte liefert den Reiz, der der Aufgabe fehlt.
-
+      Die angenehme Hälfte kann einen Teil des Reizes liefern, der der Aufgabe
+      fehlt.
   behavioural-activation:
     label: Verhaltensaktivierung
     description: >-
@@ -638,8 +761,9 @@ nodes:
   less-alcohol:
     label: Weniger Alkohol
     description: >-
-      Alkohol verschlechtert Schlaf, Impulsivität und Stimmung für Tage.
-      Weniger zu trinken ist eine der günstigsten Verbesserungen überhaupt.
+      Alkohol kann Schlaf, Impulsivität und Stimmung noch tagelang
+      verschlechtern. Weniger zu trinken ist eine der günstigsten
+      Verbesserungen überhaupt.
   nightly-reset:
     label: Zehn-Minuten-Reset am Abend
     description: >-
@@ -656,6 +780,7 @@ nodes:
       Eine Kiste für den Stapel Dinge, die eine Entscheidung brauchen. Die
       Fläche ist jetzt frei, die Entscheidungen warten auf einen ruhigeren
       Moment.
+    aliases: [Kramkiste]
   own-less:
     label: Weniger besitzen
     description: >-
@@ -686,7 +811,6 @@ nodes:
     description: >-
       Nur fünf Minuten der gefürchteten Sache tun. Nach fünf Minuten aufhören
       ist erlaubt. Meistens tut man es nicht.
-
   thought-record:
     label: Gedankenprotokoll
     description: >-
@@ -699,11 +823,14 @@ nodes:
       Drei Fragen: Was ist das Schlimmste, das passieren könnte, wie
       wahrscheinlich ist es wirklich, und wie würde ich damit umgehen?
   behavioural-experiments:
-    label: Verhaltensexperimente
+    label: "Prüfen, wovor du dich fürchtest"
     description: >-
-      Eine ängstliche Vorhersage als Hypothese behandeln und testen: die
-      Nachricht abschicken, ohne sie zehnmal zu lesen, und sehen, was
-      tatsächlich passiert.
+      In der KVT Verhaltensexperiment genannt. Schreibe genau auf, was deiner
+      Erwartung nach schiefgeht und wie sicher du dir bist, auf einer Skala
+      bis zehn. Dann mach die Sache einmal, ohne die üblichen
+      Vorsichtsmaßnahmen. Danach schreibe auf, was tatsächlich passiert ist.
+      Der Abstand zwischen Vorhersage und Ergebnis ändert die Überzeugung. Der
+      Hinweis, sich keine Sorgen zu machen, ändert sie nicht.
   graded-exposure:
     label: Abgestufte Konfrontation
     description: >-
@@ -738,7 +865,6 @@ nodes:
       Zu verstehen, wie die Kampf-oder-Flucht-Reaktion abläuft, warum
       Vermeidung die Angst nährt und warum Angst immer ansteigt und wieder
       abfällt, nimmt ihr viel von ihrer Macht.
-
   earplugs:
     label: Ohrstöpsel für den Alltag
     description: >-
@@ -767,23 +893,157 @@ nodes:
       Vorher mit sich selbst und der Begleitung vereinbaren, dass frühes Gehen
       aus einem lauten Ort in Ordnung ist. Zu wissen, dass es einen Ausgang
       gibt, senkt die Last von Anfang an.
+  planning-time-to-plan:
+    label: Zeit zum Planen einplanen
+    description: >-
+      Trage das Planen selbst als kurzen täglichen Termin ein. Ohne ihn
+      beginnt der Tag im Reagieren, und das Planen ist der Schritt, der zuerst
+      ausfällt.
+  master-list:
+    label: Eine Gesamtliste für alles
+    description: >-
+      Eine einzige Liste mit allen Verpflichtungen, großen wie kleinen, an
+      einem Ort. Es ist nicht die Liste, mit der du arbeitest, sondern die,
+      die du nicht mehr im Kopf tragen musst.
+  daily-shortlist:
+    label: Eine kurze Liste für heute
+    description: >-
+      Übertrage jeden Tag wenige Punkte aus der Gesamtliste. Eine kurze Liste
+      lässt sich abschließen, und nur eine abgeschlossene Liste schafft
+      Vertrauen in das System.
+  underschedule:
+    label: Bewusst zu wenig einplanen
+    description: >-
+      Plane weniger Aufgaben ein, als du für machbar hältst, und lass mehr
+      Luft dazwischen als nötig scheint. Zeit einzuschätzen ist die
+      Schwachstelle, also muss der Plan den Fehler auffangen.
+  if-then-plans:
+    label: Wenn-dann-Pläne
+    description: >-
+      Entscheide vorab, was du bei einer bestimmten Störung tust: Wenn eine
+      Nachricht kommt, dann wartet sie bis zum Ende dieses Blocks. Die
+      Entscheidung fällt einmal, in Ruhe, statt jedes Mal neu.
+  smallest-step:
+    label: Den kleinsten ersten Handgriff benennen
+    description: >-
+      Nicht die Aufgabe, nicht einmal den ersten Schritt, sondern die kleinste
+      körperliche Handlung, die dich in Position bringt: die Datei offen auf
+      dem Bildschirm, die Schuhe an der Tür.
+  escape-behaviours:
+    label: Kenne deine Fluchtwege
+    description: >-
+      Jeder hat eine kurze Liste von Dingen, die er stattdessen zuverlässig
+      tut: das Postfach, der Kühlschrank, eine schnelle Besorgung. Sie zu
+      benennen macht aus dem Impuls ein Signal, dass du gerade ausweichst.
+  anticipation-ratio:
+    label: Die Erwartung ausbalancieren
+    description: >-
+      Vor einer gefürchteten Aufgabe zählen die meisten nur das Unangenehme.
+      Nimm dazu, was auf der anderen Seite stimmt: Sie ist zeitlich begrenzt,
+      sie darf schlecht erledigt werden, und fertig zu sein fühlt sich besser
+      an, als sie weiter zu tragen.
+  accept-discomfort:
+    label: "Anfangen, ohne sich bereit zu fühlen"
+    description: >-
+      Das Unbehagen verschwindet meist nicht vor dem Anfang, sondern kurz
+      danach. Auf die richtige Stimmung zu warten macht aus einer Aufgabe eine
+      Woche.
+  behavioural-scripts:
+    label: Die eigenen Abläufe auseinandernehmen
+    description: >-
+      Manche Abläufe laufen von allein: nach Hause kommen, Couch, Handy, Abend
+      vorbei. Den Ablauf aufzuschreiben zeigt, wo der Entscheidungspunkt
+      wirklich liegt.
+  reframe-time:
+    label: Eine echte Zahl auf die Zeit setzen
+    description: >-
+      Frage, wie lange die Aufgabe wirklich dauert, nicht wie lange sie sich
+      anfühlt. Die meisten Punkte einer Tagesliste brauchen unter einer
+      Stunde, und die Aufgabe ohne Ende ist die, die nie beginnt.
+  manage-energy:
+    label: Die besten Stunden bewusst einsetzen
+    description: >-
+      Aufmerksamkeit ist über den Tag nicht gleich verfügbar. Lege die
+      anspruchsvolle Arbeit in die Stunden, in denen du sie hast, und das
+      Mechanische in die übrigen.
+  earned-rewards:
+    label: Fluchten zu verdienten Belohnungen machen
+    description: >-
+      Das, wohin du flüchtest, lässt sich hinter die Aufgabe verschieben.
+      Dieselbe halbe Stunde online ist davor und danach etwas völlig anderes.
+  defense-attorney:
+    label: Die Gegenseite vertreten
+    description: >-
+      Ein harter Gedanke überzeugt, weil nur eine Seite gehört wurde. Führe
+      bewusst die Gegenrede, wie ein Verteidiger, bevor du das Urteil
+      annimmst.
+  method-acting:
+    label: "Handle wie jemand, der es tut"
+    description: >-
+      Verhalte dich wie jemand, der bereits einen Kalender führt oder diese
+      E-Mail schreibt, bevor es sich natürlich anfühlt. Die Wiederholung macht
+      es natürlich, nicht umgekehrt.
+  values-commitment:
+    label: Die Aufgabe mit deinen Werten verbinden
+    description: >-
+      Eine öde Aufgabe, die etwas dient, das dir wichtig ist, lässt sich
+      leichter beginnen als eine, die nur als notwendig verteidigt wird.
+      Benenne, wozu sie dient.
+  problem-template:
+    label: Eine geschriebene Vorlage für Probleme
+    description: >-
+      Das Problem in einem Satz, Optionen ohne Bewertung auflisten, wählen,
+      den ersten Schritt planen, danach auswerten. Die Vorlage übernimmt das
+      Denken, das der Moment nicht leisten kann.
+  face-uncertainty:
+    label: "Entscheiden, bevor die Sache sich selbst entscheidet"
+    description: >-
+      Eine Entscheidung auszusitzen ist auch eine Entscheidung, meist die
+      schlechteste, weil die Möglichkeiten still verfallen. Unter Unsicherheit
+      zu handeln schlägt zu spät zu handeln.
+  planned-distraction:
+    label: Die Ablenkung einplanen
+    description: >-
+      Gib Spielen, Feeds und Bildschirmen einen echten Platz im Tag, statt sie
+      die Lücken nehmen zu lassen. Geplante freie Zeit konkurriert nicht mehr
+      mit allem anderen.
+  coping-drift:
+    label: "Damit rechnen, dass das System abrutscht"
+    description: >-
+      Jedes System rutscht nach einigen guten Wochen ab. Behandle das als
+      normal und plane den Neustart vorab, statt es als Beweis zu lesen, dass
+      du nichts durchhalten kannst.
 
   # ---------------------------------------------------------------- treatment
   assessment:
-    label: Diagnose & Abklärung
+    label: "Diagnose & Abklärung"
     description: >-
       Eine formale Abklärung durch eine qualifizierte Fachperson ist der
       Zugang zu Behandlung und Anpassungen.
+    aliases: [Diagnose, Abklärung]
+    facts:
+      - text: >-
+          Etwa die Hälfte der US-Erwachsenen mit einer aktuellen ADHS-Diagnose
+          erhielt diese erst mit 18 Jahren oder später.
+        source: cdc-adult-adhd
   medication:
     label: Medikamente
     description: >-
       Stimulanzien und Nicht-Stimulanzien, ärztlich verordnet und begleitet.
       Für viele Erwachsene eine Behandlung erster Wahl.
+    aliases: [Stimulanzien, Methylphenidat]
+    facts:
+      - text: >-
+          Etwa ein Drittel der US-Erwachsenen mit ADHS nahm im Vorjahr ein
+          Stimulans ein. Von ihnen hatten 71,5% Schwierigkeiten, ein Rezept
+          einzulösen, weil das Medikament nicht verfügbar war.
+        source: cdc-adult-adhd
   cbt:
     label: KVT bei ADHS
     description: >-
       Kognitive Verhaltenstherapie, angepasst an ADHS: Fertigkeiten für
       Planung, Aufschieben und ungünstige Denkmuster.
+    aliases: [KVT, kognitive Verhaltenstherapie]
   coaching:
     label: ADHS-Coaching
     description: >-
@@ -794,7 +1054,6 @@ nodes:
     description: >-
       Flexible Arbeitszeiten, schriftliche Anweisungen, ein ruhiger
       Arbeitsplatz, Zwischenchecks bei Fristen.
-
   psychotherapy:
     label: Psychotherapie
     description: >-
@@ -836,26 +1095,104 @@ nodes:
     label: Finanzielle Probleme
     description: >-
       Mahngebühren, vergessene Abos, Spontankäufe.
-  underachievement:
-    label: Unter den Möglichkeiten bleiben
+  inconsistent-performance:
+    label: Unbeständige Leistung in Beruf oder Ausbildung
     description: >-
-      Leistung unter den eigenen Fähigkeiten in Schule oder Beruf.
-  anxiety-depression:
-    label: Angst & Depression
-    description: >-
-      Häufig gleichzeitig auftretende Erkrankungen, oft genährt von den
-      anderen Auswirkungen auf dieser Karte.
+      Ergebnisse, die zwischen ausgezeichnet und verspätet oder ausbleibend
+      schwanken, oft bei derselben Art von Aufgabe. Der Abstand liegt zwischen
+      dem, was an einem guten Tag möglich ist, und dem, was an einem
+      durchschnittlichen Tag passiert, nicht zwischen Anstrengung und
+      Fähigkeit.
+    aliases: [Minderleistung]
   energy-drain:
     label: Energieverlust
     description: >-
       Die Erschöpfung nach Stunden voller Sorgen, Maskieren und Ausgleichen,
       ohne etwas vorweisen zu können.
-
   sensory-overload:
     label: Reizüberflutung
     description: >-
       Zu viel Input auf einmal: Gereiztheit, Abschalten, der Drang, den Raum
       zu verlassen. Zehrt noch Stunden danach an der Energie.
+  driving-risk:
+    label: Autofahren und Unfallrisiko
+    description: >-
+      Auf Bevölkerungsebene ist ADHS mit einem höheren Unfallrisiko verbunden.
+      Ablenkbarkeit, Impulsivität und Schlafmangel wiegen am Steuer oder an
+      Maschinen schwerer. Das ist ein Gruppenbefund und sagt nichts über eine
+      einzelne fahrende Person.
+    facts:
+      - text: >-
+          In einer schwedischen Bevölkerungsstudie gingen Zeiträume mit
+          Medikation bei Männern mit ADHS mit einer um 58% niedrigeren Rate
+          schwerer Verkehrsunfälle einher. Die Autoren schätzten, dass 41% bis
+          49% dieser Unfälle mit Behandlung vermeidbar gewesen wären.
+        source: chang-2014
+
+  # ---------------------------------------------------------------- condition
+  anxiety:
+    label: Angst
+    description: >-
+      Angststörungen treten zusammen mit ADHS häufiger auf als in der
+      Allgemeinbevölkerung. Sorgen, körperliche Anspannung und Vermeidung
+      können wie ADHS-Symptome aussehen und durch sie verstärkt werden. Angst
+      braucht eine eigene Abklärung und Behandlung.
+    facts:
+      - text: >-
+          Etwa 5,8% der Weltbevölkerung, rund 470 Millionen Menschen, hatten
+          2023 eine Angststörung.
+        source: who-anxiety
+      - text: >-
+          Nur etwa eine von vier Personen, die eine Behandlung wegen einer
+          Angststörung benötigt, erhält überhaupt eine: 27,6%.
+        source: who-anxiety
+      - text: >-
+          Mädchen und Frauen erleben häufiger eine Angststörung als Jungen und
+          Männer.
+        source: who-anxiety
+      - text: >-
+          Über Studien zusammengefasst hatten Erwachsene mit ADHS etwa das
+          Fünffache der Chance auf eine Angststörung im Vergleich zu
+          Erwachsenen ohne ADHS.
+        source: hartman-2023
+  depression:
+    label: Depression
+    description: >-
+      Depressionen treten zusammen mit ADHS häufiger auf als in der
+      Allgemeinbevölkerung. Gedrückte Stimmung, Interessenverlust und
+      Erschöpfung sind nicht einfach die Folge einer anstrengenden Woche. Eine
+      Depression braucht eine eigene Abklärung und Behandlung. Wenn deine
+      Gedanken dahin gehen, nicht mehr da sein zu wollen, hole dir heute
+      Hilfe.
+    facts:
+      - text: >-
+          Etwa 5,2% der Erwachsenen weltweit hatten 2023 eine depressive
+          Störung: 4,1% der Männer und 6,2% der Frauen.
+        source: who-depression
+      - text: >-
+          Das sind rund 322 Millionen Menschen.
+        source: who-depression
+      - text: >-
+          Depressionen sind bei Frauen etwa 1,5-mal häufiger als bei Männern.
+        source: who-depression
+      - text: >-
+          Über Studien zusammengefasst hatten Erwachsene mit ADHS etwa das
+          Viereinhalbfache der Chance auf eine Depression im Vergleich zu
+          Erwachsenen ohne ADHS.
+        source: hartman-2023
+  substance-use:
+    label: Probleme mit Substanzkonsum
+    description: >-
+      Suchterkrankungen treten zusammen mit ADHS häufiger auf. Substanzen
+      werden manchmal gegen Unruhe, Schlafprobleme, Stimmung oder Anspannung
+      eingesetzt, verschlechtern aber die Funktionsfähigkeit und brauchen eine
+      eigene Abklärung und Behandlung.
+    facts:
+      - text: >-
+          Über Studien zusammengefasst hatten Erwachsene mit ADHS etwa das
+          Viereinhalbfache der Chance auf eine Suchterkrankung im Vergleich zu
+          Erwachsenen ohne ADHS.
+        source: hartman-2023
 
   # ---------------------------------------------------------------- situation
   chaotic-home:
@@ -875,41 +1212,84 @@ nodes:
     description: >-
       Rechnungen, Abos, Steuern, das Konto, das du seit Monaten nicht geöffnet
       hast. Vergesslichkeit, Vermeidung und Impulsivität treffen sich hier.
-
   loud-evening-out:
     label: Ein lautes Restaurant oder eine Party
     description: >-
       Alle reden gleichzeitig, die Musik ist laut, neben dir kaut jemand. Dem
       Gespräch zu folgen kostet mehr, als es gibt.
+  getting-out-the-door:
+    label: Pünktlich aus der Tür kommen
+    description: >-
+      Die letzten zwanzig Minuten vor dem Losgehen, in denen sich mehrere
+      kleine Probleme gleichzeitig stapeln: die Schlüssel, die Zeit, das Ding,
+      das du mitnehmen wolltest.
+  meetings-and-lectures:
+    label: "Eine Besprechung, ein Kurs oder eine Vorlesung"
+    description: >-
+      Eine Stunde Stillsitzen und Zuhören, ohne Möglichkeit sich zu bewegen
+      und mit wenig für die Hände, während der Faden der Diskussion immer
+      wieder wegrutscht.
+  messages-and-inbox:
+    label: Nachrichten und ein überquellendes Postfach
+    description: >-
+      Unbeantwortete Nachrichten stapeln sich. Jede braucht eine Entscheidung,
+      manche fühlen sich riskant an, und aus den Augen wird schnell aus dem
+      Sinn.
+  bedtime-and-waking:
+    label: Ins Bett gehen und aufstehen
+    description: >-
+      Der Abend dehnt sich, das Interessante ist schwer wegzulegen, und der
+      Morgen kommt, bevor die Nacht sich fertig angefühlt hat.
+  health-admin:
+    label: "Termine, Rezepte und Gesundheitskram"
+    description: >-
+      Buchen, umbuchen, Formulare, Folgerezepte und Rückrufe. Der Papierkram
+      rund um die Gesundheit braucht genau die Fähigkeiten, die ADHS teuer
+      macht.
 
   # ---------------------------------------------------------------- mechanism
   dopamine-boost:
     label: Dopamin und Noradrenalin steigen
     description: >-
-      Ausdauerbewegung erhöht für einige Stunden dieselben Botenstoffe, auf
-      die ADHS-Medikamente zielen.
+      Ein möglicher Wirkweg. Ausdauerbewegung kann für einige Stunden
+      dieselben Botenstoffe erhöhen, an denen ADHS-Medikamente ansetzen. Das
+      ist ein Teil der Erklärung, nicht die ganze.
   deeper-sleep:
     label: Tieferer Schlaf
     description: >-
-      Körperliche Müdigkeit erleichtert das Einschlafen und vertieft den
-      Schlaf, was am nächsten Tag fast alles verbessert.
+      Körperliche Müdigkeit kann das Einschlafen erleichtern und den Schlaf
+      vertiefen, was am nächsten Tag fast alles verbessert.
   stress-hormones-drop:
     label: Stresshormone sinken
     description: >-
-      Bewegung baut die Stressreaktion ab, sodass der Körper dem Kopf keine
-      Gefahr mehr meldet.
+      Bewegung kann die Stressreaktion abbauen, sodass der Körper dem Kopf
+      keine Gefahr mehr meldet.
   energy-discharged:
     label: Unruhe abgebaut
     description: >-
       Der innere Motor bekommt ein Ventil, und Stillsitzen kostet danach
-      weniger.
+      womöglich weniger.
   mood-lift:
     label: Stimmungshoch
     description: >-
-      Ein verlässlicher, wenn auch vorübergehender Stimmungsschub, der sich
-      summiert, wenn er an den meisten Tagen passiert.
+      Ein oft nur vorübergehender Stimmungsschub, der sich summiert, wenn er
+      an den meisten Tagen passiert.
 
 edges:
+  substance-use-adhd:
+    note: >-
+      Ein über Bevölkerungen gefundener Zusammenhang. Ein Grund zur Abklärung,
+      keine Erwartung an eine einzelne Person.
+  adhd-anxiety:
+    note: >-
+      Häufiger zusammen mit ADHS als in der Allgemeinbevölkerung. Angst kann
+      auch wie Unaufmerksamkeit aussehen, weshalb eine Abklärung beides
+      abwägt.
+  adhd-depression:
+    note: >-
+      Häufiger zusammen mit ADHS als in der Allgemeinbevölkerung. Jahre voller
+      Schwierigkeiten sind ein Risikofaktor, aber eine Depression ist eine
+      eigene Erkrankung und braucht eine eigene Behandlung.
   hyperfocus-time-blindness:
     note: >-
       Im Hyperfokus verschwinden Stunden.
@@ -917,6 +1297,26 @@ edges:
     note: >-
       Die Schlafenszeit rutscht immer weiter, weil sich der Abend kürzer
       anfühlt, als er ist.
+  avoidance-dreaded-task:
+    note: >-
+      Nichts wurde getan, die Frist ist näher, und die Aufgabe sieht größer
+      aus als vorher.
+  safety-behaviours-anticipatory-anxiety:
+    note: >-
+      Die Erleichterung, die sie bringen, lehrt das Gehirn, dass die Situation
+      wirklich gefährlich war.
+  sensory-sensitivity-sensory-overload:
+    note: >-
+      Jedes Geräusch, jeder Geruch kostet ein wenig Aufmerksamkeit. Am Abend
+      ist das Budget aufgebraucht.
+  mind-wandering-rumination:
+    note: >-
+      Beides zieht die Aufmerksamkeit nach innen, aber das Wandern springt
+      zwischen Themen, während das Grübeln um eines kreist.
+  driving-risk-distractibility:
+    note: >-
+      Ein Zusammenhang auf Bevölkerungsebene, keine Aussage über eine einzelne
+      fahrende Person.
   body-doubling-task-initiation:
     note: >-
       Die Anwesenheit einer anderen Person liefert das Startsignal, das das
@@ -926,8 +1326,8 @@ edges:
       Sich nur auf 25 Minuten festzulegen senkt die Hürde zum Anfangen.
   pomodoro-hyperfocus:
     note: >-
-      Der Pausenalarm ist ein äußerer Unterbrecher für eine Sitzung, die
-      sonst stundenlang liefe.
+      Der Pausenalarm ist ein äußerer Unterbrecher für eine Sitzung, die sonst
+      stundenlang liefe.
   fidget-tools-fidgeting:
     note: >-
       Lenkt die Bewegung in Bahnen, statt sie zu unterdrücken.
@@ -954,22 +1354,15 @@ edges:
     note: >-
       Maskieren kostet mehr Energie, als die Menschen um dich herum sehen
       können.
-  avoidance-dreaded-task:
-    note: >-
-      Nichts wurde getan, die Frist ist näher, und die Aufgabe sieht größer
-      aus als vorher.
   five-minute-rule-avoidance:
     note: >-
       Fünf Minuten sind klein genug zum Anfangen, und Anfangen ist das ganze
       Problem.
   exercise-dopamine-boost:
     note: >-
-      Deshalb kann sich ein Lauf vor einer langweiligen Aufgabe wie eine Dosis
-      Medikament anfühlen.
-  safety-behaviours-anticipatory-anxiety:
-    note: >-
-      Die Erleichterung, die sie bringen, lehrt das Gehirn, dass die Situation
-      wirklich gefährlich war.
+      Manche merken danach ein oder zwei Stunden lang ein leichteres
+      Fokussieren. Bewegung ist eine Ergänzung zur Behandlung, kein Ersatz
+      dafür.
   thought-record-rumination:
     note: >-
       Grübeln dreht sich im Kreis; ein Gedankenprotokoll geht vorwärts, weil
@@ -978,16 +1371,55 @@ edges:
     note: >-
       Jede Stufe muss klein genug sein, um sie wirklich zu gehen, und wird
       wiederholt, bis sie langweilig wird.
-  sensory-sensitivity-sensory-overload:
-    note: >-
-      Jedes Geräusch, jeder Geruch kostet ein wenig Aufmerksamkeit. Am Abend
-      ist das Budget aufgebraucht.
   explain-your-adhd-sensory-sensitivity:
     note: >-
       Wer neben dir kaut, hört nicht, was du hörst. Es vorher zu sagen, macht
       aus einem Streit einen Sitzplan.
+  smallest-step-task-initiation:
+    note: >-
+      So klein, dass es absurd wäre, sich zu weigern. Das Anfangen ist der
+      teure Teil.
+  escape-behaviours-procrastination:
+    note: >-
+      Eine Gewohnheit, die du nicht bemerkt hast, kannst du nicht
+      unterbrechen.
+  anticipation-ratio-procrastination:
+    note: >-
+      Meist wird die Vorhersage vermieden, nicht die Aufgabe.
+  behavioural-scripts-procrastination:
+    note: >-
+      Der Ablauf läuft, bevor eine Entscheidung fällt, also muss die
+      Entscheidung früher liegen.
+  earned-rewards-procrastination:
+    note: >-
+      Dieselbe Tätigkeit wird zur Belohnung statt zur Flucht, allein durch das
+      Verschieben.
+  defense-attorney-catastrophising:
+    note: >-
+      Frage, welche Beweise für eine Verurteilung nötig wären, und prüfe, ob
+      du sie hast.
+  method-acting-task-initiation:
+    note: >-
+      Die Rolle zu spielen kommt zuerst; sich danach zu fühlen folgt, manchmal
+      viel später.
+  face-uncertainty-decision-paralysis:
+    note: >-
+      Eine nicht getroffene Entscheidung verfällt von selbst, und die
+      verfallene ist selten die gewünschte.
+  coping-drift-inconsistent-performance:
+    note: >-
+      Ist die Rückkehr vorab geplant, kostet der Ausrutscher Tage statt
+      Monate.
+  medication-dopamine-boost:
+    note: >-
+      Dieser Wirkweg beschreibt Stimulanzien. Nicht-stimulierende Medikamente
+      wirken anders.
   assessment-sensory-sensitivity:
     note: >-
       Starke, lebenslange Empfindlichkeit gehört in die Abklärung. Sie
       überschneidet sich mit Autismus, und das ändert, welche Anpassungen
       helfen.
+  anxiety-depression-overlap:
+    note: >-
+      Beide treten häufig gemeinsam auf, und jede kann es erschweren, die
+      andere zu erkennen und zu behandeln.

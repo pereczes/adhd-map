@@ -1,6 +1,8 @@
 /* A small options store with a rendered settings panel. Values persist in
- * the browser. Definitions: { key, type: 'range' | 'checkbox', labelKey,
- * defaultValue, min, max, step }. */
+ * the browser. Definitions: { key, type: 'range' | 'checkbox' | 'select',
+ * labelKey, defaultValue, min, max, step, choices }. For a select, `choices`
+ * is a function taking the interface strings and returning
+ * [{ value, label }, ...], so the list can be built at render time. */
 (function () {
   'use strict';
 
@@ -71,6 +73,21 @@
         const text = document.createElement('span');
         text.textContent = ui[definition.labelKey] || definition.key;
         row.append(text);
+
+        if (definition.type === 'select') {
+          const select = document.createElement('select');
+          definition.choices(ui).forEach((choice) => {
+            const option = document.createElement('option');
+            option.value = choice.value;
+            option.textContent = choice.label;
+            option.selected = choice.value === values[definition.key];
+            select.append(option);
+          });
+          select.addEventListener('change', () => set(definition.key, select.value));
+          row.append(select);
+          container.append(row);
+          return;
+        }
 
         const input = document.createElement('input');
         if (definition.type === 'checkbox') {
